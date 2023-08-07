@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 
@@ -47,9 +48,39 @@
     </nav>
     <center>
         <div class="wrapper">
+        <?php
+        include("./connectdb.php");
+        $showForm=true;
+        if(isset($_POST['submit'])){
+            $username=$_POST['username'];
+            $email=$_POST['email'];
+            $password=$_POST['password'];
 
+            $verify_query=mysqli_query($con, "SELECT email FROM users WHERE email='$email'");
+
+            if(mysqli_num_rows($verify_query)!=0)
+            {
+            echo "<div class='message'>
+                <p>This email is used, Try another One Please!</p>
+                </div> <br>";
+
+            echo "<a href='javascript:self.history.back()'><button class='btn'>Go Back</button>";
+            $showForm=false;
+
+            } else{
+                mysqli_query($con, "INSERT INTO users(username, uPassword, email, urole) VALUES('$username',md5('$password'), '$email', 'user')") or die("Error Occurred");
+    
+                echo"<div class='message'>
+                <p>Registration successfully!</p>
+                </div> <br>";
+                echo "<a href=./login.php><button class='btn'>Login Now</button>";
+                $showForm=false;
+            }
+        }
+        ?>
+            <?php if($showForm) {?>
             <header>Sign Up</header>
-            <form action="">
+            <form action="" method="post">
             <div class="field username">
                     <div class="input-area">
                         <input type="text" placeholder="Username" name="username">
@@ -76,18 +107,15 @@
                     <div class="error error-txt">Password can't be blank</div>
                 </div>
 
-                <input type="submit" value="Sign Up" name="login">
+                <input type="submit" value="Sign Up" name="submit">
             </form>
 
             <div class="sign-txt">Already registered? <a href="login.php">Login</a></div>
         </div>
+        <?php } ?>
     </center>
-    <?php
-   
-    ?>
 
-
-    <script>
+    <script>/*
         const form = document.querySelector("form");
         uField = form.querySelector(".username"),
         uInput = uField.querySelector("input"),
@@ -146,12 +174,7 @@
                     pField.classList.add("valid");
                 }
             }
-
-            //if eField and pField doesn't contains error class that mean user filled details properly
-            if (!eField.classList.contains("error") && !pField.classList.contains("error")&& !uField.classList.contains("error")) {
-                window.location.href = form.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
-            }
-        }
+        }*/
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

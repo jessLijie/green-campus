@@ -1,10 +1,10 @@
 <?php
-$con = mysqli_connect("localhost", "root", "jkty12138");
-if (!$con) {
+$con = mysqli_connect("localhost", "greenify", "1234");
 
-    die('Could not connect: ' . mysqli_connect_error());
-
+if(!$con){
+    die('Could not connect: '.mysqli_connect_error());
 }
+
 if (mysqli_query($con,"CREATE DATABASE greenify")) {
 
     echo "Database created";
