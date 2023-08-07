@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 body{
-    background-color:#5372F0 ;
+    background-color: #aaffe1;
 }
 ::selection{
   color: #fff;
@@ -8,6 +8,7 @@ body{
 }
 .wrapper{
   margin-top: 50px;
+  margin-bottom: 50px;
   width: 380px;
   padding: 40px 30px 50px 30px;
   background: #fff;

@@ -48,8 +48,17 @@
     <center>
         <div class="wrapper">
 
-            <header>Login</header>
+            <header>Sign Up</header>
             <form action="">
+            <div class="field username">
+                    <div class="input-area">
+                        <input type="text" placeholder="Username" name="username">
+                        <i class="icon fas fa-envelope"></i>
+                        <i class="error error-icon fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="error error-txt">Username can't be blank</div>
+                </div>
+
                 <div class="field email">
                     <div class="input-area">
                         <input type="text" placeholder="Email Address" name="email">
@@ -66,41 +75,41 @@
                     </div>
                     <div class="error error-txt">Password can't be blank</div>
                 </div>
-                <div class="pass-txt"><a href="#">Forgot password?</a></div>
-                <input type="submit" value="Login" name="login">
+
+                <input type="submit" value="Sign Up" name="login">
             </form>
 
-            <div class="sign-txt">Not yet register? <a href="signup.php">Signup now</a></div>
+            <div class="sign-txt">Already registered? <a href="login.php">Login</a></div>
         </div>
     </center>
     <?php
-    if(isset($_POST['login'])){
-        $email = $_POST['email'];
-        $password = $$_POST['password'];
-
-    }
-    
+   
     ?>
 
 
     <script>
         const form = document.querySelector("form");
+        uField = form.querySelector(".username"),
+        uInput = uField.querySelector("input"),
         eField = form.querySelector(".email"),
-            eInput = eField.querySelector("input"),
-            pField = form.querySelector(".password"),
-            pInput = pField.querySelector("input");
+        eInput = eField.querySelector("input"),
+        pField = form.querySelector(".password"),
+        pInput = pField.querySelector("input");
 
         form.onsubmit = (e) => {
             e.preventDefault(); //preventing from form submitting
             //if email and password is blank then add shake class in it else call specified function
+            (uInput.value == "") ? uField.classList.add("shake", "error") : checkUser();
             (eInput.value == "") ? eField.classList.add("shake", "error") : checkEmail();
             (pInput.value == "") ? pField.classList.add("shake", "error") : checkPass();
 
             setTimeout(() => { //remove shake class after 500ms
+                uField.classList.remove("shake");
                 eField.classList.remove("shake");
                 pField.classList.remove("shake");
             }, 500);
 
+            uInput.onkeyup = () => { checkUser(); }
             eInput.onkeyup = () => { checkEmail(); } //calling checkEmail function on email input keyup
             pInput.onkeyup = () => { checkPass(); } //calling checkPassword function on pass input keyup
 
@@ -128,8 +137,18 @@
                 }
             }
 
+            function checkUser() { //checkPass function
+                if (pInput.value == "") { //if pass is empty then add error and remove valid class
+                    pField.classList.add("error");
+                    pField.classList.remove("valid");
+                } else { //if pass is empty then remove error and add valid class
+                    pField.classList.remove("error");
+                    pField.classList.add("valid");
+                }
+            }
+
             //if eField and pField doesn't contains error class that mean user filled details properly
-            if (!eField.classList.contains("error") && !pField.classList.contains("error")) {
+            if (!eField.classList.contains("error") && !pField.classList.contains("error")&& !uField.classList.contains("error")) {
                 window.location.href = form.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
             }
         }
