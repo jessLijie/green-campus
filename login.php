@@ -75,7 +75,7 @@
                     }
                     else{
                         //user dashboard
-                        header("location: ./user/userHome.php");
+                        header("location: main.php");
                     }
                 }
                 else{

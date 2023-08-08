@@ -6,13 +6,9 @@
 </head>
 <body>
     <?php include("header.php") ?>
-    <!--category -->
-    <div>
+    <div >
         
     </div>
-
-
-    <!--post list-->
 
 
 
