@@ -35,7 +35,12 @@
                 <?php  
                     if (!isset($_SESSION['login'])){ ?>
                     <a href="login.php"><button type="button" class="btn btn-outline-success" >Login/Sign Up</button></a>
+                <?php } else {?>
+
+        
+                    <a href="logout.php"><button type="button" class="btn btn-outline-danger" >Log Out</button></a>
                 <?php } ?>
+
             </div>
 
         </nav>    
