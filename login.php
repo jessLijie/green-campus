@@ -64,9 +64,10 @@
                 
                 if(mysqli_num_rows($result)===1){
                     $row = mysqli_fetch_array($result);
-                    $_SESSION['valid'] = $row['email'];
+                    $_SESSION['email'] = $row['email'];
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['userID'] = $row['userID'];
+                    $_SESSION['login'] = "yes";
 
                     if($row['urole'] === 'admin'){
                         //admin dashboard

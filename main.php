@@ -1,3 +1,5 @@
+<?php session_start() ?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -24,21 +26,23 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link "href="#"> <i class="bi bi-geo-alt"></i> Locate</a>
+          <a class="nav-link "href="locate.php"> <i class="bi bi-geo-alt"></i> Locate</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link "href="#"> <i class="bi bi-megaphone"></i> Forum</a>
+          <a class="nav-link "href="forum.php"> <i class="bi bi-megaphone"></i> Forum</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link "href="#"> <i class="bi bi-journal-text"></i> Guide</a>
+          <a class="nav-link "href="guide.php"> <i class="bi bi-journal-text"></i> Guide</a>
         </li>
       </ul>
       
     </div>
-    <a href="login.php"><button type="button" class="btn btn-outline-success">Login/Sign Up</button></a>
-    
+    <?php  
+    if ($_SESSION['login'] == 'yes' ){ ?>
+    <a href="login.php"><button type="button" class="btn btn-outline-success" >Login/Sign Up</button></a>
+    <?php } ?>
   </div>
   
 </nav>

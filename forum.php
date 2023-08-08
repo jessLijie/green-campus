@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../css/forum.css" />
 </head>
 <body>
-    <?php include("userHeader.html") ?>
+    <?php include("header.html") ?>
     <!--category -->
     <div>
         
