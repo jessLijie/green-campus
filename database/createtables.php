@@ -11,5 +11,16 @@ $sql1 = "CREATE TABLE users (
 )";
 mysqli_query($con, $sql1);
 
+$sql="CREATE TABLE post (
+        postID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        postTitle varchar(255),
+        postContent TEXT(255),
+        postPic BLOB(255),
+        postCategory varchar(255),
+        postDate datetime,
+        userID varchar(50),
+        FOREIGN KEY (userID) REFERENCES users(userID)
+        )";
+
 mysqli_close($con);
 ?>
