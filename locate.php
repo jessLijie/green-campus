@@ -37,9 +37,8 @@
                 
             </div>
         </div>
+
     </div>
-
-
 
     <script>
         function initMap() {
