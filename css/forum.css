@@ -11,6 +11,9 @@
     width: 20%;
     padding: 30px 10px;
     margin: 20px 10px 20px 0;
+    position: sticky;
+    border: 2px black solid;
+    top: 0;
 }
 
 .search input, .search button{
@@ -50,6 +53,9 @@
     cursor: pointer;
     background-color: rgb(44, 132, 102);
 }
+.forum-category a{
+    text-decoration: none;
+}
 
 .post-container{
     width: 80%;
@@ -80,7 +86,12 @@
     padding-bottom: 10px;
 }
 
-.post-nav-container ul li:hover{
+.post-nav-container li a{
+    text-decoration: none;
+    color: black
+}
+
+.post-nav-container ul li a:hover{
     color: rgb(96, 208, 96);
     cursor: pointer;
 }
@@ -113,8 +124,13 @@
     cursor: pointer;
 }
 
-.username{
+.postInfo{
     line-height: 40px;
+}
+
+.postInfo span{
+    display: flex;
+    align-items: center;
 }
 
 .postDetails{

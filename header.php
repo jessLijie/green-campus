@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixedpos">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
                     <img src="./images/icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">

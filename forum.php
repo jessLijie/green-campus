@@ -1,5 +1,11 @@
 <?php session_start(); ?>
-<?php $currentPage = "forum"; ?>
+<?php 
+include('connectdb.php');
+$currentPage = "forum"; 
+if(isset($_SESSION['userID'])){
+    $userID = $_SESSION['userID'];
+}
+?>
 
 <html>
 <head>
@@ -8,6 +14,30 @@
 </head>
 <body>
     <?php include("header.php") ?>
+    <?php
+            if(isset($_GET['category'])){
+                $category_ = $_GET['category'];
+                $sql = "SELECT post.*, users.username FROM post JOIN users ON post.userID=users.userID WHERE post.postCategory=$category_ ORDER BY post.postDate DESC";
+            } else if(isset($_GET['mypost'])){
+                if($_GET['mypost']==true){
+                    $sql = "SELECT post.*, users.username FROM post 
+                            JOIN users ON post.userID=users.userID
+                            WHERE post.userID=$userID
+                            ORDER BY post.postDate DESC";
+                }
+            } else if(isset($_GET['search'])){
+                $search_val = $_GET['search_val'];
+                $sql = "SELECT post.*, users.username FROM post 
+                        JOIN users ON post.userID=users.userID
+                        WHERE post.postTitle LIKE '%$search_val%'
+                        ORDER BY post.postDate DESC";
+
+            } else {
+                $sql = "SELECT post.*, users.username FROM post 
+                        JOIN users ON post.userID=users.userID
+                        ORDER BY post.postDate DESC";
+            }
+            ?>
     <div class='forum-container'>
         <div class='tool'>
             <div class='search-box'>
@@ -19,45 +49,59 @@
                 </form>
             </div>
             <div class='forum-category'>
-                <h3>Environment Protection</h3>
-                <h3>Energy and Resource</h3>
-                <h3>Waste Reduction and Recycling</h3>
-                <h3>Carbon Footprint</h3>
-                <h3>Transportation</h3>
-                <h3>Other</h3>
-            </div>    
+                <a href="forum.php"><h3>All</h3></a>
+                <a href="forum.php?category='environment-protection'"><h3>Environment Protection</h3></a>
+                <a href="forum.php?category='energy-resource'"><h3>Energy and Resource</h3></a>
+                <a href="forum.php?category='waste-recycling'"><h3>Waste Reduction and Recycling</h3></a>
+                <a href="forum.php?category='carbon-footprint'"><h3>Carbon Footprint</h3></a>
+                <a href="forum.php?category='transportation'"><h3>Transportation</h3></a>
+                <a href="forum.php?category='other'"><h3>Other</h3></a>
+            </div>
         </div>
 
         <div class='post-container'>
-        
             <div class='post-nav-container'>
                 <ul class='post-nav'>
-                    <li> All Post </li>
-                    <li> My Post </li>
+                    <li><a href="forum.php"> All Post </a></li>
+                    <li><a href="forum.php?mypost='true'" style="text-decoration: none;"> My Post </a></li>
                 </ul>
-                <!--<div class='addpost'>Add Post</div>-->
+                
                 <button type="button" class="addpost" data-bs-toggle="modal" data-bs-target="#addPostFormContainer">
                     Create Post
                 </button>
             </div>
 
             <div class='post-list'>
-               <div class='post'>
+                <?php
+                    $result = mysqli_query($con, $sql);
+                    $count = mysqli_num_rows($result);
+                    if($count > 0){
+                        while($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
+                            $postTitle = $row['postTitle'];
+                            $postContent = $row['postContent'];
+                            $postPic = $row['postPic'];
+                            $postUser = $row['username'];
+                            $postDate = $row['postDate'];
+                ?>
+                <div class='post'>
                     <!-- name -->
-                    <div class='username'>
-                        <span style='display: flex; align-items: center;'>
-                        <img src='images/icon.png' style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>
-                        <p style='margin: 0;'>故事募集所</p></span>
+                    <div class='postInfo'>
+                        <span>
+                            <!--<img src='images/icon.png' style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>-->
+                            <i class="bi bi-person-circle" style='margin-right: 10px;'></i>
+                            <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
+                            <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>
+                        </span>
                     </div>
                     <div class='postDetails'>
                         <div class='word'>
                             <!-- title -->
                             <div class='postTitle'>
-                            Title
+                            <?php echo $postTitle; ?>
                             </div>
                             <!-- description -->
                             <div class='postContent'>
-                            Content
+                            <?php echo $postContent; ?>
                             </div>
                             <!-- comment -->
                             <div class='interact'>
@@ -66,11 +110,20 @@
                         </div>
                         <!-- picture(optional) -->
                         <div class='postPic'>
-                            <img src='./images/icon.png' width='100' height='100'/>
+                            <?php if($postPic != ""){ ?>
+                            <img src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($row['image']); ?>"  width='100' height='100' alt='tumbnail' />
+                            <?php } ?>
                         </div>
                     </div>
                </div>
                <hr>
+            
+            <?php
+                    }}else{
+                        echo "No post yet";
+                    }
+            ?>
+               
             </div>
         </div>
     </div>
@@ -99,12 +152,12 @@
             <div>   
                 <label for='category'>Category:</label></td>
                 <select name="category" id="category" class='inputCategory'>
-                    <option value='Environment Protection'>Environment Protection</option>
-                    <option value='Energy and Resource'>Energy and Resource</option>
-                    <option value='Waste Reduction and Recycling'>Waste Reduction and Recycling</option>
-                    <option value='Carbon Footprint'>Carbon Footprint</option>
-                    <option value='Transportation'>Transportation</option>
-                    <option value='Other'>Other</option>
+                    <option value='environment-protection'>Environment Protection</option>
+                    <option value='energy-resource'>Energy and Resource</option>
+                    <option value='waste-recycling'>Waste Reduction and Recycling</option>
+                    <option value='carbon-footprint'>Carbon Footprint</option>
+                    <option value='transportation'>Transportation</option>
+                    <option value='other'>Other</option>
                 </select>
             </div>      
             
@@ -120,11 +173,53 @@
     </div>
 
     <?php
+        $status = $statusMsg = '';
         if(isset($_POST['addPostSubmit'])){
+            echo "<meta http-equiv='refresh' content='0'>";
             $title = $_POST['postTitle'];
             $content = $_POST['postContent'];
             $category = $_POST['category'];
+
+            $status = 'error'; 
+            if(!empty($_FILES["image"]["name"])) {
+                // Get file info 
+                $fileName = basename($_FILES["image"]["name"]);
+                $fileType = pathinfo($fileName, PATHINFO_EXTENSION); 
+                
+                // Allow certain file formats 
+                $allowTypes = array('jpg','png','jpeg','gif'); 
+                if(in_array($fileType, $allowTypes)){ 
+                    $image = $_FILES['image']['tmp_name']; 
+                    $imageContent = addslashes(file_get_contents($image)); 
+                    
+                    if($insert){ 
+                        $status = 'success'; 
+                        $statusMsg = "File uploaded successfully."; 
+                    }else{ 
+                        $statusMsg = "File upload failed, please try again."; 
+                    }  
+                }else{ 
+                    $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.'; 
+                }
+            }else{ 
+                $imageContent = "";
+            }
+            date_default_timezone_set('Asia/Kuala_Lumpur');
+            $currentDate = date('Y-m-d H:i:s');
+            $sql1 = "INSERT INTO post(postTitle,postContent,postPic,postCategory,postDate,userID)
+                    VALUES ('$title', '$content', '$imageContent', '$category', '$currentDate', '$userID')";
+
+            $result1 = mysqli_query($con, $sql1);
+            if($result1==true){
+                $_SESSION['add'] = "<div class='success'><img src='../image/tick.png' width='16px' alt='tick' />Post Created Successfully.</div>";
+                
+            } else {
+                $_SESSION['add'] = "<div class='error'><img src='../image/cross.png' width='16px' alt='cross icon'/>Failed to Create Post.</div>";
+                
+            }
         }
+
+        echo $statusMsg;
     ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

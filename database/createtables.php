@@ -14,13 +14,15 @@ mysqli_query($con, $sql1);
 $sql="CREATE TABLE post (
         postID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         postTitle varchar(255),
-        postContent TEXT(255),
+        postContent TEXT,
         postPic BLOB(255),
         postCategory varchar(255),
         postDate datetime,
-        userID varchar(50),
+        userID int,
         FOREIGN KEY (userID) REFERENCES users(userID)
         )";
+mysqli_query($con, $sql1);
+
 $sql2= "CREATE TABLE events (
         eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         eventName varchar(50),
