@@ -39,6 +39,7 @@
                     $_SESSION['username'] = $row['username'];
                     $_SESSION['userID'] = $row['userID'];
                     $_SESSION['login'] = "yes";
+                    $_SESSION['role'] = $row["urole"];
 
                     if($row['urole'] === 'admin'){
                         //admin dashboard

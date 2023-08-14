@@ -1,19 +1,21 @@
 .forum-container{
     display: flex;
     flex-wrap: nowrap;
-    min-height: 98vh;
+    min-height: 100vh;
     min-width: 1000px;
     padding: 0 50px;
     background-color: rgb(51, 155, 120);
+    padding-top: 60px;
 }
 
 .tool{
     width: 20%;
     padding: 30px 10px;
     margin: 20px 10px 20px 0;
+    position: -webkit-sticky;
     position: sticky;
-    border: 2px black solid;
-    top: 0;
+    top: 80px;
+    height: fit-content;
 }
 
 .search input, .search button{
@@ -60,11 +62,8 @@
 .post-container{
     width: 80%;
     margin: 20px 0;
-    padding: 30px 0;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    border-radius: 15px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -72,7 +71,12 @@
     border-bottom: 2px groove rgb(230, 230, 230);
     display: flex;
     justify-content: space-between;
-    position: relative;
+    position: sticky;
+    padding-top: 20px;
+    top: 56px;
+    border-radius: 10px 10px 0 0;
+    background-color: white;
+    z-index: 1;
 }
 
 .post-nav-container ul{
@@ -83,12 +87,12 @@
 
 .post-nav-container ul li{
     margin: 20px 20px 0px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 
 .post-nav-container li a{
     text-decoration: none;
-    color: black
+    color: black;
 }
 
 .post-nav-container ul li a:hover{
@@ -96,7 +100,7 @@
     cursor: pointer;
 }
 
-.post-nav-container ul li .active{
+.post-nav-container ul li.active{
     border-bottom: 2px solid green;
 }
 
@@ -106,7 +110,7 @@
     border: rgb(8, 126, 61) solid 2px;
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    bottom: 15px;
     background-color: rgb(64, 197, 152);
     color: white;
     border-radius: 10px;
@@ -118,19 +122,42 @@
 
 .post-list{
     padding: 10px 50px;
-}
-
-.post:hover{
-    cursor: pointer;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    padding-bottom: 30px;
+    height: 100%;
 }
 
 .postInfo{
-    line-height: 40px;
+    margin-bottom: 10px;
 }
 
 .postInfo span{
     display: flex;
     align-items: center;
+    justify-content: space-between;
+}
+
+.postHeader{
+    display: flex;
+    align-items: center;
+}
+
+.postFeature{
+    display: flex;
+}
+
+.editpost, .delpost{
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+}
+.editpost{
+    background-color: rgb(152, 152, 255);
+}
+.delpost{
+    background-color: rgb(244, 133, 133);
+    margin-left: 5px;
 }
 
 .postDetails{
@@ -159,6 +186,12 @@
 }
 .postPic img{
     border-radius: 20px;
+}
+
+.noPost{
+    text-align: center;
+    font-size: large;
+    margin-top: 20px;
 }
 
 .addPostForm{
