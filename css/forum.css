@@ -4,14 +4,14 @@
     min-height: 100vh;
     min-width: 1000px;
     padding: 0 50px;
-    background-color: rgb(51, 155, 120);
+    background-color: #088F8F;
     padding-top: 60px;
 }
 
 .tool{
     width: 20%;
-    padding: 30px 10px;
-    margin: 20px 10px 20px 0;
+    padding: 20px 10px;
+    margin: 10px 10px 10px 0;
     position: -webkit-sticky;
     position: sticky;
     top: 80px;
@@ -53,7 +53,7 @@
 }
 .forum-category h3:hover{
     cursor: pointer;
-    background-color: rgb(44, 132, 102);
+    background-color: rgb(42, 99, 86);
 }
 .forum-category a{
     text-decoration: none;
@@ -61,7 +61,7 @@
 
 .post-container{
     width: 80%;
-    margin: 20px 0;
+    margin: 10px 0;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -72,9 +72,9 @@
     display: flex;
     justify-content: space-between;
     position: sticky;
-    padding-top: 20px;
-    top: 56px;
-    border-radius: 10px 10px 0 0;
+    padding-top: 10px;
+    top: 55px;
+    border-radius: 5px 5px 0 0;
     background-color: white;
     z-index: 1;
 }
@@ -123,41 +123,73 @@
 .post-list{
     padding: 10px 50px;
     background-color: white;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 5px 5px;
     padding-bottom: 30px;
     height: 100%;
 }
-
-.postInfo{
-    margin-bottom: 10px;
+.postHeader{
+    margin: 5px 0;
 }
-
-.postInfo span{
+.postHeader span{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.postHeader{
+.postInfo{
     display: flex;
     align-items: center;
 }
 
 .postFeature{
     display: flex;
+    position: relative;
+}
+.threeDotImg{
+    padding: 0 4px;
+    border-radius: 20px;
+    height: fit-content;
+}
+.threeDotImg:hover{
+    background-color: rgb(221, 221, 221);
+    cursor: pointer;
+}
+.dropdownContainer{
+    position: absolute;
+    top: 24px;
+    right: 0;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.2s linear;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.postFeature.dropActive .dropdownContainer{
+    height: 80px;
+    transition: height 0.2s linear;
+}
+.dropdownContainer form{
+    width: 130px;
 }
 
 .editpost, .delpost{
     border: none;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 8px 10px 8px 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    background-color: white;
+    white-space: nowrap;
 }
-.editpost{
-    background-color: rgb(152, 152, 255);
+.editpost:hover{
+    background-color: rgb(226, 226, 226);
 }
-.delpost{
-    background-color: rgb(244, 133, 133);
-    margin-left: 5px;
+.delpost:hover{
+    background-color: rgb(226, 226, 226);
+}
+
+.postlink{
+    text-decoration: none;
+    color: black;
 }
 
 .postDetails{
@@ -176,10 +208,7 @@
     font-weight: bold;
 }
 .postContent{
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 700px;
+    white-space: wrap;
 }
 .postPic{
     text-align: right;

@@ -15,13 +15,13 @@ $sql="CREATE TABLE post (
         postID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         postTitle varchar(255),
         postContent TEXT,
-        postPic BLOB(255),
+        postPic VARCHAR(255),
         postCategory varchar(255),
         postDate datetime,
         userID int,
         FOREIGN KEY (userID) REFERENCES users(userID)
         )";
-mysqli_query($con, $sql1);
+mysqli_query($con, $sql);
 
 $sql2= "CREATE TABLE events (
         eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -78,4 +78,16 @@ foreach ($sql4 as $sqlInsert) {
     mysqli_query($con, $sqlInsert);
 }
 mysqli_close($con);
+
+$sql="CREATE TABLE comments(
+        commentID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        commentContent TEXT,
+        commentDate datetime,
+        userID int,
+        postID int,
+        FOREIGN KEY (userID) REFERENCES users(userID),
+        FOREIGN KEY (postID) REFERENCES post(postID) ON DELETE CASCADE
+)";
+mysqli_query($con, $sql);
+
 ?>
