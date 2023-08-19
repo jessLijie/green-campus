@@ -173,7 +173,7 @@
                 <div class="addcomment">
                     <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i>
                     <form action="" method="post">
-                        <input type="text" name="postComment" class="commentInput" />
+                        <input type="text" name="postComment" class="commentInput" required />
                         <input type="hidden" name="pid" value="<?php echo $postID ?>"/>
                         <input type="submit" name="submitComment" value="Add Comment" class="submitCommentBtn"/>
                     </form>
@@ -196,11 +196,11 @@
                     <div class="comment">
                         <div class="commentUser">
                             <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i>
-                            <p style='margin: 0 10px 0 0;'><?php echo $cusername; ?></p>
+                            <p style='margin: 0 10px 0 0; font-weight: bold;'><?php echo $cusername; ?></p>
                             <p style='margin: 0;'><?php echo $ctime; ?></p>
                         </div>
                         <div class="comment-content">
-                            <p><?php echo $commentContent; ?></p>
+                            <p style='margin: 0 0 5px 0;'><?php echo $commentContent; ?></p>
                         </div>
                         <div class="comment-feature">
                         <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>

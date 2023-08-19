@@ -1,15 +1,4 @@
-.nav-item{
-    padding: 0 15px;
-}
-
 body{
     font-family: 'Poppins', sans-serif;
-    width: 100%;
-}
-
-.fixedpos{
-    position: fixed;
-    top: 0;
-    z-index: 10;
     width: 100%;
 }

@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); ob_start();?>
 <!doctype html>
 <html lang="en">
 
@@ -11,13 +11,12 @@
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
     <?php include('header.php'); ?>
-    <center>
+    <div class="pageContainer">
         <div class="wrapper">
 
             <header>Login</header>
@@ -41,14 +40,7 @@
                     $_SESSION['login'] = "yes";
                     $_SESSION['role'] = $row["urole"];
 
-                    if($row['urole'] === 'admin'){
-                        //admin dashboard
-                        header("location: ./admin/adminHome.php");
-                    }
-                    else{
-                        //user dashboard
-                        header("location: ./main.php");
-                    }
+                    header("location:./main.php");
                 }
                 else{
                     echo "<div class='error'>
@@ -59,10 +51,10 @@
             
             ?>
 
-            <form action="" method="post">
+            <form action="" method="post" id="loginform" onsubmit="return formValidation()">
                 <div class="field email">
                     <div class="input-area">
-                        <input type="text" placeholder="Email Address" name="email" id="email">
+                        <input type="text" placeholder="Email Address" name="email" id="email" onchange="checkEmail()">
                         <i class="icon fas fa-envelope"></i>
                         <i class="error error-icon fas fa-exclamation-circle"></i>
                     </div>
@@ -70,7 +62,7 @@
                 </div>
                 <div class="field password">
                     <div class="input-area">
-                        <input type="password" placeholder="Password" name="password" id="password">
+                        <input type="password" placeholder="Password" name="password" id="password" onchange="checkPass()">
                         <i class="icon fas fa-lock"></i>
                         <i class="error error-icon fas fa-exclamation-circle"></i>
                     </div>
@@ -80,30 +72,34 @@
                 <input type="submit" value="Login" name="submit">
             </form>
 
-            <div class="sign-txt">Not yet register? <a href="signup.php">Signup now</a></div>
+            <div class="sign-txt">Not yet register? <a href="signup.php">Sign Up now</a></div>
         </div>
-    </center>
+    </div>
     
-    <script>/*
-        const form = document.querySelector("form");
-        eField = form.querySelector(".email"),
-            eInput = eField.querySelector("input"),
-            pField = form.querySelector(".password"),
-            pInput = pField.querySelector("input");
+    <script>
+            const form = document.getElementById("loginform");
+                eField = form.querySelector(".email"),
+                eInput = eField.querySelector("input"),
+                pField = form.querySelector(".password"),
+                pInput = pField.querySelector("input");
+                    
+            function formValidation(){
+                (eInput.value == "") ? eField.classList.add("shake", "error") : checkEmail();
+                (pInput.value == "") ? pField.classList.add("shake", "error") : checkPass();
 
-        form.onsubmit = (e) => {
-            e.preventDefault(); //preventing from form submitting
-            //if email and password is blank then add shake class in it else call specified function
-            (eInput.value == "") ? eField.classList.add("shake", "error") : checkEmail();
-            (pInput.value == "") ? pField.classList.add("shake", "error") : checkPass();
+                setTimeout(() => { //remove shake class after 500ms
+                    eField.classList.remove("shake");
+                    pField.classList.remove("shake");
+                }, 500);
 
-            setTimeout(() => { //remove shake class after 500ms
-                eField.classList.remove("shake");
-                pField.classList.remove("shake");
-            }, 500);
-
-            eInput.onkeyup = () => { checkEmail(); } //calling checkEmail function on email input keyup
-            pInput.onkeyup = () => { checkPass(); } //calling checkPassword function on pass input keyup
+                if(!eField.classList.contains("error") && !pField.classList.contains("error")){
+                    console.log("success");
+                    return true;
+                } else{
+                    console.log("error");
+                    return false;
+                }
+            }
 
             function checkEmail() { //checkEmail function
                 let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/; //pattern for validate email
@@ -128,9 +124,8 @@
                     pField.classList.add("valid");
                 }
             }
-        }
-*/
-    </script>
+
+        </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
