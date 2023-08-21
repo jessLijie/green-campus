@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <style>
             .navbar{
                 width: 100%;
                 background-color: white;
-                border-bottom: 1px solid gray;
             }
             .nav-container{
                 display: flex;
@@ -38,7 +34,7 @@
                 padding: 6px;
                 white-space: nowrap;
             }
-            .account{
+            .account, .logbtn{
                 margin-left: auto;
             }
             .nav-link.active{
@@ -65,7 +61,7 @@
                 padding: 0;
                 margin: 0;
                 position: absolute;
-                top: 45px;
+                top: 40px;
                 right: 0;
                 background-color: white;
                 width: 100%;
@@ -73,6 +69,7 @@
                 transition: height 0.3s linear;
                 transition-delay: 0.1s;
                 overflow: hidden;
+                border-radius: 10px;
                 box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
             }
             .account:hover .accountDropdown{
@@ -122,7 +119,7 @@
                 <?php if(isset($_SESSION['login'])){ ?>
                 <div class="account">
                     <div class="accountInfo">
-                        <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i>
+                        <img src="./images/defaultprofile.png" width="30" height="30" style="margin: 0 10px; border-radius: 15px;" alt="profilePic" />
                         <p><?php echo $_SESSION['username']; ?></p>
                         <i class="bi bi-caret-down-fill" style='margin: 0 10px;'></i>
                     </div>
@@ -132,7 +129,7 @@
                     </ul>
                 </div>
                 <?php } else{ ?> 
-                    <a href="login.php"><button type="button" class="btn btn-outline-success" >Login/Sign Up</button></a>
+                    <a href="login.php" class="logbtn"><button type="button" class="btn btn-outline-success" >Login/Sign Up</button></a>
                 <?php } ?>
             </div>
         </nav>

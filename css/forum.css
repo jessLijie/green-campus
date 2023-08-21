@@ -3,9 +3,10 @@
     flex-wrap: nowrap;
     min-height: 100vh;
     min-width: 1000px;
-    padding: 0 50px;
+    padding: 60px 50px 20px;
     background-color: #088F8F;
-    padding-top: 60px;
+    /* background: #088F8F url("../images/background.jpg") no-repeat fixed center;
+    background-size: cover; */
 }
 
 .tool{
@@ -50,10 +51,11 @@
     font-size: 18px;
     padding: 10px;
     color: whitesmoke;
+    font-weight: 400;
 }
 .forum-category h3:hover{
     cursor: pointer;
-    background-color: rgb(42, 99, 86);
+    background-color: rgb(66, 143, 125);
 }
 .forum-category a{
     text-decoration: none;

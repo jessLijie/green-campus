@@ -1,0 +1,19 @@
+.guidePageContainer{
+    min-height: 100vh;
+    min-width: 1000px;
+    padding: 0 50px;
+    background-color: rgb(232, 254, 238);
+    padding: 60px 50px 20px;
+}
+
+.guidePageContainer{
+    border-color: black;
+}
+
+.guidePageTitle h1{
+    text-align: center;
+}
+
+.guidePageTitle p{
+    font-style: italic;
+}
