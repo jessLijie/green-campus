@@ -215,9 +215,8 @@ if (isset($_SESSION['success_message'])) {
 
             </div>
         </div>
+
     </div>
-
-
 
     <script>
         var markers = [];
