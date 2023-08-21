@@ -67,6 +67,25 @@
             }
         }
 
+    ?>
+    <?php
+        //delete post
+        if(isset($_POST['action']) && $_POST['action']=="delete"){
+            $delpostid = $_POST['delpostID'];
+            $delpostImg = $_POST['delpostImg'];
+            if($delpostImg != ""){
+                $path = "./images/postImg/$delpostImg";
+                $remove = unlink($path);
+        
+                if($remove==false){
+                    $_SESSION['delete'] = "<div><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture</div>";
+                    header("location: forum.php");
+                    die();
+                }
+            }
+            $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
+            $resdelpost = mysqli_query($con, $sqlDelpost);
+        }
         ?>
     
     <div class="forum-container">
@@ -79,6 +98,7 @@
                     </div>
                 </form>
             </div>
+            <hr style="color: whitesmoke;">
             <div class="forum-category">
                 <a href="forum.php"><h3>All</h3></a>
                 <a href="forum.php?category='environment-protection'"><h3>Environment Protection</h3></a>

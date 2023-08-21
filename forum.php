@@ -156,15 +156,14 @@ if(isset($_SESSION['userID'])){
                                 <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                 var dropdownbtns = document.querySelectorAll(".postFeature");
-
+                                
                                 dropdownbtns.forEach(function(dropdownbtn) {
                                     dropdownbtn.addEventListener('click', function(event) {
                                         event.stopPropagation(); // Prevent the click from propagating to the window
                                         
                                         // Close all other open dropdowns
                                         closeAllDropdownsExcept(this);
-                                        
-                                        this.classList.toggle("dropActive");
+                                        this.classList.add("dropActive");
                                     });
                                 });
 

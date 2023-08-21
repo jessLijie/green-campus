@@ -55,7 +55,7 @@
 }
 .forum-category h3:hover{
     cursor: pointer;
-    background-color: rgb(66, 143, 125);
+    background-color: #086e6e;
 }
 .forum-category a{
     text-decoration: none;
