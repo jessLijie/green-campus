@@ -31,20 +31,21 @@ if (isset($_SESSION['success_message'])) {
         <div id="map"></div>
         <div class="info">
 
-        
-            
+
+
             <center>
-            <div style="display: flex; align-items: center;">
-    <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
-    <span style="margin-right: 5px;">Filter by:</span>
-    <select id="itemTypeFilter" class="form-select" onchange="applyMarkersFilter()" style="width:200px;margin-top:10px;">
-        <option value="">All Items</option>
-        <option value="hub">Recycle Hub</option>
-        <option value="bus">Bus Stop</option>
-        <option value="park">Green Park</option>
-        <option value="bike">Campus Bike Station</option>
-    </select>
-</div>
+                <div style="display: flex; align-items: center;">
+                    <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
+                    <span style="margin-right: 5px;">Filter by:</span>
+                    <select id="itemTypeFilter" class="form-select" onchange="applyMarkersFilter()"
+                        style="width:200px;margin-top:10px;">
+                        <option value="">All Items</option>
+                        <option value="hub">Recycle Hub</option>
+                        <option value="bus">Bus Stop</option>
+                        <option value="park">Green Park</option>
+                        <option value="bike">Campus Bike Station</option>
+                    </select>
+                </div>
 
                 <div class="labelled-items">
 
@@ -69,6 +70,8 @@ if (isset($_SESSION['success_message'])) {
 
                         </tr>
                     </table>
+
+                    <p id="tips">💡 Tips : Click on the icons to start navigation ! </p>
                 </div>
             </center>
 
@@ -254,6 +257,7 @@ if (isset($_SESSION['success_message'])) {
         }
 
 
+        var infoWindowOpen = false;
 
         function createMarkersFromPositions(positions) {
             for (let i = 0; i < positions.length; i++) {
@@ -268,11 +272,46 @@ if (isset($_SESSION['success_message'])) {
                     animation: google.maps.Animation.DROP
                 });
 
-                
-                marker.itemType =currentMarker.itemName;
+
+                marker.itemType = currentMarker.itemName;
                 markers.push(marker);
+                marker.addListener('click', function () {
+                    redirectToGoogleMapsPage(marker.getPosition());
+                });
+
+                const tooltip = new google.maps.InfoWindow({
+                    content: `Click me !`
+                });
+
+                marker.addListener('mouseover', function () {
+                    tooltip.open(map, marker);
+                    infoWindowOpen = true;
+                    setTimeout(() => {
+                        if (infoWindowOpen) {
+                            document.querySelector(".gm-ui-hover-effect").style.display = "none";
+                        }
+                    }, 10);
+                });
+
+                marker.addListener('mouseout', function () {
+                    tooltip.close();
+                    infoWindowOpen = false;
+                    setTimeout(() => {
+                        document.querySelector(".gm-ui-hover-effect").style.display = "";
+                    }, 10);
+                });
+
+
             }
+
         }
+        function redirectToGoogleMapsPage(position) {
+            const lat = position.lat();
+            const lng = position.lng();
+            const googleMapsURL = `https://www.google.com/maps/dir/Current+Location/${lat},${lng}`;
+            window.open(googleMapsURL, '_blank');
+        }
+
 
 
 
