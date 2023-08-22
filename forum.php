@@ -163,7 +163,14 @@ if(isset($_SESSION['userID'])){
                                         
                                         // Close all other open dropdowns
                                         closeAllDropdownsExcept(this);
-                                        this.classList.add("dropActive");
+                                        if (this.classList.contains('dropActive')) {
+                                            console.log("hi");
+                                            this.classList.remove('dropActive');
+                                        } else {
+                                            console.log("bye");
+                                            this.classList.add('dropActive');
+                                        }
+                                        console.log(this.classList);
                                     });
                                 });
 

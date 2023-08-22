@@ -1,6 +1,0 @@
-<?php
-
-include("connectdb.php");
-
-
-?>
