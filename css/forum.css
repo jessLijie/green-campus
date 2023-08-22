@@ -1,0 +1,261 @@
+.forum-container{
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 100vh;
+    min-width: 1000px;
+    padding: 60px 50px 20px;
+    background-color: #088F8F;
+    /* background: #088F8F url("../images/background.jpg") no-repeat fixed center;
+    background-size: cover; */
+}
+
+.tool{
+    width: 20%;
+    padding: 20px 10px;
+    margin: 10px 10px 10px 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+}
+
+.search input, .search button{
+    height: 30px;
+    border: none;
+}
+.search input{
+    padding-left: 5px;
+}
+.search {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.search input[type="text"] {
+    min-width: 120px;
+}
+
+.search button {
+    border: none;
+    background-color: rgb(196, 242, 196);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.search button:hover{
+    background-color: rgb(159, 197, 159);
+}
+
+.forum-category h3{
+    font-size: 18px;
+    padding: 10px;
+    color: whitesmoke;
+    font-weight: 400;
+}
+.forum-category h3:hover{
+    cursor: pointer;
+    background-color: #086e6e;
+}
+.forum-category a{
+    text-decoration: none;
+}
+
+.post-container{
+    width: 80%;
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.post-nav-container{
+    border-bottom: 2px groove rgb(230, 230, 230);
+    display: flex;
+    justify-content: space-between;
+    position: sticky;
+    padding-top: 10px;
+    top: 55px;
+    border-radius: 5px 5px 0 0;
+    background-color: white;
+    z-index: 1;
+}
+
+.post-nav-container ul{
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+.post-nav-container ul li{
+    margin: 20px 20px 0px;
+    padding-bottom: 15px;
+}
+
+.post-nav-container li a{
+    text-decoration: none;
+    color: black;
+}
+
+.post-nav-container ul li a:hover{
+    color: rgb(96, 208, 96);
+    cursor: pointer;
+}
+
+.post-nav-container ul li.active{
+    border-bottom: 2px solid green;
+}
+
+.addpost{
+    padding: 5px 15px;
+    margin: 20px 20px 0;
+    border: rgb(8, 126, 61) solid 2px;
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
+    background-color: rgb(64, 197, 152);
+    color: white;
+    border-radius: 10px;
+}
+.addpost:hover{
+    background-color: rgb(43, 149, 106);
+    cursor: pointer;
+}
+
+.post-list{
+    padding: 10px 50px;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    padding-bottom: 30px;
+    height: 100%;
+}
+.postHeader{
+    margin: 5px 0;
+}
+.postHeader span{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postInfo{
+    display: flex;
+    align-items: center;
+}
+
+.postFeature{
+    display: flex;
+    position: relative;
+}
+.threeDotImg{
+    padding: 0 4px;
+    border-radius: 20px;
+    height: fit-content;
+}
+.threeDotImg:hover{
+    background-color: rgb(221, 221, 221);
+    cursor: pointer;
+}
+.dropdownContainer{
+    position: absolute;
+    top: 24px;
+    right: 0;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.2s linear;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.postFeature.dropActive .dropdownContainer{
+    height: 80px;
+    transition: height 0.2s linear;
+}
+.dropdownContainer form{
+    width: 130px;
+}
+
+.editpost, .delpost{
+    border: none;
+    padding: 8px 10px 8px 15px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    background-color: white;
+    white-space: nowrap;
+}
+.editpost:hover{
+    background-color: rgb(226, 226, 226);
+}
+.delpost:hover{
+    background-color: rgb(226, 226, 226);
+}
+
+.postlink{
+    text-decoration: none;
+    color: black;
+}
+
+.postDetails{
+    display: flex;
+    justify-content: space-between;
+}
+
+.postDetails .word{
+
+}
+.word div{
+    margin: 10px 0 0;
+}
+.postTitle{
+    font-size: 18px;
+    font-weight: bold;
+}
+.postContent{
+    white-space: wrap;
+}
+.postPic{
+    text-align: right;
+}
+.postPic img{
+    border-radius: 20px;
+}
+
+.noPost{
+    text-align: center;
+    font-size: large;
+    margin-top: 20px;
+}
+
+.addPostForm{
+
+}
+
+.addPostForm div{
+    margin: 10px;
+}
+
+.addPostForm div label{
+    display: block;
+}
+
+
+.inputPostContent, .inputPostTitle, .inputCategory{
+    width: 100%;
+    background-color: rgb(235, 235, 235);
+    min-height: 18px;
+    border: 1px solid rgb(140, 140, 140)
+}
+
+.submitbtnStyle{
+    text-align: center;
+}
+
+.submitbtn{
+    margin: 20px auto;
+    background-color: rgb(127, 255, 202);
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+.submitbtn:hover{
+    background-color: rgb(103, 207, 164);
+}
