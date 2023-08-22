@@ -57,7 +57,7 @@ if (isset($_POST['editNews'])) {
         }
     }
 
-    header('Location: adminHome.php');
+    header('Location: adminManage.php');
     exit;
 }
 ?>
