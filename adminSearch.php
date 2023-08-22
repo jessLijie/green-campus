@@ -60,10 +60,10 @@
             $searchQuery = "SELECT * FROM newsfeed WHERE title LIKE '$query'";
             $result = mysqli_query($con, $searchQuery);
         }
+        echo '<div class="border-bottom-0">';
 
         if (mysqli_num_rows($result) > 0) {
         
-            echo ' <div class="border-bottom-0">';
             echo '<table class="table table-hover">';
             echo '<thead>';
             echo '<tr>';
@@ -80,7 +80,7 @@
             while ($row = mysqli_fetch_array($result)) {
                 echo '<tr>';
                 echo '<th scope="row">' . $row['id'] . '</th>';
-                echo '<td><img src="image/' . $row['image_url'] . '" alt="..." style="width:71.5px ;height:45px;"></td>';
+                echo '<td><img src="images/newsImg/' . $row['image_url'] . '" alt="..." style="width:71.5px ;height:45px;"></td>';
                 echo '<td>' . $row['title'] . '</td>';
                 echo '<td>' . $row['author'] . '</td>';
                 echo '<td>' . $row['publish_date'] . '</td>';
@@ -91,7 +91,7 @@
                 echo '<form action="deleteNews.php" method="POST">';
                 echo '<input type="hidden" name="id" value="' . $row["id"] . '">';
                 echo '<td><button id="delete-news" class="delete-button">Delete</button></td></form>';
-                echo '</tr></div>';
+                echo '</tr>';
             }
             echo '</tbody>';
             echo '</table>';
@@ -99,7 +99,8 @@
             echo "No results";
         }
 
-
+        echo '</div>';
+        
         ?>
     </div>
 </body>
