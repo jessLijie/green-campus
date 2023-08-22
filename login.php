@@ -40,7 +40,10 @@
                     $_SESSION['login'] = "yes";
                     $_SESSION['role'] = $row["urole"];
 
-                    header("location:./main.php");
+                    if($_SESSION['role'] == "admin")
+                        header("location:./adminHome.php");
+                    else
+                        header("location:./userHome.php");
                 }
                 else{
                     echo "<div class='error'>

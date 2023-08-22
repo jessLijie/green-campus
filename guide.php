@@ -21,13 +21,14 @@
                 <div class="item">
                     <div class="slideContent">
                         <h1>Green Campus Transportation</h1>
-                        <iframe width="600" height="355" src="https://www.youtube.com/embed/2M8FZiKQ798?si=Mvsgbvga5Od3VY4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        <p>
-                            Walking and Biking
-                            Public Transportation
-                            Carpooling and Ride-Sharing
-                            Electric and Hybrid Vehicles
+                        <p class="slideContentDescription">
+                            - Walking and Biking
+                            - Public Transportation
+                            - Carpooling and Ride-Sharing
+                            - Electric and Hybrid Vehicles
                         </p>
+                        <iframe width="600" height="355" src="https://www.youtube.com/embed/2M8FZiKQ798?si=Mvsgbvga5Od3VY4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        
                     </div>
                 </div>
                 <div class="item">
@@ -75,7 +76,7 @@
                 active = active - 1 >= 0 ? active - 1 : lengthItems;
                 reloadSlider();
             }
-            // let refreshInterval = setInterval(()=> {next.click()}, 3000);
+            let refreshInterval = setInterval(()=> {next.click()}, 3000);
             function reloadSlider(){
                 slider.style.left = -items[active].offsetLeft + 'px';
                 
@@ -83,8 +84,8 @@
                 last_active_dot.classList.remove('active');
                 dots[active].classList.add('active');
 
-                // clearInterval(refreshInterval);
-                // refreshInterval = setInterval(()=> {next.click()}, 3000);
+                clearInterval(refreshInterval);
+                refreshInterval = setInterval(()=> {next.click()}, 3000);
  
             }
 

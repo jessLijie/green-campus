@@ -101,7 +101,7 @@
                 </a>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($currentPage=="home")? 'active' : ''?> " aria-current="page" href="main.php"> <i class="bi bi-house"></i> Home</a>
+                        <a class="nav-link <?php echo ($currentPage=="home")? 'active' : ''?> " aria-current="page" href="<?php echo (isset($_SESSION['role'])) ? (($_SESSION['role']=="admin")? 'adminHome.php' : 'userHome.php') : 'main.php' ?>"> <i class="bi bi-house"></i> Home</a>
                     </li>
 
                     <div class="account">

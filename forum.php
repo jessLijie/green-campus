@@ -13,7 +13,6 @@ if(isset($_SESSION['userID'])){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="./css/forum.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Greenify UTM</title>
 </head>
 <body>
@@ -137,14 +136,14 @@ if(isset($_SESSION['userID'])){
                                     <div class="dropdownContainer">
                                         <form method="post" action="" >
                                             <input type='hidden' name='action' value='edit' />
-                                            <input type='hidden' name='editpostID' value='<?php echo $row['postID']; ?>' />
+                                            <input type='hidden' name='editpostID' value="<?php echo $row['postID']; ?>" />
                                             <button type="submit" class='editpost'>
                                                 <i class="bi bi-pencil-square"></i>Edit Post
                                             </button>
                                         </form>
 
                                         <form method="post" action="">
-                                            <input type='hidden' name='delpostID' value='<?php echo $row['postID']; ?>' />
+                                            <input type='hidden' name='delpostID' value="<?php echo $row['postID']; ?>" />
                                             <input type='hidden' name='delpostImg' value="<?php echo $row['postPic']; ?>" />
                                             <input type='hidden' name='action' value='delete' />
                                             <button type="submit" class='delpost' onClick="javascript: return confirm('Please confirm deletion.');">
@@ -160,17 +159,17 @@ if(isset($_SESSION['userID'])){
                                 dropdownbtns.forEach(function(dropdownbtn) {
                                     dropdownbtn.addEventListener('click', function(event) {
                                         event.stopPropagation(); // Prevent the click from propagating to the window
-                                        
                                         // Close all other open dropdowns
                                         closeAllDropdownsExcept(this);
-                                        if (this.classList.contains('dropActive')) {
-                                            console.log("hi");
-                                            this.classList.remove('dropActive');
-                                        } else {
-                                            console.log("bye");
-                                            this.classList.add('dropActive');
+                                        
+                                        if(this.classList.contains("dropActive")){
+                                            console.log("h");
+                                            this.classList.remove("dropActive");
+                                        }else{
+                                            console.log("b");
+                                            this.classList.add("dropActive");
                                         }
-                                        console.log(this.classList);
+                                        
                                     });
                                 });
 

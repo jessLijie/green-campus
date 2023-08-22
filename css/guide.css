@@ -12,7 +12,7 @@
     margin: auto;
     position: relative;
     overflow: hidden;
-    background-color: lightblue;
+    background-color: #c2eabe;
 }
 .slider .slideList{
     position: absolute;
@@ -32,10 +32,10 @@
 .slideContent{
     width: 80%;
     height: 80%;
-    border: 2px black dotted;
     white-space: wrap;
+    text-align: center;
 }
-.slideContent p{
+.slideContent .slideContentDescription{
     
 }
 .slider .buttons{

@@ -71,7 +71,7 @@ if (isset($_SESSION['success_message'])) {
                         </tr>
                     </table>
 
-                    <p id="tips">💡 Tips : Click on the icons to start navigation ! </p>
+                    <p id="tips">💡 Tips : Click on the icons on map to start navigation ! </p>
                 </div>
             </center>
 
@@ -92,7 +92,7 @@ if (isset($_SESSION['success_message'])) {
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="deleteModalLabel">🗑️ Delete Items</h1>
+                            <h1 class="modal-title fs-5" id="deleteModalLabel">🗑 Delete Items</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -367,7 +367,9 @@ if (isset($_SESSION['success_message'])) {
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBte_REyjpbShM5sBpPLVEXRgFRsCbohes&map_ids=79fc16395651c35a&callback=initMap">
-        </script>
+    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 
 
 </body>
