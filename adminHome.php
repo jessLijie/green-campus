@@ -65,7 +65,7 @@
 </head>
 
 <body>
-    <?php include("header.php");
+    <?php include("header.php");?>
     <div class="d-flex flex-nowrap" style="margin: 2%">
         <div class="overflow-auto" style="height: 500px; width: 3800px; margin: 4%; ">
             <div style="display: block; margin-bottom: 1% "><a href="adminManage.php"><button type="button" class="btn btn-primary">Manage
