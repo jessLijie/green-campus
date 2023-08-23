@@ -100,7 +100,7 @@
                     $upload = move_uploaded_file($src, $dst);
 
                     if($upload==false){
-                        $_SESSION['upload'] = "<div class='error><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Upload Image.</div>";
+                        $_SESSION['upload'] = "<div class='error><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to upload image.</div>";
                         header('location: forum.php');
                         die();
                     }
@@ -133,10 +133,10 @@
 
             $result2 = mysqli_query($con, $sql2);
             if($result2==true){
-                $_SESSION['edit'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Post Edited Successfully.</div>";
+                $_SESSION['editpost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Post edited successfully.</div>";
                 
             } else {
-                $_SESSION['edit'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Edit Post.</div>";
+                $_SESSION['editpost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to edit post.</div>";
                 
             }
         }
