@@ -1,4 +1,9 @@
-<?php session_start(); ?>
+<?php session_start(); 
+$currentPage = "home"; 
+if(isset($_SESSION['userID'])){
+    $userID = $_SESSION['userID'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

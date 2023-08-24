@@ -40,7 +40,7 @@
         <?php
         //edit
         if(isset($_POST['editCommentSubmit'])){
-            //echo "<meta http-equiv='refresh' content='0'>";
+            echo "<meta http-equiv='refresh' content='0'>";
             $cid = $_POST['cid'];
             $comment = $_POST['newComment'];
 
@@ -54,10 +54,10 @@
 
             $resUpdateComment = mysqli_query($con, $sqlupdatecomment);
             if($resUpdateComment==true){
-                $_SESSION['editcomment'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Comment Edited Successfully.</div>";
+                $_SESSION['editcomment'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Comment edited successfully.</div>";
                 
             } else {
-                $_SESSION['editcomment'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Edit Comment.</div>";
+                $_SESSION['editcomment'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to edit comment.</div>";
                 
             }
         }

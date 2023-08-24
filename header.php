@@ -64,6 +64,7 @@
                 top: 40px;
                 right: 0;
                 background-color: white;
+                min-width: 150px;
                 width: 100%;
                 height: 0;
                 transition: height 0.3s linear;
