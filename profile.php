@@ -27,8 +27,7 @@
 </head>
 
 <body>
-    <?php include('header.php'); ?>
-    <?php
+    <?php include('header.php');
     include("connectdb.php");
 
     if (isset($_SESSION['username'])) {
@@ -44,7 +43,7 @@
         <h1 style="margin-top: 0">Profile</h1>
         <form>
             <div class="profile-container">
-                <img src="profileimage/profile.jpg" alt="Avatar" class="round" width="300" height="400">
+                <img src="images/profileImg/profile.jpg" alt="Avatar" class="round" width="300" height="400">
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

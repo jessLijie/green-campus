@@ -81,27 +81,27 @@
       <div style="display: inline-flex; width:100%; justify-content: space-between">
         <div style="display: inline-flex">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" style="padding: 0">
               <a href="userHome.php" style="text-decoration: none"><button class="nav-link active" id="all-tab"
                   data-bs-toggle="tab" data-bs-target="#all-tab-pane" type="submit" role="tab"
-                  aria-controls="all-tab-pane" aria-selected="true">All</button></a>
+                  aria-controls="all-tab-pane" aria-selected="true" style="padding: 8px 16px;">All</button></a>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" style="padding: 0">
               <button class="nav-link" id="campusNews-tab" data-bs-toggle="tab" data-bs-target="#campusNews-tab-pane"
-                type="button" role="tab" aria-controls="campusNews-tab-pane" aria-selected="false">Campus News</button>
+                type="button" role="tab" aria-controls="campusNews-tab-pane" aria-selected="false" style="padding: 8px 16px;">Campus News</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" style="padding: 0">
               <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events-tab-pane"
-                type="button" role="tab" aria-controls="events-tab-pane" aria-selected="false">Events</button>
+                type="button" role="tab" aria-controls="events-tab-pane" aria-selected="false" style="padding: 8px 16px;">Events</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" style="padding: 0">
               <button class="nav-link" id="achievements-tab" data-bs-toggle="tab"
                 data-bs-target="#achievements-tab-pane" type="button" role="tab" aria-controls="achievements-tab-pane"
-                aria-selected="false">Achievements</button>
+                aria-selected="false" style="padding: 8px 16px;">Achievements</button>
             </li>
-            <li class="nav-item" role="presentation">
+            <li class="nav-item" role="presentation" style="padding: 0">
               <button class="nav-link" id="facilities-tab" data-bs-toggle="tab" data-bs-target="#facilities-tab-pane"
-                type="button" role="tab" aria-controls="facilities-tab-pane" aria-selected="false">Facilities</button>
+                type="button" role="tab" aria-controls="facilities-tab-pane" aria-selected="false" style="padding: 8px 16px;">Facilities</button>
             </li>
           </ul>
         </div>
