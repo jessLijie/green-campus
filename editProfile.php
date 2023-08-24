@@ -57,7 +57,7 @@
                 $fileName = basename($_FILES["file"]["name"]);
                 $targetFilePath = $targetDir . $fileName;
                 $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-        
+
                 $allowTypes = array('jpg', 'png', 'jpeg', 'gif');
                 if (in_array($fileType, $allowTypes)) {
                     if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
@@ -91,7 +91,8 @@
         <h1 style="margin-top: 0">Edit Profile</h1>
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="profile-container">
-                <img src="images/profileImg/profile.jpg" alt="Avatar" class="round" width="300" height="400">
+                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];} ?>" alt="Avatar" class="round" width="300"
+                    height="400">
             </div>
 
             <div class="mb-3">
