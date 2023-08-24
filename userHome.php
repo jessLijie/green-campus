@@ -113,7 +113,7 @@ if(isset($_SESSION['userID'])){
         <div style="display: inline-flex; margin-right: 1.5%">
           <form class="d-flex" action="" method="GET">
             <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <button class="btn btn-outline-success" type="submit">Search1</button>
           </form>
         </div>
       </div>
