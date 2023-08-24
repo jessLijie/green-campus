@@ -1,16 +1,16 @@
 <?php
 session_start();
 
-$include("connectdb.php");
+include("connectdb.php");
 
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
     $sql = "DELETE FROM newsfeed WHERE id = '$id'";
 
     if (mysqli_query($con, $sql)) {
         echo "News deleted successfully.";
-        header('Location: adminHome.php');
+        header('Location: adminManage.php');
         exit;
     } else {
         echo "Error deleting user: " . mysqli_error($con);
