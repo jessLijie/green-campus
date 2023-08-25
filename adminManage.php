@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start();
+include("header.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,14 +20,23 @@
             margin-top: 1%;
             border: #dee2e6 1px solid;
         }
+
+        .returnLink {
+            color: grey;
+            text-decoration: none;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
 <body>
+    <?php
+    include("connectdb.php");
+    ?>
     <div>
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin: 3% 6% 0% 6%">
-                <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid" style="margin: 2% 6% 1% 6%">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#createNewsModal">Create News</button>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -36,7 +47,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin: 0">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         </ul>
-                        <form class="d-flex" action="adminSearch.php" method="GET">
+                        <form class="d-flex" action="" method="GET">
                             <input class="form-control me-2" type="search" name="query" placeholder="Search"
                                 aria-label="Search">
                             <button class="btn btn-outline-success" type="submit">Search</button>
@@ -97,17 +108,23 @@
             </div>
         </div>
 
-        <div class="border-bottom-0">
+        <div style="margin: 0% 6% 2% 6%">
             <?php
-            $con = mysqli_connect("localhost", "root", "", "greenify");
 
-            if (!$con) {
-                die('Could not connect: ' . mysqli_connect_error());
+            $result = "";
+
+            if (isset($_GET['query'])) {
+                $query = mysqli_real_escape_string($con, $_GET['query']);
+                $query = "%" . $query . "%";
+                $result = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
+                echo '<a href="adminManage.php" class="returnLink">< Return to previous page</a>';
+                echo '<h5>Search results for : ' . $_GET['query'] . '</h5>';
+
+            } else {
+                $result = mysqli_query($con, "SELECT * FROM newsfeed");
             }
 
-            $result = mysqli_query($con, "SELECT * FROM newsfeed");
-
-            echo '<table class="table table-hover">';
+            echo '<table class="table table-hover" style="border: 1px #dee2e6 solid;">';
             echo '<thead>';
             echo '<tr>';
             echo '<th scope="col">ID</th>';
@@ -127,7 +144,7 @@
                 echo '<td>' . $row['title'] . '</td>';
                 echo '<td>' . $row['author'] . '</td>';
                 echo '<td>' . $row['publish_date'] . '</td>';
-                echo '<td>' . $row['category'] . '</td>';          
+                echo '<td>' . $row['category'] . '</td>';
                 echo '<td><button type="button" class="edit-button" data-bs-toggle="modal"
                 data-bs-target="#editNewsModal' . $row['id'] . '">Edit</button></td>';
 
@@ -203,9 +220,7 @@
 
                 <?php
 
-                echo '<form action="deleteNews.php" method="POST">';
-                echo '<input type="hidden" name="id" value="' . $row["id"] . '">';
-                echo '<td><button id="delete-news" class="delete-button">Delete</button></td></form>';
+                echo '<td><button id="delete-news" class="delete-button" onclick="showDeleteConfirmation('.$row['id'].')">Delete</button></td>';
                 echo '</tr>';
             }
             echo '</tbody>';
@@ -213,7 +228,13 @@
             ?>
         </div>
 
-
+        <script>
+            function showDeleteConfirmation(id) {
+            if (confirm("Are you sure you want to delete this news?")) {
+                window.location.href = "deleteNews.php?id=" + id;
+            }
+        }
+        </script>
 
     </div>
 </body>

@@ -70,44 +70,55 @@ if(isset($_SESSION['userID'])){
 </head>
 
 <body>
-    <?php include("header.php"); ?>
+  <?php
+  include("header.php");
+  include("connectdb.php");
+
+  $query = "%%";
+
+  if (isset($_GET['query'])) {
+    $query = mysqli_real_escape_string($con, $_GET['query']);
+    $query = "%" . $query . "%";
+  }
+  ?>
   <div class="d-flex flex-nowrap" style="margin: 2%">
-    <div class="overflow-auto" style="height: 500px; width: 3800px; margin: 4%; ">
-    <div style="display: inline-flex; width:100%; justify-content: space-between">
-      <div style="display: inline-flex">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#all-tab-pane"
-              type="submit" role="tab" aria-controls="all-tab-pane" aria-selected="true">All</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="campusNews-tab" data-bs-toggle="tab" data-bs-target="#campusNews-tab-pane"
-              type="button" role="tab" aria-controls="campusNews-tab-pane" aria-selected="false">Campus News</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events-tab-pane"
-              type="button" role="tab" aria-controls="events-tab-pane" aria-selected="false">Events</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="achievements-tab" data-bs-toggle="tab" data-bs-target="#achievements-tab-pane"
-              type="button" role="tab" aria-controls="achievements-tab-pane" aria-selected="false">Achievements</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="facilities-tab" data-bs-toggle="tab" data-bs-target="#facilities-tab-pane"
-              type="button" role="tab" aria-controls="facilities-tab-pane" aria-selected="false">Facilities</button>
-          </li>
-        </ul>
+    <div class="overflow-auto" style="height: 550px; width: 3800px; margin: 4%; ">
+      <div style="display: inline-flex; width:100%; justify-content: space-between">
+        <div style="display: inline-flex">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation" style="padding: 0">
+              <a href="userHome.php" style="text-decoration: none"><button class="nav-link active" id="all-tab"
+                  data-bs-toggle="tab" data-bs-target="#all-tab-pane" type="submit" role="tab"
+                  aria-controls="all-tab-pane" aria-selected="true" style="padding: 8px 16px;">All</button></a>
+            </li>
+            <li class="nav-item" role="presentation" style="padding: 0">
+              <button class="nav-link" id="campusNews-tab" data-bs-toggle="tab" data-bs-target="#campusNews-tab-pane"
+                type="button" role="tab" aria-controls="campusNews-tab-pane" aria-selected="false" style="padding: 8px 16px;">Campus News</button>
+            </li>
+            <li class="nav-item" role="presentation" style="padding: 0">
+              <button class="nav-link" id="events-tab" data-bs-toggle="tab" data-bs-target="#events-tab-pane"
+                type="button" role="tab" aria-controls="events-tab-pane" aria-selected="false" style="padding: 8px 16px;">Events</button>
+            </li>
+            <li class="nav-item" role="presentation" style="padding: 0">
+              <button class="nav-link" id="achievements-tab" data-bs-toggle="tab"
+                data-bs-target="#achievements-tab-pane" type="button" role="tab" aria-controls="achievements-tab-pane"
+                aria-selected="false" style="padding: 8px 16px;">Achievements</button>
+            </li>
+            <li class="nav-item" role="presentation" style="padding: 0">
+              <button class="nav-link" id="facilities-tab" data-bs-toggle="tab" data-bs-target="#facilities-tab-pane"
+                type="button" role="tab" aria-controls="facilities-tab-pane" aria-selected="false" style="padding: 8px 16px;">Facilities</button>
+            </li>
+          </ul>
+        </div>
+        <div style="display: inline-flex; margin-right: 1.5%">
+          <form class="d-flex" action="" method="GET">
+            <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
       </div>
-      <div style="display: inline-flex; margin-right: 1.5%">
-        <form class="d-flex" action="userSearch.php" method="GET">
-          <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-      </div>
-  </div>
 
       <?php
-      include("connectdb.php");
 
       function newsfees($result)
       {
@@ -132,7 +143,7 @@ if(isset($_SESSION['userID'])){
       ?>
       <div class="tab-content" id="myTabContent" style="padding-top: 1%; padding-bottom: 1%;">
         <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
-          <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed");
+          <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
           newsfees($result1); ?>
         </div>
         <div class="tab-pane fade" id="campusNews-tab-pane" role="tabpanel" aria-labelledby="campusNews-tab"

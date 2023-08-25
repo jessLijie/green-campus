@@ -31,7 +31,7 @@ if (isset($_POST['createNews'])) {
                 $insert = mysqli_query($con, "UPDATE newsfeed SET image_url = ('" . $fileName . "') WHERE title = '$newTitle'");
                 if ($insert) {
                     $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
-                    header('Location: adminHome.php');
+                    header('Location: adminManage.php');
                     exit;
                 } else {
                     $statusMsg = "File upload failed, please try again.";
