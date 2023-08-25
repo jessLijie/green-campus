@@ -17,59 +17,111 @@
 <body>
     <?php include('header.php'); ?>
     <div class="pageContainer">
-        <div class="wrapper">
-
-            <header>Forgot Password</header>
-
-            <?php
+        <?php
             include("./connectdb.php");
+            use PHPMailer\PHPMailer\PHPMailer;
+            use PHPMailer\PHPMailer\Exception;
 
-            if(isset($_POST['submit'])){
-                $email = mysqli_real_escape_string($con, $_POST['email']);
-                $password = mysqli_real_escape_string($con, $_POST['password']);
-                $encrypted_password=md5($password);
+            require './/PHPMailer/src/Exception.php';
+            require './/PHPMailer/src/PHPMailer.php';
+            require './PHPMailer/src/SMTP.php';
 
-                $sql = "SELECT * FROM users WHERE email='$email' && upassword='$encrypted_password'";
-                $result = mysqli_query($con, $sql);
-                
-                if(mysqli_num_rows($result)===1){
-                    $row = mysqli_fetch_array($result);
-                    $_SESSION['email'] = $row['email'];
-                    $_SESSION['username'] = $row['username'];
-                    $_SESSION['userID'] = $row['userID'];
-                    $_SESSION['login'] = "yes";
-                    $_SESSION['role'] = $row["urole"];
-
-                    if($_SESSION['role'] == "admin")
-                        header("location:./adminHome.php");
-                    else
-                        header("location:./userHome.php");
+            if(isset($_POST["email"]) && (!empty($_POST["email"]))){
+                $email = $_POST["email"];
+                $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+                $error="";
+                if (!$email) {
+                    $error ="<p>Invalid email address please type a valid email address!</p>";
+                }else{
+                    $sel_query = "SELECT * FROM `users` WHERE email='".$email."'";
+                    $results = mysqli_query($con,$sel_query);
+                    $row = mysqli_num_rows($results);
+                    if ($row==""){
+                    $error = "<p>No user is registered with this email address!</p>";
+                    }
                 }
-                else{
-                    echo "<div class='error'>
-                    <p>Wrong username or password.</p>
-                    </div>";
+                if($error!=""){
+                    echo "<div class='error'>".$error."</div>
+                    <br /><a href='javascript:history.go(-1)'>Go Back</a>";
+                }else{
+                    $expFormat = mktime(
+                    date("H"), date("i"), date("s"), date("m") ,date("d")+1, date("Y")
+                    );
+                    $expDate = date("Y-m-d H:i:s",$expFormat);
+                    $key = md5((2418*2).$email);
+                    $addKey = substr(md5(uniqid(rand(),1)),3,10);
+                    $key = $key . $addKey;
+                    // Insert Temp Table
+                    mysqli_query($con,
+                    "INSERT INTO `password_reset_temp` (`email`, `key`, `expDate`)
+                    VALUES ('".$email."', '".$key."', '".$expDate."');");
+                    
+                    $output='<p>Dear user,</p>';
+                    $output.='<p>Please click on the following link to reset your password.</p>';
+                    $output.='<p>-------------------------------------------------------------</p>';
+                    //output link
+                    $output.='<p><a href="localhost/utm/AppDev/reset-password.php?
+                    key='.$key.'&email='.$email.'&action=reset" target="_blank">
+                    localhost/utm/AppDev/reset-password.php?
+                    key='.$key.'&email='.$email.'&action=reset</a></p>';		
+                    $output.='<p>-------------------------------------------------------------</p>';
+                    $output.='<p>Please be sure to copy the entire link into your browser.
+                    The link will expire after 1 day for security reason.</p>';
+                    $output.='<p>If you did not request this forgotten password email, no action 
+                    is needed, your password will not be reset. However, you may want to log into 
+                    your account and change your security password as someone may have guessed it.</p>';   	
+                    $output.='<p>Thanks,</p>';
+                    $output.='<p>Greenify UTM</p>';
+                    $body = $output; 
+                    $subject = "Password Recovery - GREENIFY UTM";
+                    
+                    $email_to = $email;
+                    $fromserver = "jingyi012@gmail.com"; 
+                    
+                    $mail = new PHPMailer();
+                    $mail->IsSMTP();
+                    $mail->Host = "smtp.gmail.com"; // Enter your host here
+                    $mail->SMTPAuth = true;
+                    $mail->Username = "jingyi012@gmail.com"; // Enter your email here
+                    $mail->Password = "nflbirgfeskiimgo"; //Enter your password here
+                    $mail->Port = 465;
+                    $mail->SMTPSecure = 'ssl';
+                    $mail->IsHTML(true);
+                    $mail->From = "jingyi012@gmail.com";
+                    $mail->FromName = "GREENIFY";
+                    $mail->Sender = $fromserver; // indicates ReturnPath header
+                    $mail->Subject = $subject;
+                    $mail->Body = $body;
+                    $mail->AddAddress($email_to);
+                    if(!$mail->Send()){
+                        echo "Mailer Error: " . $mail->ErrorInfo;
+                    }else{
+                        echo "<div class='success'>
+                        <p>An email has been sent to you with instructions on how to reset your password.</p>
+                        </div><br /><br /><br />";
+                    }
                 }
-            }
-            
-            ?>
-
-            <form action="" method="post" id="forgotPasswordForm" onsubmit="return formValidation()">
-                <div class="field email">
-                    <div class="input-area">
-                        <input type="text" placeholder="Email Address" name="email" id="email" onchange="checkEmail()">
-                        <i class="icon fas fa-envelope"></i>
-                        <i class="error error-icon fas fa-exclamation-circle"></i>
+            }else{
+        ?>
+            <div class="wrapper">
+                <header>Forgot Password</header>
+                <form action="" method="post" id="forgotPasswordForm" onsubmit="return formValidation()">
+                    <div class="field email">
+                        <div class="input-area">
+                            <input type="text" placeholder="Email Address" name="email" id="email" onchange="checkEmail()">
+                            <i class="icon fas fa-envelope"></i>
+                            <i class="error error-icon fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="error error-txt">Email can't be blank</div>
                     </div>
-                    <div class="error error-txt">Email can't be blank</div>
-                </div>
-                <input type="submit" value="Submit" name="submit">
-            </form>
+                    <input type="submit" value="Submit" name="submit">
+                </form>
 
-            <div class="sign-txt"><a href="login.php">Back to login</a></div>
-        </div>
+                <div class="sign-txt"><a href="login.php">Back to login</a></div>
+            </div>
+        <?php } ?>
     </div>
-    
     <script>
             const form = document.getElementById("forgotPasswordForm");
                 eField = form.querySelector(".email"),
