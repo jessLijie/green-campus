@@ -14,6 +14,11 @@
             background-image: linear-gradient(to right, #8a64d6, #0cead9)
         }
 
+        .errorMsg{
+            font-size: small;
+            color: red;
+        }
+
         img.round {
             object-fit: cover;
             border-radius: 50%;
@@ -44,6 +49,10 @@
     include('connectdb.php');
 
     $statusMsg = '';
+    $userErrorMsg = '';
+    $emailErrorMsg = '';
+    $newEmail = '';
+    $newUsername = '';
     $targetDir = "images/profileImg/";
 
     if (isset($_SESSION['username'])) {
@@ -62,6 +71,14 @@
 
 
         if ((mysqli_num_rows($verify_email) != 0 && $newEmail != $row['email']) || (mysqli_num_rows($verify_username) != 0 && $newUsername != $row['username'])) {
+            if (mysqli_num_rows($verify_email) != 0 && $newEmail != $row['email']) {
+                $emailErrorMsg = 'A user with this email address already exists.';
+            } 
+            
+            if (mysqli_num_rows($verify_username) != 0 && $newUsername != $row['username']) {
+                $userErrorMsg = 'A user with this username already exists.';
+            }
+
         } else {
 
             $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail' WHERE username='$username'";
@@ -121,7 +138,8 @@
                 <label for="newUsername" class="form-label">Username</label>
                 <div>
                     <input type="text" class="form-control" id="newUsername" name="newUsername"
-                        value="<?php echo $row['username']; ?>">
+                        value="<?php if($newUsername){ echo $newUsername; }else{ echo $row['username']; }?>" required>
+                    <p class="errorMsg"><?php echo $userErrorMsg ?><p>
                 </div>
             </div>
 
@@ -129,7 +147,8 @@
                 <label for="newEmail" class="form-label">Email address</label>
                 <div>
                     <input type="email" class="form-control" id="newEmail" name="newEmail"
-                        value="<?php echo $row['email']; ?>">
+                        value="<?php if($newEmail){ echo $newEmail; }else{ echo $row['email']; } ?>" required>
+                    <p class="errorMsg"><?php echo $emailErrorMsg ?><p>
                 </div>
             </div>
 
