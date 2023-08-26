@@ -44,9 +44,11 @@
         $newUsername = $_POST['newUsername'];
         $newEmail = $_POST['newEmail'];
 
-        $verify_query = mysqli_query($con, "SELECT email FROM users WHERE email='$newEmail'");
+        $verify_email = mysqli_query($con, "SELECT email FROM users WHERE email='$newEmail'");
+        $verify_username=mysqli_query($con, "SELECT username FROM users WHERE username='$newUsername'");
 
-        if (mysqli_num_rows($verify_query) != 0 && $newEmail != $row['email']) {
+        
+        if ((mysqli_num_rows($verify_email) != 0 && $newEmail != $row['email']) || (mysqli_num_rows($verify_username) != 0 && $newUsername != $row['username'])) {
         } else {
 
             $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail' WHERE username='$username'";
@@ -91,7 +93,7 @@
         <h1 style="margin-top: 0">Edit Profile</h1>
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="profile-container">
-                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];} ?>" alt="Avatar" class="round" width="300"
+                <img src="images/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo 'profileImg/' .$row['userImage'];}?>" alt="Avatar" class="round" width="300"
                     height="400">
             </div>
 

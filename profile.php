@@ -43,7 +43,7 @@
         <h1 style="margin-top: 0">Profile</h1>
         <form>
             <div class="profile-container">
-                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="Avatar" class="round" width="300" height="400">
+                <img src="images/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo 'profileImg/' .$row['userImage'];}?>" alt="Avatar" class="round" width="300" height="400">
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
