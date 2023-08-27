@@ -48,7 +48,7 @@
     <?php 
         if(isset($_GET["postID"])){
             $postID = $_GET["postID"];
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     WHERE post.postID=$postID
@@ -59,7 +59,8 @@
             $postContent = $row['postContent'];
             $postImg = $row['postPic'];
             $postDate = $row['postDate'];
-            $postUser = $row['username'];   
+            $postUser = $row['username'];
+            $postUserImg = $row['userImage'];
         } else {
             header("location:forum.php");
         }
@@ -153,7 +154,8 @@
             <div class="post-content-container">
                 <div class="post-header">
                     <div class="postUserInfo">
-                        <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i>
+                        <img src="images/profileImg/<?php if(!$postUserImg){echo 'defaultprofile.png';}else{echo $postUserImg;}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
+                        <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                         <span class="post_user_date">
                             <div>
                                 <?php echo $postUser; ?>
@@ -230,7 +232,8 @@
             <div class="post-comment-container">
                 <div style="margin: 0 0 10px 0" >Total <?php echo $row['commentNum']; ?> comments</div>
                 <div class="addcomment">
-                    <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i>
+                    <img src="images/profileImg/<?php if(!$postUserImg){echo 'defaultprofile.png';}else{echo $postUserImg;}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
+                    <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                     <form action="" method="post">
                         <input type="text" name="postComment" class="commentInput" required />
                         <input type="hidden" name="pid" value="<?php echo $postID ?>"/>
@@ -239,7 +242,7 @@
                 </div>
                 <div class="comment-list">
                     <?php
-                    $sql = "SELECT comments.*, users.username FROM comments
+                    $sql = "SELECT comments.*, users.username, users.userImage FROM comments
                             LEFT JOIN users ON comments.userID=users.userID
                             WHERE postID=$postID
                             ORDER BY comments.commentDate DESC";
@@ -254,7 +257,8 @@
                     ?>
                     <div class="comment">
                         <div class="commentUser">
-                            <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i>
+                            <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
+                            <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                             <p style='margin: 0 10px 0 0; font-weight: bold;'><?php echo $cusername; ?></p>
                             <p style='margin: 0;'><?php echo $ctime; ?></p>
                         </div>

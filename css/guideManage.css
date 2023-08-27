@@ -1,0 +1,136 @@
+.guideManageContainer{
+    padding: 60px 50px 20px;
+    min-height: 100vh;
+    min-width: 1000px;
+    border: 2px red solid;
+}
+
+.goback{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
+
+.guideMTool{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.guidefilter{
+    display: flex;
+    align-items: center;
+}
+
+.searchBar{
+    width: 300px !important;
+}
+.searchbtn{
+    border: 1px solid lightgray !important;
+}
+
+.addGuideBtn{
+    border-radius: 5px;
+    white-space: nowrap;
+    padding: 6px 10px;
+    background-color: rgb(206, 255, 206);
+    border: 1px solid green;
+}
+.addGuideBtn:hover{
+    background-color: rgb(143, 217, 143);
+}
+
+.title{
+    font-size: 35px;
+    text-align: center;
+}
+
+table{
+    border-spacing: 0;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+td{
+    border-top: rgb(205, 208, 218) solid 1px;
+    padding: 10px;
+}
+
+th{
+    background-color: #cffde2;
+    padding: 10px;
+}
+
+th:first-child{
+    border-top-left-radius: 5px;
+    padding-left: 20px;
+}
+th:last-child{
+    border-top-right-radius: 5px;
+    padding-right: 20px;
+}
+
+.editguide{
+    border: 1px solid rgb(106, 106, 244);
+    background-color: rgb(163, 212, 255);
+    border-radius: 5px;
+}
+
+.delguide{
+    border: 1px solid red;
+    background-color: rgb(242, 179, 179);
+    border-radius: 5px;
+}
+
+.error{
+    border: rgb(250, 145, 145) solid 2px;
+    background-color: rgb(251, 161, 161);
+}
+
+.success{
+    border: rgb(171, 255, 171) solid 2px;
+    background-color: rgb(195, 255, 202);
+}
+
+.success, .error{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 10px;
+    width: fit-content;
+    margin-left: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 20px;
+    right: 40px;
+    animation: deleteAnimation 5s linear forwards;;
+    animation-fill-mode: forwards;
+}
+@keyframes deleteAnimation {
+    0% {
+        /* opacity: 1; */
+        right: -200px;
+    }
+    20%{
+        right: 40px;
+    }
+    40%{
+        right: 40px;
+    }
+    70%{
+        right: 40px;
+    }
+    90%{
+        right: -100px;
+    }
+    100% {
+        right: -200px;
+        display: none;
+    }
+  }
+
+.success img, .error img{
+    margin-right: 10px;
+}

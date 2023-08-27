@@ -108,7 +108,7 @@
                     <div class="account">
                         <div class="accountInfo">
                             <li class="nav-item">
-                                <a class="nav-link <?php echo ($currentPage=="locate")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>" > <i class="bi bi-geo-alt"></i> Locate
+                                <a class="nav-link <?php echo ($currentPage=="locate")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>" > <i class="bi bi-geo-alt"></i>Locate
                                 <i class="bi bi-caret-down-fill" style='margin: 0 10px;'></i></a>
                             </li>
                         </div>

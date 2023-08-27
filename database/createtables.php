@@ -11,6 +11,20 @@ $sql1 = "CREATE TABLE users (
 )";
 mysqli_query($con, $sql1);
 
+$sql = "INSERT INTO users(username, upassword, email, urole)
+        VALUES ('admin', 'md5(1122)', 'admin@gmail.com', 'admin'),
+        ('jingyi', 'md5(1122)', 'jingyi012@gmail.com', 'user'),
+        ('Jess', 'md5(1122)', 'wongjie@graduate.utm.my', 'user');";
+mysqli_query($con, $sql);
+
+$sql="CREATE TABLE `password_reset_temp` (
+        `email` varchar(250) NOT NULL,
+        `key` varchar(250) NOT NULL,
+        `expDate` datetime NOT NULL,
+          FOREIGN KEY (email) REFERENCES users(email)
+      )";
+mysqli_query($con, $sql);
+
 $sql="CREATE TABLE post (
         postID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         postTitle varchar(255),
@@ -100,5 +114,13 @@ $sql1 = "CREATE TABLE NewsFeed (
         category VARCHAR(50)
 )";
 mysqli_query($con, $sql1);
+
+$sql = "CREATE TABLE guides(
+        guideID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        guideTitle varchar(255) NOT NULL,
+        guideContent TEXT,
+        guideImg varchar(255),
+        guideCategory varchar(255)
+)";
 
 ?>

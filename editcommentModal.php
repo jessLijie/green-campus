@@ -1,6 +1,4 @@
 <html>
-    <head>
-    </head>
     <body>
         <?php 
         if(isset($_POST['editcommentID'])){
@@ -25,13 +23,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                <form class="addPostForm" action="" method="post">
+                <form class="modalForm" action="" method="post">
                     <div>
-                        <label for="inputNewComment">New Comment:</label>
-                        <input type="text" class="inputNewComment" id="inputNewComment" name="newComment" value="<?php if(isset($_POST['editcommentID'])){ echo $rowcommentedit['commentContent']; } ?>" required />
+                        <label for="inputNewComment" class="form-label">New Comment:</label>
+                        <input type="text" class="form-control" id="inputNewComment" name="newComment" value="<?php if(isset($_POST['editcommentID'])){ echo $rowcommentedit['commentContent']; } ?>" required />
                     </div>
                     <input type="hidden" name="cid" value="<?php echo $ecommentid; ?>" />
-                    <div class="submitbtnStyle"><button type="submit" name="editCommentSubmit" id="submit" class="submitbtn">Submit</button></div>
+                    <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editCommentSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
                 </form>
                 </div>
                 </div>

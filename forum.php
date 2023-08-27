@@ -45,7 +45,7 @@ if(isset($_SESSION['userID'])){
         //filter by category and search
         if(isset($_GET['category'])){
             $category_ = $_GET['category'];
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     WHERE post.postCategory=$category_
@@ -54,7 +54,7 @@ if(isset($_SESSION['userID'])){
 
         } else if(isset($_GET['mypost'])){
             if($_GET['mypost']==true){
-                $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+                $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                         LEFT JOIN users ON post.userID=users.userID
                         LEFT JOIN comments ON comments.postID=post.postID
                         WHERE post.userID=$userID
@@ -63,7 +63,7 @@ if(isset($_SESSION['userID'])){
             }
         } else if(isset($_GET['search'])){
             $search_val = $_GET['search_val'];
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     WHERE post.postTitle LIKE '%$search_val%'
@@ -71,7 +71,7 @@ if(isset($_SESSION['userID'])){
                     ORDER BY post.postDate DESC";
 
         } else {
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     GROUP BY postID
@@ -151,15 +151,16 @@ if(isset($_SESSION['userID'])){
                             $postPic = $row['postPic'];
                             $postUser = $row['username'];
                             $postDate = $row['postDate'];
+                            $postUserImg = $row['userImage'];
                 ?>
-                <span class="posthover">
+                <div class="posthover">
                 <div class='post'>
                     <!-- name -->
                     <div class='postHeader'>
                         <span>
                             <div class='postInfo'>
-                                <!--<img src='images/icon.png' style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>-->
-                                <i class="bi bi-person-circle" style='margin-right: 10px;'></i>
+                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>
+                                <!-- <i class="bi bi-person-circle" style='margin-right: 10px;'></i> -->
                                 <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
                                 <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>
                             </div>
@@ -217,7 +218,7 @@ if(isset($_SESSION['userID'])){
                         </div>
                     </a>
                </div>
-                </span>
+                </div>
                <hr>
             
             <?php
@@ -273,6 +274,7 @@ if(isset($_SESSION['userID'])){
     <script>
             document.addEventListener('DOMContentLoaded', function() {
             var dropdownbtns = document.querySelectorAll(".postFeature");
+            var savedScrollPosition = 0;
             
             dropdownbtns.forEach(function(dropdownbtn) {
                 dropdownbtn.addEventListener('click', function(event) {
@@ -305,6 +307,11 @@ if(isset($_SESSION['userID'])){
                     }
                 });
             }
+
+            const myModalEl = document.getElementById('editPostFormContainer');
+            myModalEl.addEventListener('hidden.bs.modal', event => {
+                location.replace(location.href);
+            })
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
