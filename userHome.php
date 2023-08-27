@@ -49,6 +49,10 @@ if (isset($_SESSION['userID'])) {
       box-shadow: 0 0 0 transparent;
     }
 
+    .overflow-auto{
+      height: 550px; width: 3800px; margin: 4%; 
+    }
+
     input[type="number"] {
       font-size: 15px;
       line-height: 24px;
@@ -82,7 +86,7 @@ if (isset($_SESSION['userID'])) {
   }
   ?>
   <div class="d-flex flex-nowrap" style="margin: 2%">
-    <div class="overflow-auto" style="height: 550px; width: 3800px; margin: 4%; ">
+    <div class="overflow-auto">
       <div style="display: inline-flex; width:100%; justify-content: space-between">
         <div style="display: inline-flex">
           <ul class="nav nav-tabs" id="myTab" role="tablist">

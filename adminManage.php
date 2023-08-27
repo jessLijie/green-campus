@@ -15,6 +15,19 @@ include("header.php");
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
     <style>
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            color: grey;
+        }
+
+        table{
+            border: 1px #dee2e6 solid;
+        }
+
         .border-bottom-0 {
             margin: 6%;
             margin-top: 1%;
@@ -131,7 +144,7 @@ include("header.php");
                 $result = mysqli_query($con, "SELECT * FROM newsfeed");
             }
 
-            echo '<table class="table table-hover" style="border: 1px #dee2e6 solid;">';
+            echo '<table class="table table-hover">';
             echo '<thead>';
             echo '<tr>';
             echo '<th scope="col">ID</th>';
@@ -148,11 +161,11 @@ include("header.php");
                 echo '<tr>';
                 echo '<th scope="row">' . $row['id'] . '</th>';
                 echo '<td><img src="images/newsImg/' . $row['image_url'] . '" alt="..." style="width:71.5px ;height:45px;"></td>';
-                echo '<td>' . $row['title'] . '</td>';
+                echo '<td><a href="newsPost.php?id=' . $row['id'] . '">' . $row['title'] . '</a></td>';
                 echo '<td>' . $row['author'] . '</td>';
                 echo '<td>' . $row['publish_date'] . '</td>';
                 echo '<td>' . $row['category'] . '</td>';
-                echo '<td><button type="button" class="edit-button" data-bs-toggle="modal"
+                echo '<td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
                 data-bs-target="#editNewsModal' . $row['id'] . '">Edit</button></td>';
 
                 ?>
@@ -234,11 +247,12 @@ include("header.php");
 
                 <?php
 
-                echo '<td><button id="delete-news" class="delete-button" onclick="showDeleteConfirmation(' . $row['id'] . ')">Delete</button></td>';
+                echo '<td><button id="delete-news"  class="btn btn-outline-danger" onclick="showDeleteConfirmation(' . $row['id'] . ')">Delete</button></td>';
                 echo '</tr>';
             }
             echo '</tbody>';
             echo '</table>';
+
             ?>
         </div>
 
