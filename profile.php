@@ -60,10 +60,10 @@
         <h2 style="margin-top: 0">Profile</h2>
         <form>
             <div class="profile-container">
-                <img src="images/<?php if (!$row['userImage']) {
+                <img src="images/profileImg/<?php if (!$row['userImage']) {
                     echo 'defaultprofile.png';
                 } else {
-                    echo 'profileImg/' . $row['userImage'];
+                    echo $row['userImage'];
                 } ?>" alt="Avatar" class="round" width="300" height="400">
             </div>
             <div class="mb-3">

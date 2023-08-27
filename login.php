@@ -39,6 +39,7 @@
                     $_SESSION['userID'] = $row['userID'];
                     $_SESSION['login'] = "yes";
                     $_SESSION['role'] = $row["urole"];
+                    $_SESSION['userImage'] = $row["userImage"];
 
                     if($_SESSION['role'] == "admin")
                         header("location:./adminHome.php");

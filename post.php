@@ -232,7 +232,7 @@
             <div class="post-comment-container">
                 <div style="margin: 0 0 10px 0" >Total <?php echo $row['commentNum']; ?> comments</div>
                 <div class="addcomment">
-                    <img src="images/profileImg/<?php if(!$postUserImg){echo 'defaultprofile.png';}else{echo $postUserImg;}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
+                    <img src="images/profileImg/<?php echo (isset($_SESSION['userImage'])&& $_SESSION['userImage']!="") ?  $_SESSION['userImage'] : 'defaultprofile.png'; ?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
                     <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                     <form action="" method="post">
                         <input type="text" name="postComment" class="commentInput" required />
