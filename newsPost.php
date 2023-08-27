@@ -16,6 +16,7 @@
 
 <body>
     <?php
+    include('header.php');
     include("connectdb.php");
     $newsPost = array('id' => '', 'title' => '', 'content' => '');
 
@@ -30,7 +31,7 @@
 
     ?>
     <div class="container mt-5">
-        <article style="margin: 15%; margin-top: 3%">
+        <article style="margin: 15%; margin-top: 7%">
             <header class="mb-4">
                 <h1 class="fw-bolder mb-1"><?php echo $newsPost['title']; ?></h1>
                 <div class="text-muted fst-italic mb-2">Posted on <?php echo date_format(date_create($newsPost['publish_date']), "d/m/Y H:i:s" ); ?> by <?php echo $newsPost['author']; ?></div>
