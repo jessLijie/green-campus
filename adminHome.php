@@ -44,6 +44,11 @@
             box-shadow: 0 0 0 transparent;
         }
 
+        .noResult {
+            text-align: center;
+            margin: 100px;
+        }
+
         input[type="number"] {
             font-size: 15px;
             line-height: 24px;
@@ -70,10 +75,12 @@
     include("connectdb.php");
 
     $query = "%%";
+    $searchMsg = "";
 
     if (isset($_GET['query'])) {
         $query = mysqli_real_escape_string($con, $_GET['query']);
         $query = "%" . $query . "%";
+        $searchMsg = "<h5>Search results for : " . $_GET['query'] . "</h5>";
     }
     ?>
     <div class="d-flex flex-nowrap" style="margin: 2%">
@@ -152,7 +159,13 @@
                 <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab"
                     tabindex="0">
                     <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
-                    newsfees($result1); ?>
+                    if (mysqli_num_rows($result1) > 0) {
+                        echo $searchMsg;
+                        newsfees($result1);
+                    } else {
+                        echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+                    }
+                    ?>
                 </div>
                 <div class="tab-pane fade" id="campusNews-tab-pane" role="tabpanel" aria-labelledby="campusNews-tab"
                     tabindex="0"><?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
@@ -192,7 +205,14 @@
             <div>
                 <p id="result" class="calculatorResult">0.00 KG of CO2</p>
             </div><br>
-            <h6>Equivalent Number of Trees :</h6>
+            <h6>Equivalent Number of Trees <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip"
+                    data-bs-placement="right" data-bs-custom-class="custom-tooltip"
+                    data-bs-title="1 mature tree (> 5 years) can absorb on average 40kg of CO2 a year.">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path
+                        d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg></h6>
             <div>
                 <p id="tree" class="calculatorResult">0 Trees </p>
                 <div>
@@ -240,6 +260,11 @@
                     document.getElementById("tree").textContent = (carbonEmission / 40).toFixed(0) + " Trees";
                 }
             </script>
+            <script>
+                const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+            </script>
+
 
 </body>
 
