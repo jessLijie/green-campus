@@ -44,6 +44,11 @@
             box-shadow: 0 0 0 transparent;
         }
 
+        .noResult {
+            text-align: center;
+            margin: 100px;
+        }
+
         input[type="number"] {
             font-size: 15px;
             line-height: 24px;
@@ -70,10 +75,12 @@
     include("connectdb.php");
 
     $query = "%%";
+    $searchMsg = "";
 
     if (isset($_GET['query'])) {
         $query = mysqli_real_escape_string($con, $_GET['query']);
         $query = "%" . $query . "%";
+        $searchMsg = "<h5>Search results for : " . $_GET['query'] . "</h5>";
     }
     ?>
     <div class="d-flex flex-nowrap" style="margin: 2%">
@@ -152,7 +159,13 @@
                 <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab"
                     tabindex="0">
                     <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
-                    newsfees($result1); ?>
+                    if (mysqli_num_rows($result1) > 0) {
+                        echo $searchMsg;
+                        newsfees($result1);
+                    } else {
+                        echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+                    }
+                    ?>
                 </div>
                 <div class="tab-pane fade" id="campusNews-tab-pane" role="tabpanel" aria-labelledby="campusNews-tab"
                     tabindex="0"><?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
