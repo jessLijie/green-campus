@@ -59,7 +59,6 @@
         $username = $_SESSION['username'];
         $result = mysqli_query($con, "SELECT * FROM users WHERE username = '$username'");
         $row = mysqli_fetch_array($result);
-
     }
 
     if (isset($_POST['editProfile'])) {
