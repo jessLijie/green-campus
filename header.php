@@ -104,8 +104,6 @@
                         <a class="nav-link <?php echo ($currentPage=="home")? 'active' : ''?> " aria-current="page" href="main.php"> <i class="bi bi-house"></i> Home</a>
                     </li>
 
-                    
-
                     <div class="account">
                     <div class="accountInfo">
                     <li class="nav-item">

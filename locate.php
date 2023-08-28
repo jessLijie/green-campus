@@ -71,11 +71,12 @@ if (isset($_SESSION['success_message'])) {
                         </tr>
                     </table>
 
-                    <p id="tips">💡 Tips : Click on the icons to start navigation ! </p>
+                    <p id="tips">💡 Tips : Click on the icons on map to start navigation ! </p>
                 </div>
             </center>
 
             <!-- Button trigger modal -->
+            <?php if($_SESSION['urole']=='admin'){ ?>
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-outline-danger"
                     style="margin-top:20px;width:100px;margin-right:15px" data-bs-toggle="modal"
@@ -87,6 +88,7 @@ if (isset($_SESSION['success_message'])) {
                     Create
                 </button>
             </div>
+            <?php }?>
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -213,9 +215,6 @@ if (isset($_SESSION['success_message'])) {
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="events">
-
             </div>
         </div>
 
@@ -367,7 +366,9 @@ if (isset($_SESSION['success_message'])) {
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBte_REyjpbShM5sBpPLVEXRgFRsCbohes&map_ids=79fc16395651c35a&callback=initMap">
-        </script>
+    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 
 
 </body>

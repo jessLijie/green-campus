@@ -11,17 +11,25 @@ $sql1 = "CREATE TABLE users (
 )";
 mysqli_query($con, $sql1);
 
-$sql2= "CREATE TABLE events (
-        eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        eventName varchar(50),
-        latitude decimal(20, 16),
-        longitude decimal(20, 16),
-        eventDescp text,
-        organizer varchar(255),
-        startDate date,
-        endDate date,
-        duration int GENERATED ALWAYS AS (DATEDIFF(endDate, startDate)) STORED
+$sql2 = "CREATE TABLE events (
+    eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    eventName varchar(50),
+    latitude decimal(20, 16),
+    longitude decimal(20, 16),
+    category varchar(50),
+    eventDescp text,
+    organizer varchar(255),
+    startDate datetime,
+    endDate datetime,
+    duration varchar(100) GENERATED ALWAYS AS (
+        CONCAT(
+            FLOOR(HOUR(TIMEDIFF(endDate, startDate)) / 24), ' days ',
+            MOD(HOUR(TIMEDIFF(endDate, startDate)), 24), ' hours ',
+            MINUTE(TIMEDIFF(endDate, startDate)), ' minutes'
+        )
+    ) STORED
 )";
+
 mysqli_query($con,$sql2);
 
 $sql3 = "CREATE TABLE labelled_item(
