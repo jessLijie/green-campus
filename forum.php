@@ -159,7 +159,7 @@ if(isset($_SESSION['userID'])){
                     <div class='postHeader'>
                         <span>
                             <div class='postInfo'>
-                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>
+                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 10px'>
                                 <!-- <i class="bi bi-person-circle" style='margin-right: 10px;'></i> -->
                                 <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
                                 <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>

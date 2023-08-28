@@ -18,7 +18,29 @@ if(isset($_SESSION['urole'])){
         <title>Greenify UTM</title>
     </head>
     <body>
-        <?php include("header.php"); ?>
+        <?php include("header.php"); 
+        if(isset($_SESSION['editguide'])){
+            echo $_SESSION['editguide'];
+            unset($_SESSION['editguide']);
+        }
+        if(isset($_SESSION['upload'])){
+            echo $_SESSION['upload'];
+            unset($_SESSION['upload']);
+        }
+        if(isset($_SESSION['addguide'])){
+            echo $_SESSION['addguide'];
+            unset($_SESSION['addguide']);
+        }
+        if(isset($_SESSION['deleteGuide'])){
+            echo $_SESSION['deleteGuide'];
+            unset($_SESSION['deleteGuide']);
+        }
+        if(isset($_SESSION['remove-failed'])){
+            echo $_SESSION['remove-failed'];
+            unset($_SESSION['remove-failed']);
+        }
+        ?>
+        ?>
         <?php
 
             if(isset($_GET["filter"]) && isset($_GET["search"])){
@@ -47,7 +69,7 @@ if(isset($_SESSION['urole'])){
                     $remove = unlink($path);
             
                     if($remove==false){
-                        $_SESSION['deleteGuide'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
+                        $_SESSION['remove-failed'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
                         header("location: guideManage.php");
                         die();
                     }

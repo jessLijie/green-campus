@@ -26,11 +26,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editGuideFormContainerLabel">Edit Post</h1>
+                <h1 class="modal-title fs-5" id="editGuideFormContainerLabel">Edit Guide</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form class="modalForm" action="" method="guide" enctype="multipart/form-data">
+            <form class="modalForm" action="" method="POST" enctype="multipart/form-data">
                 <div>
                     <label for="eguideTitle" class="form-label">Title:</label>
                     <input type="text" class="form-control" id="eguideTitle" name="eguideTitle" value="<?php if(isset($_POST['editguideID'])){ echo $rowedit['guideTitle']; } ?>" required />
@@ -57,17 +57,17 @@
                 <div>   
                     <label for="category" class="form-label">Category:</label>
                     <select name="ecategory" id="category" class='form-select'>
-                        <option value='environment-protection' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Environment Protection")){ echo "selected"; } ?>>Environment Protection</option>
-                        <option value='energy-resource' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Energy and Resource")){ echo "selected"; } ?>>Energy and Resource</option>
-                        <option value='waste-recycling' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Waste Reduction and Recycling")){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
-                        <option value='carbon-footprint' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Carbon Footprint")){ echo "selected"; } ?>>Carbon Footprint</option>
-                        <option value='transportation' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']=="Transportation"){ echo "selected"; } ?>>Transportation</option>
-                        <option value='other' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']=="Other"){ echo "selected"; } ?>>Other</option>
+                        <option value='<?php echo htmlspecialchars("Environment Protection"); ?>' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Environment Protection")){ echo "selected"; } ?>>Environment Protection</option>
+                        <option value='<?php echo htmlspecialchars("Energy and Resource"); ?>' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Energy and Resource")){ echo "selected"; } ?>>Energy and Resource</option>
+                        <option value='<?php echo htmlspecialchars("Waste Reduction and Recycling"); ?>' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Waste Reduction and Recycling")){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
+                        <option value='<?php echo htmlspecialchars("Carbon Footprint"); ?>' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']==htmlspecialchars("Carbon Footprint")){ echo "selected"; } ?>>Carbon Footprint</option>
+                        <option value='Transportation' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']=="Transportation"){ echo "selected"; } ?>>Transportation</option>
+                        <option value='Other' <?php if(isset($_POST['editguideID']) && $rowedit['guideCategory']=="Other"){ echo "selected"; } ?>>Other</option>
                     </select>
                 </div>
                 <input type="hidden" name="eid" value="<?php echo $editguideid; ?>" />
                 <input type="hidden" name="currentImg" value="<?php echo $currentImg; ?>" />
-                <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editPostSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
+                <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editGuideSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
             </form>
             </div>
             </div>
@@ -75,8 +75,9 @@
         </div>
         <?php
         //edit
-        if(isset($_POST['editPostSubmit'])){
+        if(isset($_POST['editGuideSubmit'])){
             echo "<meta http-equiv='refresh' content='0'>";
+            
             $etitle = $_POST['eguideTitle'];
             $econtent = $_POST['eguideContent'];
             $ecategory = $_POST['ecategory'];
@@ -130,7 +131,7 @@
                     guideTitle = '$etitle',
                     guideContent = '$econtent',
                     guideImg='$guideImgName',
-                    guideCategory='$ecategory',
+                    guideCategory='$ecategory'
                     WHERE guideID = $eguideid
                     ";
 
