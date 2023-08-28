@@ -164,7 +164,7 @@ if (isset($_SESSION['userID'])) {
             echo $searchMsg;
             newsfees($result1);
           } else {
-            echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+            echo '<h2 class="noResult">We could not find anything for " ' . $query . '".</h2>';
           }
           ?>
         </div>

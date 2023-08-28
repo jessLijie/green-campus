@@ -96,7 +96,7 @@ if(isset($_SESSION['userID'])){
             $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
             $resdelpost = mysqli_query($con, $sqlDelpost);
             if($resdelpost){
-                $_SESSION['deletepost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
+                $_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
                 header("location: forum.php");
             } else{
                 $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";

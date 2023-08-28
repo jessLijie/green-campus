@@ -15,6 +15,14 @@ if(isset($_SESSION['urole'])){
 </head>
 <body>
     <?php include("header.php"); ?>
+    <?php 
+    if(isset($_GET['category'])){
+        $guideCategory = $_GET['category'];
+        $guideSql = "SELECT * FROM guides WHERE guideCategory=$guideCategory";
+    } else {
+        $guideSql = "SELECT * FROM guides";
+    }
+    ?>
     <div class="guidePageContainer">
         <div class="slider">
             <div class="slideList">
@@ -101,12 +109,12 @@ if(isset($_SESSION['urole'])){
                 <h4>Category</h4>
                 <div class="guideCategorylist">
                     <a href="guide.php"><h6>All</h6></a>
-                    <a href="guide.php?category='environment-protection'"><h6>Environment Protection</h6></a>
-                    <a href="guide.php?category='energy-resource'"><h6>Energy and Resource</h6></a>
-                    <a href="guide.php?category='waste-recycling'"><h6>Waste Reduction and Recycling</h6></a>
-                    <a href="guide.php?category='carbon-footprint'"><h6>Carbon Footprint</h6></a>
-                    <a href="guide.php?category='transportation'"><h6>Transportation</h6></a>
-                    <a href="guide.php?category='other'"><h6>Other</h6></a>
+                    <a href="guide.php?category='<?php echo htmlspecialchars("Environment Protection"); ?>'"><h6>Environment Protection</h6></a>
+                    <a href="guide.php?category='<?php echo htmlspecialchars("Energy and Resource"); ?>'"><h6>Energy and Resource</h6></a>
+                    <a href="guide.php?category='<?php echo htmlspecialchars("Waste Reduction and Recycling"); ?>'"><h6>Waste Reduction and Recycling</h6></a>
+                    <a href="guide.php?category='<?php echo htmlspecialchars("Carbon Footprint"); ?>'"><h6>Carbon Footprint</h6></a>
+                    <a href="guide.php?category='Transportation'"><h6>Transportation</h6></a>
+                    <a href="guide.php?category='Other'"><h6>Other</h6></a>
                 </div>
             </div>
             
@@ -116,22 +124,35 @@ if(isset($_SESSION['urole'])){
                     <a href="./guideManage.php" class="manageIcon"><i class="bi bi-gear"></i></a>
                 </div>
                 
-                <div class="guideCardList">
-                    <div class="guideCard">
-                        <img src="images/guideImg/earthday.jpg" class="guideImg" />
-                        <div class="guideCategory">
-                            Environment Protection
+                <div class="guideCardList" id="guideCardList">
+                    <?php 
+                        $resguide = mysqli_query($con, $guideSql);
+                        $count = mysqli_num_rows($resguide);
+                        if($count>0){
+                            while($row=mysqli_fetch_assoc($resguide)){
+                                $guideTitle = $row['guideTitle'];
+                                $guideContent = $row['guideContent'];
+                                $guideImg = $row['guideImg'];
+                                $guideCategory = $row['guideCategory']; ?>
+                            
+                        <div class="guideCard">
+                            <img src="images/guideImg/<?php echo $guideImg; ?>" class="guideImg" />
+                            <div class="guideCategory">
+                                <?php echo $guideCategory; ?>
+                            </div>
+                            <div class="guideTitle">
+                                <?php echo $guideTitle; ?>
+                            </div>
+                            <div class="guideDescription">
+                            <?php echo $guideContent; ?>
+                            </div>
+                            <div class="learnmore">
+                                <span>Learn more</span> <i class="bi bi-arrow-right-short"></i>
+                            </div>
                         </div>
-                        <div class="guideTitle">
-                            How to protect our lovely Environment ddddddd dddddddd dddddd?
-                        </div>
-                        <div class="guideDescription">
-                            To overcome this problem, we should eeeedd dedwdfdsf dfsffsefc esc cccccccccccc cccccccccc...
-                        </div>
-                        <div class="learnmore">
-                            Learn more ->
-                        </div>
-                    </div>
+                        <?php 
+                            }
+                        } ?>
                 </div>
             </div>
         </div>
