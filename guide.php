@@ -1,5 +1,10 @@
 <?php session_start(); ?>
-<?php $currentPage = "guide"; ?>
+<?php $currentPage = "guide"; 
+include("connectdb.php");
+if(isset($_SESSION['urole'])){
+    $role = $_SESSION['urole'];
+}
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -20,29 +25,22 @@
                 </div>
                 <div class="item">
                     <div class="slideContent">
-                        <h1>Green Campus Transportation</h1>
-                        <iframe width="600" height="355" src="https://www.youtube.com/embed/2M8FZiKQ798?si=Mvsgbvga5Od3VY4w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        <p>
-                            Walking and Biking
-                            Public Transportation
-                            Carpooling and Ride-Sharing
-                            Electric and Hybrid Vehicles
-                        </p>
+                        <img src="./images/guideImg/transport.png" alt="transportation" height="100%" />
                     </div>
                 </div>
                 <div class="item">
                     <div class="slideContent">
-                    <img src="./images/guideImg/recycle.png" alt="environment-protection" height="100%" />
+                        <img src="./images/guideImg/recycle.png" alt="recycle" height="100%" />
                     </div>
                 </div>
                 <div class="item">
                     <div class="slideContent">
-                        Item 4
+                        <img src="./images/guideImg/energy.jpg" alt="energy" height="100%" />
                     </div>
                 </div>
                 <div class="item">
                     <div class="slideContent">
-                        Item 5
+                        <img src="./images/guideImg/carbonfootprint.jpg" alt="energy" height="100%" />
                     </div>
                 </div>
             </div>
@@ -75,7 +73,7 @@
                 active = active - 1 >= 0 ? active - 1 : lengthItems;
                 reloadSlider();
             }
-            // let refreshInterval = setInterval(()=> {next.click()}, 3000);
+            let refreshInterval = setInterval(()=> {next.click()}, 3000);
             function reloadSlider(){
                 slider.style.left = -items[active].offsetLeft + 'px';
                 
@@ -83,8 +81,8 @@
                 last_active_dot.classList.remove('active');
                 dots[active].classList.add('active');
 
-                // clearInterval(refreshInterval);
-                // refreshInterval = setInterval(()=> {next.click()}, 3000);
+                clearInterval(refreshInterval);
+                refreshInterval = setInterval(()=> {next.click()}, 3000);
  
             }
 
@@ -98,12 +96,47 @@
                 reloadSlider();
             };
         </script>
-        <div class="category-nav">
-
+        <div class="guideContainer">
+            <div class="guideCategoryNav">
+                <h4>Category</h4>
+                <div class="guideCategorylist">
+                    <a href="guide.php"><h6>All</h6></a>
+                    <a href="guide.php?category='environment-protection'"><h6>Environment Protection</h6></a>
+                    <a href="guide.php?category='energy-resource'"><h6>Energy and Resource</h6></a>
+                    <a href="guide.php?category='waste-recycling'"><h6>Waste Reduction and Recycling</h6></a>
+                    <a href="guide.php?category='carbon-footprint'"><h6>Carbon Footprint</h6></a>
+                    <a href="guide.php?category='transportation'"><h6>Transportation</h6></a>
+                    <a href="guide.php?category='other'"><h6>Other</h6></a>
+                </div>
+            </div>
+            
+            <div class="guideListContainer">
+                <div class="guideListHeader">
+                    <h4>Guide List</h4>
+                    <a href="./guideManage.php" class="manageIcon"><i class="bi bi-gear"></i></a>
+                </div>
+                
+                <div class="guideCardList">
+                    <div class="guideCard">
+                        <img src="images/guideImg/earthday.jpg" class="guideImg" />
+                        <div class="guideCategory">
+                            Environment Protection
+                        </div>
+                        <div class="guideTitle">
+                            How to protect our lovely Environment ddddddd dddddddd dddddd?
+                        </div>
+                        <div class="guideDescription">
+                            To overcome this problem, we should eeeedd dedwdfdsf dfsffsefc esc cccccccccccc cccccccccc...
+                        </div>
+                        <div class="learnmore">
+                            Learn more ->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="">
-
-        </div>
+        
+        
 
     </div>
 </body>

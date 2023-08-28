@@ -39,8 +39,12 @@
                     $_SESSION['userID'] = $row['userID'];
                     $_SESSION['login'] = "yes";
                     $_SESSION['role'] = $row["urole"];
+                    $_SESSION['userImage'] = $row["userImage"];
 
-                    header("location:./main.php");
+                    if($_SESSION['role'] == "admin")
+                        header("location:./adminHome.php");
+                    else
+                        header("location:./userHome.php");
                 }
                 else{
                     echo "<div class='error'>

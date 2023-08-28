@@ -64,6 +64,7 @@
                 top: 40px;
                 right: 0;
                 background-color: white;
+                min-width: 150px;
                 width: 100%;
                 height: 0;
                 transition: height 0.3s linear;
@@ -101,19 +102,19 @@
                 </a>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($currentPage=="home")? 'active' : ''?> " aria-current="page" href="main.php"> <i class="bi bi-house"></i> Home</a>
+                        <a class="nav-link <?php echo ($currentPage=="home")? 'active' : ''?> " aria-current="page" href="<?php echo (isset($_SESSION['role'])) ? (($_SESSION['role']=="admin")? 'adminHome.php' : 'userHome.php') : 'main.php' ?>"> <i class="bi bi-house"></i> Home</a>
                     </li>
 
                     <div class="account">
                         <div class="accountInfo">
                             <li class="nav-item">
-                                <a class="nav-link <?php echo ($currentPage=="locate")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>" > <i class="bi bi-geo-alt"></i> Locate
+                                <a class="nav-link <?php echo ($currentPage=="locate")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>" > <i class="bi bi-geo-alt"></i>Locate
                                 <i class="bi bi-caret-down-fill" style='margin: 0 10px;'></i></a>
                             </li>
                         </div>
                         <ul class="accountDropdown">
-                            <li><a href="locate.php"><i class="bi bi-signpost-2" style='margin: 0 10px 0 0;'></i>Item</a></li>
-                            <li><a href="event.php"><i class="bi bi-calendar-event" style='margin: 0 10px 0 0;'></i>Event</a></li>
+                            <li><a href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>"><i class="bi bi-signpost-2" style='margin: 0 10px 0 0;'></i>Item</a></li>
+                            <li><a href="<?php echo (isset($_SESSION['login']))? 'event.php' : 'login.php'; ?>""><i class="bi bi-calendar-event" style='margin: 0 10px 0 0;'></i>Event</a></li>
                         </ul>
                     </div>
                     
@@ -128,7 +129,7 @@
                 <?php if(isset($_SESSION['login'])){ ?>
                 <div class="account">
                     <div class="accountInfo">
-                        <img src="./images/defaultprofile.png" width="30" height="30" style="margin: 0 10px; border-radius: 15px;" alt="profilePic" />
+                        <img src="./images/profileImg/<?php echo (isset($_SESSION['userImage'])&& $_SESSION['userImage']!="") ?  $_SESSION['userImage'] : 'defaultprofile.png'; ?>"  width="30" height="30" style="margin: 0 10px; border-radius: 15px;" alt="profilePic" />
                         <p><?php echo $_SESSION['username']; ?></p>
                         <i class="bi bi-caret-down-fill" style='margin: 0 10px;'></i>
                     </div>

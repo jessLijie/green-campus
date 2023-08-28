@@ -5,6 +5,7 @@ $sql1 = "CREATE TABLE users (
         username varchar(50),
         upassword varchar(255),
         email varchar(255),
+        userImage varchar(255),
         urole varchar(20),
         CONSTRAINT UC_User_Username UNIQUE (username),
         CONSTRAINT UC_User_Email UNIQUE (email)
@@ -30,6 +31,20 @@ $sql2 = "CREATE TABLE events (
     ) STORED
     )";
     
+$sql = "INSERT INTO users(username, upassword, email, urole)
+        VALUES ('admin', 'md5(1122)', 'admin@gmail.com', 'admin'),
+        ('jingyi', 'md5(1122)', 'jingyi012@gmail.com', 'user'),
+        ('Jess', 'md5(1122)', 'wongjie@graduate.utm.my', 'user');";
+mysqli_query($con, $sql);
+
+$sql="CREATE TABLE `password_reset_temp` (
+        `email` varchar(250) NOT NULL,
+        `key` varchar(250) NOT NULL,
+        `expDate` datetime NOT NULL,
+          FOREIGN KEY (email) REFERENCES users(email)
+      )";
+mysqli_query($con, $sql);
+
 $sql="CREATE TABLE post (
         postID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         postTitle varchar(255),
@@ -97,5 +112,24 @@ $sql="CREATE TABLE comments(
         FOREIGN KEY (postID) REFERENCES post(postID) ON DELETE CASCADE
 )";
 mysqli_query($con, $sql);
+
+$sql1 = "CREATE TABLE NewsFeed (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        title VARCHAR(255) NOT NULL,
+        content TEXT NOT NULL,
+        author VARCHAR(100) NOT NULL,
+        publish_date DATETIME NOT NULL,
+        image_url VARCHAR(255),
+        category VARCHAR(50)
+)";
+mysqli_query($con, $sql1);
+
+$sql = "CREATE TABLE guides(
+        guideID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        guideTitle varchar(255) NOT NULL,
+        guideContent TEXT,
+        guideImg varchar(255),
+        guideCategory varchar(255)
+)";
 
 ?>

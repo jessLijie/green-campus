@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); ob_start();?>
 <?php 
 include('connectdb.php');
 $currentPage = "forum"; 
@@ -10,19 +10,42 @@ if(isset($_SESSION['userID'])){
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="./css/forum.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <title>Greenify UTM</title>
 </head>
 <body>
-    <?php include("header.php") ?>
+    <?php include("header.php");
+    if(isset($_SESSION['addpost'])){
+        echo $_SESSION['addpost'];
+        unset($_SESSION['addpost']);
+    }
+    if(isset($_SESSION['editpost'])){
+        echo $_SESSION['editpost'];
+        unset($_SESSION['editpost']);
+    }
+    if(isset($_SESSION['deletePost'])){
+        echo $_SESSION['deletePost'];
+        unset($_SESSION['deletePost']);
+    }
+    if(isset($_SESSION['upload'])){
+        echo $_SESSION['upload'];
+        unset($_SESSION['upload']);
+    }
+    if(isset($_SESSION['remove-failed'])){
+        echo $_SESSION['remove-failed'];
+        unset($_SESSION['remove-failed']);
+    }
+    ?>
     <?php
         //filter by category and search
         if(isset($_GET['category'])){
             $category_ = $_GET['category'];
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     WHERE post.postCategory=$category_
@@ -31,7 +54,7 @@ if(isset($_SESSION['userID'])){
 
         } else if(isset($_GET['mypost'])){
             if($_GET['mypost']==true){
-                $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+                $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                         LEFT JOIN users ON post.userID=users.userID
                         LEFT JOIN comments ON comments.postID=post.postID
                         WHERE post.userID=$userID
@@ -40,7 +63,7 @@ if(isset($_SESSION['userID'])){
             }
         } else if(isset($_GET['search'])){
             $search_val = $_GET['search_val'];
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     WHERE post.postTitle LIKE '%$search_val%'
@@ -48,7 +71,7 @@ if(isset($_SESSION['userID'])){
                     ORDER BY post.postDate DESC";
 
         } else {
-            $sql = "SELECT post.*, users.username, COUNT(comments.commentID) AS commentNum FROM post 
+            $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
                     GROUP BY postID
@@ -65,13 +88,20 @@ if(isset($_SESSION['userID'])){
                 $remove = unlink($path);
         
                 if($remove==false){
-                    $_SESSION['delete'] = "<div><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture</div>";
+                    $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
                     header("location: forum.php");
                     die();
                 }
             }
             $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
             $resdelpost = mysqli_query($con, $sqlDelpost);
+            if($resdelpost){
+                $_SESSION['deletepost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
+                header("location: forum.php");
+            } else{
+                $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
+                header("location: forum.php");
+            }
         }
         ?>
 
@@ -81,12 +111,13 @@ if(isset($_SESSION['userID'])){
                 <form action="" method="GET">  
                     <div class="search">
                         <input type="text" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="post" />
-                        <button type="submit" name="search"><i class="bi bi-search"></i></button>
+                        <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
                 </form>
             </div>
-            <hr style="color: whitesmoke;">
             <div class='forum-category'>
+                <h5>Category</h5>
+                <hr>
                 <a href="forum.php"><h3>All</h3></a>
                 <a href="forum.php?category='environment-protection'"><h3>Environment Protection</h3></a>
                 <a href="forum.php?category='energy-resource'"><h3>Energy and Resource</h3></a>
@@ -120,31 +151,34 @@ if(isset($_SESSION['userID'])){
                             $postPic = $row['postPic'];
                             $postUser = $row['username'];
                             $postDate = $row['postDate'];
+                            $postUserImg = $row['userImage'];
                 ?>
+                <div class="posthover">
                 <div class='post'>
                     <!-- name -->
                     <div class='postHeader'>
                         <span>
                             <div class='postInfo'>
-                                <!--<img src='images/icon.png' style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>-->
-                                <i class="bi bi-person-circle" style='margin-right: 10px;'></i>
+                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>
+                                <!-- <i class="bi bi-person-circle" style='margin-right: 10px;'></i> -->
                                 <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
                                 <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>
                             </div>
                             <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>
-                                <div class='postFeature'>
+                                
+                                <div class="postFeature">
                                     <i class="bi bi-three-dots threeDotImg"></i>
                                     <div class="dropdownContainer">
                                         <form method="post" action="" >
                                             <input type='hidden' name='action' value='edit' />
-                                            <input type='hidden' name='editpostID' value='<?php echo $row['postID']; ?>' />
+                                            <input type='hidden' name='editpostID' value="<?php echo $row['postID']; ?>" />
                                             <button type="submit" class='editpost'>
                                                 <i class="bi bi-pencil-square"></i>Edit Post
                                             </button>
                                         </form>
 
                                         <form method="post" action="">
-                                            <input type='hidden' name='delpostID' value='<?php echo $row['postID']; ?>' />
+                                            <input type='hidden' name='delpostID' value="<?php echo $row['postID']; ?>" />
                                             <input type='hidden' name='delpostImg' value="<?php echo $row['postPic']; ?>" />
                                             <input type='hidden' name='action' value='delete' />
                                             <button type="submit" class='delpost' onClick="javascript: return confirm('Please confirm deletion.');">
@@ -153,40 +187,7 @@ if(isset($_SESSION['userID'])){
                                         </form>
                                     </div>
                                 </div>
-                                <script>
-                                document.addEventListener('DOMContentLoaded', function() {
-                                var dropdownbtns = document.querySelectorAll(".postFeature");
-                                
-                                dropdownbtns.forEach(function(dropdownbtn) {
-                                    dropdownbtn.addEventListener('click', function(event) {
-                                        event.stopPropagation(); // Prevent the click from propagating to the window
-                                        
-                                        // Close all other open dropdowns
-                                        closeAllDropdownsExcept(this);
-                                        this.classList.add("dropActive");
-                                    });
-                                });
 
-                                window.onclick = function(event) {
-                                    var dropdowns = document.getElementsByClassName("postFeature");
-                                    for (var i = 0; i < dropdowns.length; i++) {
-                                        var openDropdown = dropdowns[i];
-                                        if (openDropdown.classList.contains('dropActive')) {
-                                            openDropdown.classList.remove('dropActive');
-                                        }
-                                    }
-                                };
-                                
-                                function closeAllDropdownsExcept(keepOpen) {
-                                    dropdownbtns.forEach(function(dropdownbtn) {
-                                        if (dropdownbtn !== keepOpen && dropdownbtn.classList.contains('dropActive')) {
-                                            dropdownbtn.classList.remove('dropActive');
-                                        }
-                                    });
-                                }
-                            });
-
-                            </script>
                             <?php } ?>
                         </span>
                     </div>
@@ -217,6 +218,7 @@ if(isset($_SESSION['userID'])){
                         </div>
                     </a>
                </div>
+                </div>
                <hr>
             
             <?php
@@ -226,12 +228,92 @@ if(isset($_SESSION['userID'])){
             ?> 
             </div>
         </div>
+        <div class="layerThree">
+            <div class="forumStatistic">
+                <h5>Forum statistic</h5>
+                <hr>
+                <?php 
+                $sqlnumpost="SELECT * FROM post";
+                $numpostResult=mysqli_query($con, $sqlnumpost);
+                $tnumpost=mysqli_num_rows($numpostResult);
+                ?>
+                <?php 
+                date_default_timezone_set('Asia/Kuala_Lumpur');
+                $todayDate=date("Y-m-d 00:00:00");
+                $sqlnumpost="SELECT * FROM post WHERE postDate>='$todayDate'";
+                $numpostResult=mysqli_query($con, $sqlnumpost);
+                $dnumpost=mysqli_num_rows($numpostResult);
+                ?>
+                <?php 
+                $sqlnumUser="SELECT * FROM users";
+                $numUserResult=mysqli_query($con, $sqlnumUser);
+                $numUser=mysqli_num_rows($numUserResult);
+                ?>
+                <table class="statisticInfo">
+                    <tr>
+                        <td>Total posts: </td>
+                        <td><?php echo $tnumpost; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Today posts: </td>
+                        <td><?php echo $dnumpost; ?></td>
+                    </tr>
+                    <tr>
+                        <td>Total users: </td>
+                        <td> <?php echo $numUser; ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
     <?php 
         include('addpostModal.php');
         include('editpostModal.php') 
-        ?>
+    ?>
 
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            var dropdownbtns = document.querySelectorAll(".postFeature");
+            var savedScrollPosition = 0;
+            
+            dropdownbtns.forEach(function(dropdownbtn) {
+                dropdownbtn.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent the click from propagating to the window
+                    // Close all other open dropdowns
+                    closeAllDropdownsExcept(this);
+                    if(this.classList.contains("dropActive")){
+                        this.classList.remove("dropActive");
+                    }else{
+                        this.classList.add("dropActive");
+                    }
+                    
+                });
+            });
+
+            window.onclick = function(event) {
+                var dropdowns = document.getElementsByClassName("postFeature");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('dropActive')) {
+                        openDropdown.classList.remove('dropActive');
+                    }
+                }
+            };
+            
+            function closeAllDropdownsExcept(keepOpen) {
+                dropdownbtns.forEach(function(dropdownbtn) {
+                    if (dropdownbtn !== keepOpen && dropdownbtn.classList.contains('dropActive')) {
+                        dropdownbtn.classList.remove('dropActive');
+                    }
+                });
+            }
+
+            const myModalEl = document.getElementById('editPostFormContainer');
+            myModalEl.addEventListener('hidden.bs.modal', event => {
+                location.replace(location.href);
+            })
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

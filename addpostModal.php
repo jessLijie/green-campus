@@ -9,22 +9,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <form class="addPostForm" action="" method="post" enctype="multipart/form-data">
+        <form class="modalForm" action="" method="post" enctype="multipart/form-data">
             <div>
-                <label for="postTitle">Title:</label>
-                <input type="text" class="inputPostTitle" id="postTitle" name="postTitle" required />
+                <label for="postTitle" class="form-label" >Title:</label>
+                <input type="text" class="form-control" id="postTitle" name="postTitle" required />
             </div>
             <div>
-                <label for="postContent">Content:</label>
-                <textarea class="inputPostContent" id="postContent" name="postContent" rows="4" required></textarea>
+                <label for="postContent" class="form-label">Content:</label>
+                <textarea class="form-control" id="postContent" name="postContent" rows="4" required></textarea>
             </div>
             <div> 
-                <label for="postImg">Image: </label>
-                <input type="file" class="inputPostImg" id="postImg" name="postImg" accept="image/*"/>
+                <label for="postImg" class="form-label">Image: </label>
+                <input type="file" class="form-control" id="postImg" name="postImg" accept="image/*"/>
             </div>
             <div>   
-                <label for='category'>Category:</label>
-                <select name="category" id="category" class='inputCategory'>
+                <label for='category' class="form-label">Category:</label>
+                <select name="category" id="category" class='form-select'>
                     <option value='environment-protection'>Environment Protection</option>
                     <option value='energy-resource'>Energy and Resource</option>
                     <option value='waste-recycling'>Waste Reduction and Recycling</option>
@@ -34,7 +34,7 @@
                 </select>
             </div>      
             
-            <div class="submitbtnStyle"><button type="submit" name="addPostSubmit" id="submit" class="submitbtn">Submit</button></div>
+            <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="addPostSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
         </form>
         </div>
         <!--<div class="modal-footer">

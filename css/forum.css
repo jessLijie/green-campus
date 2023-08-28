@@ -5,18 +5,18 @@
     min-width: 1000px;
     padding: 60px 50px 20px;
     background-color: #088F8F;
-    /* background: #088F8F url("../images/background.jpg") no-repeat fixed center;
+    /* background: #088F8F url("../images/background1.jpg") no-repeat fixed center;
     background-size: cover; */
 }
 
 .tool{
     width: 20%;
-    padding: 20px 10px;
-    margin: 10px 10px 10px 0;
+    padding: 0 10px;
+    margin: 10px 0;
     position: -webkit-sticky;
     position: sticky;
     top: 80px;
-    height: fit-content;
+    height: fit-content
 }
 
 .search input, .search button{
@@ -27,43 +27,55 @@
     padding-left: 5px;
 }
 .search {
-    padding: 10px;
+    padding: 0 0 10px 0;
+    margin: 0px 0 10px 0;
     display: flex;
     align-items: center;
 }
 
 .search input[type="text"] {
     min-width: 120px;
+    width: 100%;
 }
 
 .search button {
+    display: flex; 
+    align-items: center;
     border: none;
-    background-color: rgb(196, 242, 196);
+    background-color: rgb(64, 197, 152);
     cursor: pointer;
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .search button:hover{
-    background-color: rgb(159, 197, 159);
+    background-color: rgb(43, 149, 106);
 }
-
+.forum-category{
+    background-color: rgb(248, 248, 248);
+    border-radius: 5px;
+    padding: 10px;
+}
+.forum-category h5{
+    padding: 0 5px;
+}
 .forum-category h3{
     font-size: 18px;
-    padding: 10px;
-    color: whitesmoke;
+    padding: 10px 5px;
+    color: rgb(0, 0, 0);
     font-weight: 400;
 }
 .forum-category h3:hover{
     cursor: pointer;
-    background-color: #086e6e;
+    background-color: #d3d3d3;
+    border-radius: 5px;
 }
 .forum-category a{
     text-decoration: none;
 }
 
 .post-container{
-    width: 80%;
-    margin: 10px 0;
+    width: 60%;
+    margin: 20px 10px;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -123,11 +135,18 @@
 }
 
 .post-list{
-    padding: 10px 50px;
+    padding: 10px 40px;
     background-color: white;
     border-radius: 0 0 5px 5px;
     padding-bottom: 30px;
     height: 100%;
+}
+.posthover{
+    padding: 0px 10px;
+}
+.posthover:hover{
+    background-color: whitesmoke;
+    border-radius: 10px;
 }
 .postHeader{
     margin: 5px 0;
@@ -162,6 +181,7 @@
     right: 0;
     height: 0;
     overflow: hidden;
+    border-radius: 5px;
     transition: height 0.2s linear;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
@@ -200,7 +220,7 @@
 }
 
 .postDetails .word{
-
+    padding-right: 5px;
 }
 .word div{
     margin: 10px 0 0;
@@ -208,6 +228,9 @@
 .postTitle{
     font-size: 18px;
     font-weight: bold;
+}
+.postTitle:hover{
+    text-decoration: underline;
 }
 .postContent{
     white-space: wrap;
@@ -225,37 +248,82 @@
     margin-top: 20px;
 }
 
-.addPostForm{
-
+.layerThree{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding: 0px 10px;
+    margin: 10px 0;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 80px;
+    height: fit-content;
 }
 
-.addPostForm div{
-    margin: 10px;
-}
-
-.addPostForm div label{
-    display: block;
-}
-
-
-.inputPostContent, .inputPostTitle, .inputCategory{
+.forumStatistic{
     width: 100%;
-    background-color: rgb(235, 235, 235);
-    min-height: 18px;
-    border: 1px solid rgb(140, 140, 140)
+    background-color: rgb(248, 248, 248);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
-.submitbtnStyle{
-    text-align: center;
+.forumStatistic h5{
+    margin: 0;
 }
 
-.submitbtn{
-    margin: 20px auto;
-    background-color: rgb(127, 255, 202);
-    border: none;
-    border-radius: 20px;
-    padding: 10px 20px;
+.statisticInfo{
+    width: inherit;
+    padding:0;
+    margin: 0;
 }
-.submitbtn:hover{
-    background-color: rgb(103, 207, 164);
+
+.error{
+    border: rgb(250, 145, 145) solid 2px;
+    background-color: rgb(251, 161, 161);
+}
+
+.success{
+    border: rgb(171, 255, 171) solid 2px;
+    background-color: rgb(195, 255, 202);
+}
+
+.success, .error{
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    padding: 10px;
+    width: fit-content;
+    margin-left: 50px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    bottom: 20px;
+    right: 40px;
+    animation: deleteAnimation 5s linear forwards;;
+    animation-fill-mode: forwards;
+}
+@keyframes deleteAnimation {
+    0% {
+        /* opacity: 1; */
+        right: -200px;
+    }
+    20%{
+        right: 40px;
+    }
+    40%{
+        right: 40px;
+    }
+    70%{
+        right: 40px;
+    }
+    90%{
+        right: -100px;
+    }
+    100% {
+        right: -200px;
+        display: none;
+    }
+  }
+
+.success img, .error img{
+    margin-right: 10px;
 }

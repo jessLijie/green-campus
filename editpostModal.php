@@ -1,5 +1,10 @@
 <html>
     <head>
+        <style>
+            .modalForm div{
+                margin: 10px 0;
+            }
+        </style>
     </head>
     <body>
         <?php 
@@ -25,33 +30,33 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-            <form class="addPostForm" action="" method="post" enctype="multipart/form-data">
+            <form class="modalForm" action="" method="post" enctype="multipart/form-data">
                 <div>
-                    <label for="epostTitle">Title:</label>
-                    <input type="text" class="inputPostTitle" id="epostTitle" name="epostTitle" value="<?php if(isset($_POST['editpostID'])){ echo $rowedit['postTitle']; } ?>" required />
+                    <label for="epostTitle" class="form-label">Title:</label>
+                    <input type="text" class="form-control" id="epostTitle" name="epostTitle" value="<?php if(isset($_POST['editpostID'])){ echo $rowedit['postTitle']; } ?>" required />
                 </div>
                 <div>
-                    <label for="epostContent">Content:</label>
-                    <textarea class="inputPostContent" id="epostContent" name="epostContent" rows="4" required><?php if(isset($_POST['editpostID'])){ echo $rowedit['postContent']; } ?></textarea>
+                    <label for="epostContent" class="form-label">Content:</label>
+                    <textarea class="form-control" id="epostContent" name="epostContent" rows="4" required><?php if(isset($_POST['editpostID'])){ echo $rowedit['postContent']; } ?></textarea>
                 </div>
                 <div> 
-                    <p>Current Image: </p>
+                    <p style="margin: 0 0 8px 0;">Current Image: </p>
                     <?php
                         $currentImg = $rowedit['postPic'];
                         if($currentImg==""){
                             echo "<div class='imgerror'>Image Not Available.</div>";
                         } else {
-                            echo "<img src='./images/postImg/$currentImg' alt='post_picture' width='100px'/>";
+                            echo "<img src='./images/postImg/$currentImg' alt='post_picture' style='width:130px; max-height: 200px'/>";
                         }
                     ?>
                 </div>
                 <div> 
-                    <label for="epostImg">New Image: </label>
-                    <input type="file" class='postImg' id="epostImg" name="epostImg" accept="image/*"/>
+                    <label for="epostImg" class="form-label">New Image: </label>
+                    <input type="file" class='form-control' id="epostImg" name="epostImg" accept="image/*"/>
                 </div>
                 <div>   
-                    <label for="category">Category:</label>
-                    <select name="ecategory" id="category" class='inputCategory'>
+                    <label for="category" class="form-label">Category:</label>
+                    <select name="ecategory" id="category" class='form-select'>
                         <option value='environment-protection' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="environment-protection"){ echo "selected"; } ?>>Environment Protection</option>
                         <option value='energy-resource' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="energy-resource"){ echo "selected"; } ?>>Energy and Resource</option>
                         <option value='waste-recycling' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="waste-recycling"){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
@@ -62,7 +67,7 @@
                 </div>
                 <input type="hidden" name="eid" value="<?php echo $editpostid; ?>" />
                 <input type="hidden" name="currentImg" value="<?php echo $currentImg; ?>" />
-                <div class="submitbtnStyle"><button type="submit" name="editPostSubmit" id="submit" class="submitbtn">Submit</button></div>
+                <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editPostSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
             </form>
             </div>
             </div>
@@ -100,7 +105,7 @@
                     $upload = move_uploaded_file($src, $dst);
 
                     if($upload==false){
-                        $_SESSION['upload'] = "<div class='error><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Upload Image.</div>";
+                        $_SESSION['upload'] = "<div class='error><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to upload image.</div>";
                         header('location: forum.php');
                         die();
                     }
@@ -133,10 +138,10 @@
 
             $result2 = mysqli_query($con, $sql2);
             if($result2==true){
-                $_SESSION['edit'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Post Edited Successfully.</div>";
+                $_SESSION['editpost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Post edited successfully.</div>";
                 
             } else {
-                $_SESSION['edit'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Edit Post.</div>";
+                $_SESSION['editpost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to edit post.</div>";
                 
             }
         }
