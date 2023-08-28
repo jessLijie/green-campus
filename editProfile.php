@@ -123,7 +123,7 @@
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="profile-container">
                 <img src="images/<?php if (!$row['userImage']) {
-                    echo 'defaultprofile.png';
+                    echo 'profileImg/defaultprofile.png';
                 } else {
                     echo 'profileImg/' . $row['userImage'];
                 } ?>" alt="Avatar" class="round" width="300" height="400">
