@@ -154,7 +154,7 @@
             <div class="post-content-container">
                 <div class="post-header">
                     <div class="postUserInfo">
-                        <img src="images/profileImg/<?php if(!$postUserImg){echo 'defaultprofile.png';}else{echo $postUserImg;}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
+                        <img src="images/profileImg/<?php if(!$postUserImg){echo 'defaultprofile.png';}else{echo $postUserImg;}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 10px'>
                         <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                         <span class="post_user_date">
                             <div>

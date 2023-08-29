@@ -62,7 +62,6 @@
         $username = $_SESSION['username'];
         $result = mysqli_query($con, "SELECT * FROM users WHERE username = '$username'");
         $row = mysqli_fetch_array($result);
-
     }
 
     if (isset($_POST['editProfile'])) {
@@ -138,10 +137,10 @@
         <h2 style="margin-top: 0">Edit Profile</h2>
         <form method="POST" action="" enctype="multipart/form-data">
             <div class="profile-container">
-                <img src="images/<?php if (!$row['userImage']) {
-                    echo 'profileImg/defaultprofile.png';
+                <img src="images/profileImg/<?php if (!$row['userImage']) {
+                    echo 'defaultprofile.png';
                 } else {
-                    echo 'profileImg/' . $row['userImage'];
+                    echo $row['userImage'];
                 } ?>" alt="Avatar" class="round" width="300" height="400">
             </div>
 

@@ -96,7 +96,7 @@ if(isset($_SESSION['userID'])){
             $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
             $resdelpost = mysqli_query($con, $sqlDelpost);
             if($resdelpost){
-                $_SESSION['deletepost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
+                $_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
                 header("location: forum.php");
             } else{
                 $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
@@ -159,7 +159,7 @@ if(isset($_SESSION['userID'])){
                     <div class='postHeader'>
                         <span>
                             <div class='postInfo'>
-                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>
+                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 10px'>
                                 <!-- <i class="bi bi-person-circle" style='margin-right: 10px;'></i> -->
                                 <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
                                 <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>
