@@ -173,7 +173,7 @@ include("header.php");
                     echo '<td>' . $row['publish_date'] . '</td>';
                     echo '<td>' . $row['category'] . '</td>';
                     echo '<td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                data-bs-target="#editNewsModal' . $row['id'] . '">Edit</button></td>';
+                data-bs-target="#editNewsModal' . $row['id'] . '" style="width: 70px">Edit</button></td>';
 
                     ?>
 
@@ -220,8 +220,12 @@ include("header.php");
                                             <input type="datetime-local" class="form-control" name="publishDate"
                                                 value="<?php echo $row['publish_date']; ?>" required><br>
                                         </div>
-                                        <div class="form-group">
+                                        <div>
                                             <label for="file">Image:</label><br>
+                                            <img src="images/newsImg/<?php echo $row['image_url'] ?>" alt="..."
+                                                style="width:143px; height:90px; margin: 5px 0px"><br>
+                                        </div>
+                                        <div class="form-group">
                                             <input type="file" class="form-control" name="file"><br>
                                         </div>
                                         <div class="form-group">
@@ -254,7 +258,7 @@ include("header.php");
 
                     <?php
 
-                    echo '<td><button id="delete-news"  class="btn btn-outline-danger" onclick="showDeleteConfirmation(' . $row['id'] . ')">Delete</button></td>';
+                    echo '<td><button id="delete-news"  class="btn btn-outline-danger" onclick="showDeleteConfirmation(' . $row['id'] . ')" style="width: 70px">Delete</button></td>';
                     echo '</tr>';
                 }
 
