@@ -40,7 +40,6 @@ if(isset($_SESSION['urole'])){
             unset($_SESSION['remove-failed']);
         }
         ?>
-        ?>
         <?php
 
             if(isset($_GET["filter"]) && isset($_GET["search"])){
@@ -84,7 +83,6 @@ if(isset($_SESSION['urole'])){
                     header("location: guideManage.php");
                 }
             }
-            ?>
         ?>
 
         <div class="guideManageContainer">
@@ -93,6 +91,11 @@ if(isset($_SESSION['urole'])){
                 <span>Back</span>
             </a>
             <h1 style="font-size: 30px; text-align: center; margin: 15px 0 30px 0;">Guide List</h1>
+            <div style="margin: 20px 0; text-align: right;">
+                <button type="button" class="addGuideBtn" data-bs-toggle="modal" data-bs-target="#addGuideFormContainer">
+                        <i class="bi bi-plus-circle"></i> Add Guide
+                </button>
+            </div>
             <div class="guideMTool">
                 <div class="guidefilter">
                     <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
@@ -111,57 +114,50 @@ if(isset($_SESSION['urole'])){
                     <input type="text" name="search" class="form-control" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Guide Title" />
                     <button name="searchbtn" id="guideSearch" class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
                 </div>
-                <button type="button" class="addGuideBtn" data-bs-toggle="modal" data-bs-target="#addGuideFormContainer">
-                    Add Guide
-                </button>
             </div>
             
             <div class="guideMTable">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Image</th>
-                        <th>Category</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                
+                <table class="table table-hover">
+                    <thead class="table">
+                        <tr>
+                            <th style="width: 5%;">No</th>
+                            <th style="width: 30%;">Title</th>
+                            <th style="width: 20%;">Image</th>
+                            <th style="width: 25%;">Category</th>
+                            <th colspan="2" style="width: 10%;">Action</th>
+                        </tr>
+                    </thead>
                     <?php 
                         $result = mysqli_query($con, $sql);
                         $count = mysqli_num_rows($result);
+                        $numcount = 1;
                         if($count>0){
                             while($row=mysqli_fetch_assoc($result)){
                                 $guideID = $row['guideID'];
                                 $guideTitle = $row['guideTitle'];
-                                $guideContent = $row['guideContent'];
+                                $guideContent = nl2br($row['guideContent']);
                                 $guideImg = $row['guideImg'];
                                 $guideCategory = $row["guideCategory"];
                     ?>
-                            <tr>
-                                <td><?php echo $guideID; ?></td>
+                            <tr class="tableRow">
+                                <td><?php echo $numcount; ?></td>
                                 <td><?php echo $guideTitle; ?></td>
-                                <td><?php echo $guideContent; ?></td>
                                 <td>
                                     <?php 
                                         if($guideImg!=""){ ?>
                                             <img src="./images/guideImg/<?php echo $guideImg;?>" alt="guideImg-<?php echo $guideID; ?>" style="width: 130px; height: 100px;" />
-                                    <?php    } else{
+                                    <?php } else{
                                             echo "No Image";
                                         }
                                     ?>
                                 </td>
                                 <td><?php echo $guideCategory; ?></td>
-                                <td>
-                                    <form method="post" action="" >
-                                        <input type='hidden' name='action' value='edit' />
-                                        <input type='hidden' name='editguideID' value="<?php echo $row['guideID']; ?>" />
-                                        <button type="submit" class='editguide'>
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
+                                <td style="padding-right: 0;">
+                                    <button class='editguide' data-bs-toggle="modal" data-bs-target="#editGuideFormContainer<?php echo $guideID; ?>" > 
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
                                 </td>
-                                <td>
+                                <td style="padding-left: 0;">
                                     <form method="post" action="">
                                         <input type='hidden' name='delguideID' value="<?php echo $guideID; ?>" />
                                         <input type='hidden' name='delguideImg' value="<?php echo $guideImg; ?>" />
@@ -173,9 +169,11 @@ if(isset($_SESSION['urole'])){
                                 </td>
                             </tr>
                         <?php
+                                include("editguideModal.php");
+                                $numcount++;
                             }
                         } else {
-                            echo "<tr><td colspan='7'>No guide yet</td></tr>";
+                            echo "<tr><td colspan='6'>No guide yet</td></tr>";
                         }
                         ?>
 
@@ -184,7 +182,6 @@ if(isset($_SESSION['urole'])){
             </div>
         </div>
         <?php include("addguideModal.php"); ?>
-        <?php include("editguideModal.php"); ?>
         <script>
             var filter = document.getElementById("guideFilterOption");
             filter.addEventListener("change", function (){

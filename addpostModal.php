@@ -49,8 +49,8 @@
     $status = $statusMsg = '';
     if(isset($_POST['addPostSubmit'])){
         echo "<meta http-equiv='refresh' content='0'>";
-        $title = $_POST['postTitle'];
-        $content = $_POST['postContent'];
+        $title = mysqli_real_escape_string($con, $_POST['postTitle']);
+        $content = mysqli_real_escape_string($con, $_POST['postContent']);
         $category = $_POST['category'];
         $status = 'error';
 

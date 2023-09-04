@@ -23,7 +23,7 @@
             </div>
             <div>
                 <label for="guideContent" class="form-label">Content:</label>
-                <textarea class="form-control" id="guideContent" name="guideContent" rows="4" required></textarea>
+                <textarea class="form-control" id="guideContent" name="guideContent" rows="6" required></textarea>
             </div>
             <div> 
                 <label for="guideImg" class="form-label">Image: </label>
@@ -56,8 +56,8 @@
     $status = $statusMsg = '';
     if(isset($_POST['addGuideSubmit'])){
         echo "<meta http-equiv='refresh' content='0'>";
-        $title = $_POST['guideTitle'];
-        $content = $_POST['guideContent'];
+        $title = mysqli_real_escape_string($con, $_POST['guideTitle']);
+        $content = mysqli_real_escape_string($con, $_POST['guideContent']);
         $category = $_POST['category'];
         $status = 'error';
 
