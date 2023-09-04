@@ -43,8 +43,7 @@
         unset($_SESSION['remove-failed']);
     }
     ?>
-    <?php include("editpostModal.php"); ?>
-    <?php include("editcommentModal.php"); ?>
+
     <?php 
         if(isset($_GET["postID"])){
             $postID = $_GET["postID"];
@@ -53,14 +52,18 @@
                     LEFT JOIN comments ON comments.postID=post.postID
                     WHERE post.postID=$postID
                     GROUP BY postID";
-            $result = mysqli_query($con, $sql);
-            $row = mysqli_fetch_array($result);
+            $resultPost = mysqli_query($con, $sql);
+            $row = mysqli_fetch_array($resultPost);
+            $postID = $row['postID'];
             $postTitle = $row['postTitle'];
             $postContent = $row['postContent'];
             $postImg = $row['postPic'];
             $postDate = $row['postDate'];
+            $postUserID = $row['userID'];
             $postUser = $row['username'];
             $postUserImg = $row['userImage'];
+
+            include("editpostModal.php");
         } else {
             header("location:forum.php");
         }
@@ -155,7 +158,6 @@
                 <div class="post-header">
                     <div class="postUserInfo">
                         <img src="images/profileImg/<?php if(!$postUserImg){echo 'defaultprofile.png';}else{echo $postUserImg;}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 10px'>
-                        <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                         <span class="post_user_date">
                             <div>
                                 <?php echo $postUser; ?>
@@ -165,21 +167,17 @@
                             </div>
                         </span>
                     </div>
-                    <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>
+                    <?php if($userID == $postUserID || $_SESSION['role']=="admin" ){ ?>
                         <div class='postFeature'>
                             <i class="bi bi-three-dots threeDotImg"></i>
                             <div class="dropdownContainer">
-                                <form method="post" action="" >
-                                    <input type='hidden' name='action' value='edit' />
-                                    <input type='hidden' name='editpostID' value=<?php echo $row['postID']; ?> />
-                                    <button type="submit" class='editpost'>
-                                        <i class="bi bi-pencil-square"></i>Edit Post
-                                    </button>
-                                </form>
+                                <button type="submit" class='editpost' data-bs-toggle="modal" data-bs-target="#editPostFormContainer<?php echo $postID; ?>" >
+                                    <i class="bi bi-pencil-square"></i>Edit Post
+                                </button>
 
                                 <form method="post" action="">
-                                    <input type='hidden' name='delpostID' value=<?php echo $row['postID']; ?> />
-                                    <input type='hidden' name='delpostImg' value="<?php echo $row['postPic']; ?>" />
+                                    <input type='hidden' name='delpostID' value=<?php echo $postID; ?> />
+                                    <input type='hidden' name='delpostImg' value="<?php echo $postImg; ?>" />
                                     <input type='hidden' name='action' value='delete' />
                                     <button type="submit" class='delpost' onClick="javascript: return confirm('Please confirm deletion.');">
                                         <i class="bi bi-trash"></i>Delete Post
@@ -223,7 +221,7 @@
                     </div>
                     <?php if($postImg!=""){ ?>
                         <div class="post-image">
-                            <img src="./images/postImg/<?php echo $postImg ?>" alt="post-pic" width="100%" height="400px" />
+                            <img src="./images/postImg/<?php echo $postImg; ?>" alt="post-pic" width="100%" height="400px" />
                         </div>
                     <?php } ?>
                 </div>
@@ -233,10 +231,9 @@
                 <div style="margin: 0 0 10px 0" >Total <?php echo $row['commentNum']; ?> comments</div>
                 <div class="addcomment">
                     <img src="images/profileImg/<?php echo (isset($_SESSION['userImage'])&& $_SESSION['userImage']!="") ?  $_SESSION['userImage'] : 'defaultprofile.png'; ?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
-                    <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
                     <form action="" method="post">
                         <input type="text" name="postComment" class="commentInput" required />
-                        <input type="hidden" name="pid" value="<?php echo $postID ?>"/>
+                        <input type="hidden" name="pid" value="<?php echo $postID; ?>"/>
                         <input type="submit" name="submitComment" value="Add Comment" class="submitCommentBtn"/>
                     </form>
                 </div>
@@ -246,33 +243,32 @@
                             LEFT JOIN users ON comments.userID=users.userID
                             WHERE postID=$postID
                             ORDER BY comments.commentDate DESC";
-                    $result = mysqli_query($con, $sql);
-                    $count = mysqli_num_rows($result);
+                    $resultComment = mysqli_query($con, $sql);
+                    $count = mysqli_num_rows($resultComment);
                     if($count>0){
-                        while($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                        $commentID = $row['commentID'];
-                        $cusername = $row['username'];
-                        $ctime = $row['commentDate'];
-                        $commentContent = $row['commentContent'];
+                        while($row=mysqli_fetch_array($resultComment, MYSQLI_ASSOC)){
+                            $commentModal[$row['commentID']] = array(
+                                "cuserID" => $row['userID'],
+                                "cusername" => $row['username'],
+                                "cuserImg" => $row['userImage'],
+                                "commentTime" => $row['commentDate'],
+                                "commentContent" => $row['commentContent']
+                            );
                     ?>
                     <div class="comment">
                         <div class="commentUser">
                             <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
-                            <!-- <i class="bi bi-person-circle" style='margin: 0 10px; font-size: 30px;'></i> -->
-                            <p style='margin: 0 10px 0 0; font-weight: bold;'><?php echo $cusername; ?></p>
-                            <p style='margin: 0;'><?php echo $ctime; ?></p>
+                            <p style='margin: 0 10px 0 0; font-weight: bold;'><?php echo $row['username']; ?></p>
+                            <p style='margin: 0;'><?php echo $row['commentDate']; ?></p>
                         </div>
                         <div class="comment-content">
-                            <p style='margin: 0 0 5px 0;'><?php echo $commentContent; ?></p>
+                            <p style='margin: 0 0 5px 0;'><?php echo $row['commentContent']; ?></p>
                         </div>
                         <div class="comment-feature">
                         <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>
-                            <form method="post" action="">
-                                <input type='hidden' name='editcommentID' value='<?php echo $row['commentID']; ?>' />
-                                <button type="submit" class='editcomment'>
-                                    <i class="bi bi-pencil-square"></i>Edit
-                                </button>
-                            </form>
+                            <button class='editcomment' data-bs-toggle="modal" data-bs-target="#editCommentFormContainer<?php echo $row["commentID"]; ?>" >
+                                <i class="bi bi-pencil-square"></i>Edit
+                            </button>
                             <form method="post" action="">
                                 <input type='hidden' name='delcommentID' value='<?php echo $row['commentID']; ?>' />
                                 <button type="submit" class='delcomment' onClick="javascript: return confirm('Please confirm deletion.');">
@@ -282,7 +278,9 @@
                             <?php } ?>
                         </div>
                     </div>
-                    <?php }} else {
+                    <?php 
+                        include("editcommentModal.php"); 
+                    }} else {
                         echo "<div style='text-align: center;'>No comment yet</div>";
                     }?>
                 </div>
@@ -320,12 +318,13 @@
                     </tr>
                     <tr>
                         <td>Total users: </td>
-                        <td> <?php echo $numUser; ?></td>
+                        <td> <?php echo $numUser;?></td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+
 <?php ob_end_flush(); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -1,21 +1,7 @@
 <html>
     <body>
-        <?php 
-        if(isset($_POST['editcommentID'])){
-            echo "<script>console.log(\"Before modal code\")</script>";
-            echo "<script type='text/javascript'>
-                $(document).ready(function() {
-                    $('#editCommentFormContainer').modal('show');
-                });
-                </script>";
-            $ecommentid = $_POST['editcommentID'];
-            $sqlEditcomment = "SELECT * FROM comments WHERE commentID='$ecommentid'";
-            $resEditcomment = mysqli_query($con, $sqlEditcomment);
-            $rowcommentedit = mysqli_fetch_array($resEditcomment, MYSQLI_ASSOC);
-        }
-        ?>
         <!-- edit comment modal -->
-        <div class="modal fade .modal-dialog-centered" id="editCommentFormContainer" tabindex="-1" aria-labelledby="editCommentFormContainerLabel" aria-hidden="true">
+        <div class="modal fade .modal-dialog-centered" id="editCommentFormContainer<?php echo $row["commentID"]; ?>" tabindex="-1" aria-labelledby="editCommentFormContainerLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -26,9 +12,9 @@
                 <form class="modalForm" action="" method="post">
                     <div>
                         <label for="inputNewComment" class="form-label">New Comment:</label>
-                        <input type="text" class="form-control" id="inputNewComment" name="newComment" value="<?php if(isset($_POST['editcommentID'])){ echo $rowcommentedit['commentContent']; } ?>" required />
+                        <input type="text" class="form-control" id="inputNewComment" name="newComment" value="<?php echo $row['commentContent']; ?>" required />
                     </div>
-                    <input type="hidden" name="cid" value="<?php echo $ecommentid; ?>" />
+                    <input type="hidden" name="cid" value="<?php echo $row["commentID"]; ?>" />
                     <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editCommentSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
                 </form>
                 </div>

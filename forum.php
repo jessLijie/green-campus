@@ -110,7 +110,7 @@ if(isset($_SESSION['userID'])){
             <div class='search-box'>
                 <form action="" method="GET">  
                     <div class="search">
-                        <input type="text" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="post" />
+                        <input type="text" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Search Post" />
                         <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
                 </form>
@@ -145,13 +145,16 @@ if(isset($_SESSION['userID'])){
                     $count = mysqli_num_rows($result);
                     if($count > 0){
                         while($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                            $postID = $row['postID'];
-                            $postTitle = $row['postTitle'];
-                            $postContent = $row['postContent'];
-                            $postPic = $row['postPic'];
-                            $postUser = $row['username'];
-                            $postDate = $row['postDate'];
-                            $postUserImg = $row['userImage'];
+                            $postModalContent[$row['postID']] = array(
+                                "postTitle" => $row['postTitle'],
+                                "postContent" => $row['postContent'],
+                                "postPic" => $row['postPic'],
+                                "postCategory" => $row['postCategory'],
+                                "postUser" => $row['username'],
+                                "postDate" => $row['postDate'],
+                                "postUserImg" => $row['userImage'],
+                                "postUserID" => $row['userID']
+                            );
                 ?>
                 <div class="posthover">
                 <div class='post'>
@@ -160,23 +163,17 @@ if(isset($_SESSION['userID'])){
                         <span>
                             <div class='postInfo'>
                                 <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 10px'>
-                                <!-- <i class="bi bi-person-circle" style='margin-right: 10px;'></i> -->
-                                <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
-                                <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>
+                                <p style='margin: 0 10px 0 0;'><?php echo $row['username']; ?></p>
+                                <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($row['postDate'])) ?></p>
                             </div>
                             <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>
                                 
                                 <div class="postFeature">
                                     <i class="bi bi-three-dots threeDotImg"></i>
                                     <div class="dropdownContainer">
-                                        <form method="post" action="" >
-                                            <input type='hidden' name='action' value='edit' />
-                                            <input type='hidden' name='editpostID' value="<?php echo $row['postID']; ?>" />
-                                            <button type="submit" class='editpost'>
-                                                <i class="bi bi-pencil-square"></i>Edit Post
-                                            </button>
-                                        </form>
-
+                                        <button class='editpost' data-bs-toggle="modal" data-bs-target="#editPostFormContainer<?php echo $row["postID"]; ?>" >
+                                            <i class="bi bi-pencil-square"></i>Edit Post
+                                        </button>
                                         <form method="post" action="">
                                             <input type='hidden' name='delpostID' value="<?php echo $row['postID']; ?>" />
                                             <input type='hidden' name='delpostImg' value="<?php echo $row['postPic']; ?>" />
@@ -191,28 +188,28 @@ if(isset($_SESSION['userID'])){
                             <?php } ?>
                         </span>
                     </div>
-                    <a href="post.php?postID='<?php echo $postID ?>'" class="postlink">
+                    <a href="post.php?postID='<?php echo  $row['postID']; ?>'" class="postlink">
                         <div class='postDetails'>
                             <div class='word'>
                                 <!-- title -->
                                 <div class='postTitle'>
-                                <?php echo $postTitle; ?>
+                                <?php echo $row['postTitle']; ?>
                                 </div>
                                 <!-- description -->
                                 <div class='postContent'>
                                     <p class="pcontent">
-                                        <?php echo $postContent; ?>
+                                        <?php echo $row['postContent']; ?>
                                     </p>
                                 </div>
                                 <!-- comment -->
                                 <div class='interact'>
-                                    <span><i class="bi bi-chat-left"></i> <?php echo $row['commentNum']; ?></span>
+                                    <span><i class="bi bi-chat-dots" style="margin-right: 10px;"></i><?php echo $row['commentNum']; ?></span>
                                 </div>
                             </div>
                             <!-- picture(optional) -->
                             <div class='postPic'>
-                                <?php if($postPic != ""){ ?>
-                                    <img src="<?php echo "./images/postImg/$postPic"; ?>"  width='100' height='100' alt='tumbnail' />
+                                <?php if($row['postPic'] != ""){ ?>
+                                    <img src="<?php echo './images/postImg/' . $row['postPic']; ?>"  width='100' height='100' alt='thumbnail' />
                                 <?php } ?>
                             </div>
                         </div>
@@ -222,6 +219,7 @@ if(isset($_SESSION['userID'])){
                <hr>
             
             <?php
+                    include('editpostModal.php');
                 }}else{
                     echo "<div class='noPost'>No post yet</div>";
                 }
@@ -268,7 +266,6 @@ if(isset($_SESSION['userID'])){
     </div>
     <?php 
         include('addpostModal.php');
-        include('editpostModal.php') 
     ?>
 
     <script>
@@ -307,11 +304,6 @@ if(isset($_SESSION['userID'])){
                     }
                 });
             }
-
-            const myModalEl = document.getElementById('editPostFormContainer');
-            myModalEl.addEventListener('hidden.bs.modal', event => {
-                location.replace(location.href);
-            })
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

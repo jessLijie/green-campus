@@ -7,78 +7,64 @@
         </style>
     </head>
     <body>
-        <?php 
-        //edit post
-        if(isset($_POST['action']) && $_POST['action'] == "edit" ){
-            echo "<script type='text/javascript'>
-            $(document).ready(function() {
-                $('#editPostFormContainer').modal('show');
-            });
-            </script>";
-            $editpostid = $_POST['editpostID'];
-            $sqlEditpost = "SELECT * FROM post WHERE postID=$editpostid";
-            $reseditpost = mysqli_query($con, $sqlEditpost);
-            $rowedit = mysqli_fetch_array($reseditpost, MYSQLI_ASSOC);
-        }
-        ?>
         <!-- edit post modal -->
-        <div class="modal fade .modal-dialog-centered" id="editPostFormContainer" tabindex="-1" aria-labelledby="editPostFormContainerLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editPostFormContainerLabel">Edit Post</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal fade .modal-dialog-centered" id="editPostFormContainer<?php echo $row["postID"]; ?>" tabindex="-1" aria-labelledby="editPostFormContainerLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="editPostFormContainerLabel">Edit Post</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form class="modalForm" action="" method="post" enctype="multipart/form-data">
+                        <div>
+                            <label for="epostTitle" class="form-label">Title:</label>
+                            <input type="text" class="form-control" id="epostTitle" name="epostTitle" value="<?php echo $row['postTitle']; ?>" required />
+                        </div>
+                        <div>
+                            <label for="epostContent" class="form-label">Content:</label>
+                            <textarea class="form-control" id="epostContent" name="epostContent" rows="4" required><?php echo $row['postContent']; ?></textarea>
+                        </div>
+                        <div> 
+                            <p style="margin: 0 0 8px 0;">Current Image: </p>
+                            <?php
+                                $currentImg = $row['postPic'];
+                                if($currentImg==""){
+                                    echo "<div class='imgerror'>Image Not Available.</div>";
+                                } else {
+                                    echo "<img src='./images/postImg/$currentImg' alt='post_picture' style='width:130px; max-height: 200px'/>";
+                                }
+                            ?>
+                        </div>
+                        <div> 
+                            <label for="epostImg" class="form-label">New Image: </label>
+                            <input type="file" class='form-control' id="epostImg" name="epostImg" accept="image/*"/>
+                        </div>
+                        <div>   
+                            <label for="category" class="form-label">Category:</label>
+                            <select name="ecategory" id="category" class='form-select'>
+                                <option value='environment-protection' <?php if($row['postCategory']=="environment-protection"){ echo "selected"; } ?>>Environment Protection</option>
+                                <option value='energy-resource' <?php if($row['postCategory']=="energy-resource"){ echo "selected"; } ?>>Energy and Resource</option>
+                                <option value='waste-recycling' <?php if($row['postCategory']=="waste-recycling"){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
+                                <option value='carbon-footprint' <?php if($row['postCategory']=="carbon-footprint"){ echo "selected"; } ?>>Carbon Footprint</option>
+                                <option value='transportation' <?php if($row['postCategory']=="transportation"){ echo "selected"; } ?>>Transportation</option>
+                                <option value='other' <?php if($row['postCategory']=="other"){ echo "selected"; } ?>>Other</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="eid" value="<?php echo $row["postID"]; ?>" />
+                        <input type="hidden" name="currentImg" value="<?php echo $currentImg; ?>" />
+                        <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editPostSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
+                    </form>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-            <form class="modalForm" action="" method="post" enctype="multipart/form-data">
-                <div>
-                    <label for="epostTitle" class="form-label">Title:</label>
-                    <input type="text" class="form-control" id="epostTitle" name="epostTitle" value="<?php if(isset($_POST['editpostID'])){ echo $rowedit['postTitle']; } ?>" required />
-                </div>
-                <div>
-                    <label for="epostContent" class="form-label">Content:</label>
-                    <textarea class="form-control" id="epostContent" name="epostContent" rows="4" required><?php if(isset($_POST['editpostID'])){ echo $rowedit['postContent']; } ?></textarea>
-                </div>
-                <div> 
-                    <p style="margin: 0 0 8px 0;">Current Image: </p>
-                    <?php
-                        $currentImg = $rowedit['postPic'];
-                        if($currentImg==""){
-                            echo "<div class='imgerror'>Image Not Available.</div>";
-                        } else {
-                            echo "<img src='./images/postImg/$currentImg' alt='post_picture' style='width:130px; max-height: 200px'/>";
-                        }
-                    ?>
-                </div>
-                <div> 
-                    <label for="epostImg" class="form-label">New Image: </label>
-                    <input type="file" class='form-control' id="epostImg" name="epostImg" accept="image/*"/>
-                </div>
-                <div>   
-                    <label for="category" class="form-label">Category:</label>
-                    <select name="ecategory" id="category" class='form-select'>
-                        <option value='environment-protection' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="environment-protection"){ echo "selected"; } ?>>Environment Protection</option>
-                        <option value='energy-resource' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="energy-resource"){ echo "selected"; } ?>>Energy and Resource</option>
-                        <option value='waste-recycling' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="waste-recycling"){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
-                        <option value='carbon-footprint' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="carbon-footprint"){ echo "selected"; } ?>>Carbon Footprint</option>
-                        <option value='transportation' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="transportation"){ echo "selected"; } ?>>Transportation</option>
-                        <option value='other' <?php if(isset($_POST['editpostID']) && $rowedit['postCategory']=="other"){ echo "selected"; } ?>>Other</option>
-                    </select>
-                </div>
-                <input type="hidden" name="eid" value="<?php echo $editpostid; ?>" />
-                <input type="hidden" name="currentImg" value="<?php echo $currentImg; ?>" />
-                <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editPostSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
-            </form>
-            </div>
-            </div>
-        </div>
         </div>
         <?php
         //edit
         if(isset($_POST['editPostSubmit'])){
             echo "<meta http-equiv='refresh' content='0'>";
-            $etitle = $_POST['epostTitle'];
-            $econtent = $_POST['epostContent'];
+            $etitle = mysqli_real_escape_string($con, $_POST['epostTitle']);
+            $econtent = mysqli_real_escape_string($con, $_POST['epostContent']);
             $ecategory = $_POST['ecategory'];
             $epostid = $_POST['eid'];
             $currImg = $_POST['currentImg'];

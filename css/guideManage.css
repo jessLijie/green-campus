@@ -34,11 +34,11 @@
     border-radius: 5px;
     white-space: nowrap;
     padding: 6px 10px;
-    background-color: rgb(206, 255, 206);
-    border: 1px solid green;
+    background-color: #b3f5ce;
+    border: 1px solid rgb(131, 217, 131);
 }
 .addGuideBtn:hover{
-    background-color: rgb(143, 217, 143);
+    background-color: #87c8a2;
 }
 
 .title{
@@ -46,31 +46,24 @@
     text-align: center;
 }
 
-table{
+ table{
     border-spacing: 0;
-    text-align: center;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     width: 100%;
-    border-radius: 5px;
 }
 
 td{
     border-top: rgb(205, 208, 218) solid 1px;
-    padding: 10px;
+    padding: 15px;
 }
 
 th{
-    background-color: #cffde2;
+    background-color: #cffde2 !important;
     padding: 10px;
 }
 
-th:first-child{
-    border-top-left-radius: 5px;
-    padding-left: 20px;
-}
-th:last-child{
-    border-top-right-radius: 5px;
-    padding-right: 20px;
+.guideContent{
+    text-align: left;
 }
 
 .editguide{
@@ -79,10 +72,18 @@ th:last-child{
     border-radius: 5px;
 }
 
+.editguide:hover{
+    background-color: rgb(140, 182, 219);;
+}
+
 .delguide{
     border: 1px solid red;
     background-color: rgb(242, 179, 179);
     border-radius: 5px;
+}
+
+.delguide:hover{
+    background-color: rgb(206, 116, 116);
 }
 
 .error{
