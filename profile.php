@@ -81,6 +81,53 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <label for="matricNo" class="form-label">Matric Number</label>
+                <div>
+                    <input type="text" readonly class="form-control" id="matricNo"
+                        value="<?php echo $row['matricNo']; ?>">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="faculty" class="form-label">Faculty</label>
+                <div>
+                    <select id="faculty" name="faculty" class="form-control" disabled>
+                        <option value=""></option>
+                        <option value="Civil Engineering" <?php if ($row['faculty'] == 'Civil Engineering') {
+                            echo 'selected';
+                        } ?>>Faculty of Civil Engineering</option>
+                        <option value="Mechanical Engineering" <?php if ($row['faculty'] == 'Mechanical Engineering') {
+                            echo 'selected';
+                        } ?>>Faculty of Mechanical Engineering</option>
+                        <option value="Electrical Engineering" <?php if ($row['faculty'] == 'Electrical Engineering') {
+                            echo 'selected';
+                        } ?>>Faculty of Electrical Engineering</option>
+                        <option value="Chemical & Energy Engineering" <?php if ($row['faculty'] == 'Chemical & Energy Engineering') {
+                            echo 'selected';
+                        } ?>>Faculty of Chemical & Energy Engineering</option>
+                        <option value="Computing" <?php if ($row['faculty'] == 'Computing') {
+                            echo 'selected';
+                        } ?>>Faculty of
+                            Computing</option>
+                        <option value="Science" <?php if ($row['faculty'] == 'Science') {
+                            echo 'selected';
+                        } ?>>Faculty of
+                            Science</option>
+                        <option value="Built Environment & Surveying" <?php if ($row['faculty'] == 'Built Environment & Surveying') {
+                            echo 'selected';
+                        } ?>>Faculty of Built Environment & Surveying</option>
+                        <option value="Social Sciences & Humanities" <?php if ($row['faculty'] == 'Social Sciences & Humanities') {
+                            echo 'selected';
+                        } ?>>Faculty of Social Sciences & Humanities</option>
+                        <option value="Management" <?php if ($row['faculty'] == 'Management') {
+                            echo 'selected';
+                        } ?>>Faculty
+                            of Management</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="d-grid gap-2 d-md-block">
                 <a href="editProfile.php"><button type="button" class="btn btn-primary">Edit Profile</button></a>
             </div>

@@ -20,8 +20,16 @@ if (isset($_POST['createNews'])) {
         echo "Error updating news post: " . mysqli_error($con);
     }
 
+    $last_id = mysqli_insert_id($con);
+
     if ($_FILES["file"]["name"]) {
-        $fileName = basename($_FILES["file"]["name"]);
+
+        $newsImgName = explode('.', $_FILES["file"]["name"]);
+        $ext = end($newsImgName);
+        $newsImgName = "newsImg-" . $last_id . "-" . mt_rand(00000, 99999) . "." . $ext;
+        $fileName = $newsImgName;
+
+        // $fileName = basename($_FILES["file"]["name"]);
         $targetFilePath = $targetDir . $fileName;
         $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 

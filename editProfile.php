@@ -14,7 +14,7 @@
             background-image: linear-gradient(to right, #8a64d6, #0cead9)
         }
 
-        .errorMsg{
+        .errorMsg {
             font-size: small;
             color: red;
         }
@@ -51,9 +51,25 @@
     $statusMsg = '';
     $userErrorMsg = '';
     $emailErrorMsg = '';
+    $matricNoErrorMsg = '';
     $newEmail = '';
     $newUsername = '';
+    $newMatricNo = '';
+    $newFaculty = '';
     $targetDir = "images/profileImg/";
+
+    function selectOption($faculty, $newFaculty, $previousfaculty)
+    {
+        if ($newFaculty) {
+            if ($newFaculty == $faculty) {
+                echo 'selected';
+            }
+        } else {
+            if ($previousfaculty == $faculty) {
+                echo 'selected';
+            }
+        }
+    }
 
     if (isset($_SESSION['username'])) {
         $username = $_SESSION['username'];
@@ -64,28 +80,40 @@
     if (isset($_POST['editProfile'])) {
         $newUsername = $_POST['newUsername'];
         $newEmail = $_POST['newEmail'];
+        $newMatricNo = $_POST['newMatricNo'];
+        $newFaculty = $_POST['newFaculty'];
 
         $verify_email = mysqli_query($con, "SELECT email FROM users WHERE email='$newEmail'");
         $verify_username = mysqli_query($con, "SELECT username FROM users WHERE username='$newUsername'");
+        $verify_matricNo = mysqli_query($con, "SELECT matricNo FROM users WHERE matricNo='$newMatricNo'");
 
-
-        if ((mysqli_num_rows($verify_email) != 0 && $newEmail != $row['email']) || (mysqli_num_rows($verify_username) != 0 && $newUsername != $row['username'])) {
+        if ((mysqli_num_rows($verify_email) != 0 && $newEmail != $row['email']) || (mysqli_num_rows($verify_username) != 0 && $newUsername != $row['username']) || (mysqli_num_rows($verify_matricNo) != 0 && $newMatricNo != $row['matricNo'])) {
             if (mysqli_num_rows($verify_email) != 0 && $newEmail != $row['email']) {
                 $emailErrorMsg = 'A user with this email address already exists.';
-            } 
-            
+            }
+
             if (mysqli_num_rows($verify_username) != 0 && $newUsername != $row['username']) {
                 $userErrorMsg = 'A user with this username already exists.';
             }
 
+            if (mysqli_num_rows($verify_matricNo) != 0 && $newMatricNo != $row['matricNo']) {
+                $matricNoErrorMsg = 'A user with this matric number already exists.';
+            }
+
         } else {
 
-            $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail' WHERE username='$username'";
+            $updateQuery = "UPDATE users SET username='$newUsername', email='$newEmail', matricNo = '$newMatricNo', faculty = '$newFaculty' WHERE username='$username'";
             mysqli_query($con, $updateQuery);
             $_SESSION['username'] = $newUsername;
 
             if ($_FILES["file"]["name"]) {
-                $fileName = basename($_FILES["file"]["name"]);
+
+                //create new profile pic name
+                $profileImgName = explode('.', $_FILES["file"]["name"]);
+                $ext = end($profileImgName);
+                $profileImgName = "profileImg-" . $row['userID'] . "-" . mt_rand(00000, 99999) . "." . $ext;
+                $fileName = $profileImgName;
+                // $fileName = basename($_FILES["file"]["name"]);
                 $targetFilePath = $targetDir . $fileName;
                 $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
@@ -93,6 +121,7 @@
                 if (in_array($fileType, $allowTypes)) {
                     if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                         $insert = mysqli_query($con, "UPDATE users SET userImage = ('" . $fileName . "') WHERE email = '$newEmail'");
+                        unlink($targetDir . $row['userImage']);
                         if ($insert) {
                             $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
                         } else {
@@ -136,18 +165,60 @@
             <div class="mb-3">
                 <label for="newUsername" class="form-label">Username</label>
                 <div>
-                    <input type="text" class="form-control" id="newUsername" name="newUsername"
-                        value="<?php if($newUsername){ echo $newUsername; }else{ echo $row['username']; }?>" required>
-                    <p class="errorMsg"><?php echo $userErrorMsg ?><p>
+                    <input type="text" class="form-control" id="newUsername" name="newUsername" value="<?php if ($newUsername) {
+                        echo $newUsername;
+                    } else {
+                        echo $row['username'];
+                    } ?>" required>
+                    <p class="errorMsg">
+                        <?php echo $userErrorMsg ?>
+                    <p>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="newEmail" class="form-label">Email address</label>
                 <div>
-                    <input type="email" class="form-control" id="newEmail" name="newEmail"
-                        value="<?php if($newEmail){ echo $newEmail; }else{ echo $row['email']; } ?>" required>
-                    <p class="errorMsg"><?php echo $emailErrorMsg ?><p>
+                    <input type="email" class="form-control" id="newEmail" name="newEmail" value="<?php if ($newEmail) {
+                        echo $newEmail;
+                    } else {
+                        echo $row['email'];
+                    } ?>" required>
+                    <p class="errorMsg">
+                        <?php echo $emailErrorMsg ?>
+                    <p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="matricNo" class="form-label">Matric Number</label>
+                <div>
+                    <input type="text" class="form-control" id="newMatricNo" name="newMatricNo" value="<?php if ($newMatricNo) {
+                        echo $newMatricNo;
+                    } else {
+                        echo $row['matricNo'];
+                    } ?>" required>
+                    <p class="errorMsg">
+                        <?php echo $matricNoErrorMsg ?>
+                    <p>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="faculty" class="form-label">Faculty</label>
+                <div>
+                    <select id="faculty" name="newFaculty" class="form-control" required>
+                        <option value="">Select a faculty</option>
+                        <option value="Civil Engineering" <?php selectOption('Civil Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Civil Engineering</option>
+                        <option value="Mechanical Engineering" <?php selectOption('Mechanical Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Mechanical Engineering</option>
+                        <option value="Electrical Engineering" <?php selectOption('Electrical Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Electrical Engineering</option>
+                        <option value="Chemical & Energy Engineering" <?php selectOption('Chemical & Energy Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Chemical & Energy Engineering</option>
+                        <option value="Computing" <?php selectOption('Computing', $newFaculty, $row['faculty']) ?>>Faculty of Computing</option>
+                        <option value="Science" <?php selectOption('Science', $newFaculty, $row['faculty']) ?>>Faculty of Science</option>
+                        <option value="Built Environment & Surveying" <?php selectOption('Built Environment & Surveying', $newFaculty, $row['faculty']) ?>>Faculty of Built Environment & Surveying</option>
+                        <option value="Social Sciences & Humanities" <?php selectOption('Social Sciences & Humanities', $newFaculty, $row['faculty']) ?>>Faculty of Social Sciences & Humanities</option>
+                        <option value="Management" <?php selectOption('Management', $newFaculty, $row['faculty']) ?>>Faculty of Management</option>
+                    </select>
                 </div>
             </div>
 

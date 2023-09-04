@@ -44,9 +44,17 @@
             box-shadow: 0 0 0 transparent;
         }
 
+        .calculatorResult:hover{
+            background-image: url(images/Carbon_footprint_icon.png);
+        }
+
         .noResult {
             text-align: center;
             margin: 100px;
+        }
+
+        .card:hover{
+            background-color: #EEEEEE;
         }
 
         input[type="number"] {
@@ -189,24 +197,24 @@
 
         <div class="calculator" style="width: 100%; margin: 2%; margin-left: 0">
             <h2>Carbon Footprint Calculator</h2>
-            <label for="kwh">Electricity consumption (kWh):</label>
+            <label for="kwh">Electricity consumption (kWh)</label>
             <input type="number" id="kwh" step="any" placeholder="Enter kilowatt-hours" value="0"
                 oninput="calculateCarbon()">
             <p id="errorKwh" style="color: red"></p>
-            <label for="petrol">Petrol consumption (L):</label>
+            <label for="petrol">Petrol consumption (L)</label>
             <input type="number" id="petrol" step="any" placeholder="Enter litres" value="0"
                 oninput="calculateCarbon()">
             <p id="errorPetrol" style="color: red"></p>
-            <label for="waste">Household waste generated (kg):</label>
+            <label for="waste">Household waste generated (kg)</label>
             <input type="number" id="waste" step="any" placeholder="Enter kilograms" value="0"
                 oninput="calculateCarbon()">
             <p id="errorWaste" style="color: red"></p>
-            <h6>Estimated Carbon Footprint :</h6>
+            <h6>Estimated Carbon Footprint</h6>
             <div>
                 <p id="result" class="calculatorResult">0.00 KG of CO2</p>
             </div><br>
-            <h6>Equivalent Number of Trees <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip"
+            <h6>Equivalent Number of Trees <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
+                    fill="currentColor" class="bi bi-info-circle" viewBox="0 0 20 20" data-bs-toggle="tooltip"
                     data-bs-placement="right" data-bs-custom-class="custom-tooltip"
                     data-bs-title="1 mature tree (> 5 years) can absorb on average 40kg of CO2 a year.">
                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
