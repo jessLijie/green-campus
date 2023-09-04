@@ -44,8 +44,8 @@
             box-shadow: 0 0 0 transparent;
         }
 
-        .calculatorResult:hover{
-            background-image: url(images/Carbon_footprint_icon.png);
+        .calculatorResult:hover {
+            /* background-image: url(images/footprint.png); */
         }
 
         .noResult {
@@ -53,8 +53,9 @@
             margin: 100px;
         }
 
-        .card:hover{
+        .card:hover {
             background-color: #EEEEEE;
+            /* color: white */
         }
 
         input[type="number"] {
@@ -74,6 +75,80 @@
             outline: 0;
             box-shadow: 0 0 0 transparent;
         }
+
+        @-webkit-keyframes swing {
+            15% {
+                -webkit-transform: translateY(5px);
+                transform: translateY(5px);
+            }
+
+            30% {
+                -webkit-transform: translateY(-5px);
+                transform: translateY(-5px);
+            }
+
+            50% {
+                -webkit-transform: translateY(3px);
+                transform: translateY(3px);
+            }
+
+            65% {
+                -webkit-transform: translateY(-3px);
+                transform: translateY(-3px);
+            }
+
+            80% {
+                -webkit-transform: translateY(2px);
+                transform: translateY(2px);
+            }
+
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes swing {
+            15% {
+                -webkit-transform: translateY(5px);
+                transform: translateY(5px);
+            }
+
+            30% {
+                -webkit-transform: translateY(-5px);
+                transform: translateY(-5px);
+            }
+
+            50% {
+                -webkit-transform: translateY(3px);
+                transform: translateY(3px);
+            }
+
+            65% {
+                -webkit-transform: translateY(-3px);
+                transform: translateY(-3px);
+            }
+
+            80% {
+                -webkit-transform: translateY(2px);
+                transform: translateY(2px);
+            }
+
+            100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+        }
+
+        .swing:hover {
+            width: 70px;
+            height: 70px;
+            -webkit-animation: swing 1s ease;
+            animation: swing 1s ease;
+            -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
+        }
+
     </style>
 </head>
 
@@ -166,7 +241,7 @@
             <div class="tab-content" id="myTabContent" style="padding-top: 1%; padding-bottom: 1%;">
                 <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab"
                     tabindex="0">
-                    <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
+                    <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query' ORDER BY id DESC");
                     if (mysqli_num_rows($result1) > 0) {
                         echo $searchMsg;
                         newsfees($result1);
@@ -211,7 +286,8 @@
             <p id="errorWaste" style="color: red"></p>
             <h6>Estimated Carbon Footprint</h6>
             <div>
-                <p id="result" class="calculatorResult">0.00 KG of CO2</p>
+                <p class="calculatorResult"><span id="result">0.00 KG of CO2</span>&nbsp<img
+                        src="images/carbon-footprint.png" class="swing" width="25" height="25"></p>
             </div><br>
             <h6>Equivalent Number of Trees <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19"
                     fill="currentColor" class="bi bi-info-circle" viewBox="0 0 20 20" data-bs-toggle="tooltip"
@@ -222,7 +298,8 @@
                         d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                 </svg></h6>
             <div>
-                <p id="tree" class="calculatorResult">0 Trees </p>
+                <p class="calculatorResult"><span id="tree">0 Trees</span>&nbsp<img src="images/tree.png" class="swing" width="25"
+                        height="25"></p>
                 <div>
                 </div>
             </div>
