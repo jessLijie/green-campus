@@ -8,8 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <title>Blog Post - Start Bootstrap Template</title>
+    <title>Greenify UTM</title>
     <style>
+
         .newsImage {
             width: 140px;
             height: 85px;
@@ -25,15 +26,13 @@
             color: red;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: auto auto;
+        .newsTitle {
+            display: inline-block;
+            width: 200px;
+            max-height: 85px;
+            vertical-align: top;
         }
 
-        .grid-item{
-            text-wrap: break-word;
-            /* width: 50px; */
-        }
     </style>
 </head>
 
@@ -80,12 +79,12 @@
         </div>
         <div>
             <h3>Features</h3>
-            <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE id != $id ORDER BY id DESC LIMIT 8");
+            <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE id != $id ORDER BY  RAND() LIMIT 8");
             if (mysqli_num_rows($result1) > 0) {
                 while ($row = mysqli_fetch_array($result1)) {
                     echo '<div><a href="newsPost.php?id=' . $row['id'] . '" class="newsFeature">';
                     echo '<div style="display: inline-block"><img src="images/newsImg/' . $row['image_url'] . '" class="newsImage" alt="..."></div>';
-                    echo '<div style="display: inline-block; width: 200px; max-height: 85px;vertical-align: top">' . $row['title'] . '</div></a><hr style="margin: 0"></div>';
+                    echo '<div class="newsTitle">' . $row['title'] . '</div></a><hr style="margin: 0"></div>';
                 }
             } else {
 
