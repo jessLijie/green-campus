@@ -21,10 +21,6 @@
         echo $_SESSION['editpost'];
         unset($_SESSION['editpost']);
     }
-    if(isset($_SESSION['deletePost'])){
-        echo $_SESSION['deletePost'];
-        unset($_SESSION['deletePost']);
-    }
     if(isset($_SESSION['upload'])){
         echo $_SESSION['upload'];
         unset($_SESSION['upload']);
@@ -62,29 +58,7 @@
     ?>
     <?php
         //delete post
-        if(isset($_POST['action']) && $_POST['action']=="delete"){
-            $delpostid = $_POST['delpostID'];
-            $delpostImg = $_POST['delpostImg'];
-            if($delpostImg != ""){
-                $path = "./images/postImg/$delpostImg";
-                $remove = unlink($path);
-        
-                if($remove==false){
-                    $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
-                    header("location: forum.php");
-                    die();
-                }
-            }
-            $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
-            $resdelpost = mysqli_query($con, $sqlDelpost);
-            if($resdelpost){
-                $_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
-                header("location: forum.php");
-            } else{
-                $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
-                header("location: forum.php");
-            }
-        }
+        include("deletePost.php");
         ?>
     <div class="statusMessageBox">
         <div class="toast-content">

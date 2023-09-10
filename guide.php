@@ -221,9 +221,6 @@ if(isset($_SESSION['urole'])){
     </div>
 <script>
     $(document).ready(function() {
-    // Initial page load
-    //loadFilteredResults("All");
-
     // Handle category link clicks
     $('#categoryFilter a').click(function(e) {
         e.preventDefault();

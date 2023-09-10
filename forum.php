@@ -48,7 +48,7 @@ if(isset($_SESSION['userID'])){
             $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
-                    WHERE post.postCategory=$category_
+                    WHERE post.postCategory='$category_'
                     GROUP BY postID
                     ORDER BY post.postDate DESC";
 
@@ -80,40 +80,7 @@ if(isset($_SESSION['userID'])){
         ?>
         <?php
         //delete post
-        if(isset($_POST['action']) && $_POST['action']=="delete"){
-            $delpostid = $_POST['delpostID'];
-            $delpostImg = $_POST['delpostImg'];
-            if($delpostImg != ""){
-                $path = "./images/postImg/$delpostImg";
-                $remove = unlink($path);
-        
-                if($remove==false){
-                    $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
-                    header("location: forum.php");
-                    die();
-                }
-            }
-            $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
-            $resdelpost = mysqli_query($con, $sqlDelpost);
-            if($resdelpost){
-                //$_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
-                $_SESSION['deletePost'] = "<div class='statusMessageBox1'>
-                    <div class='toast-content'>
-                    <i class='bi bi-check2 toast-check'></i>
-                    <div class='message'>
-                        <span class='message-text text-1'>Success</span>
-                        <span class='message-text text-2'>Post deleted successfully</span>
-                    </div>
-                    </div>
-                    <i class='bi bi-x toast-close'></i>
-                    <div class='progressbar active'></div>
-            </div>";
-                header("location: forum.php");
-            } else{
-                $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
-                header("location: forum.php");
-            }
-        }
+        include("deletePost.php");
         ?>
 
     <div class='forum-container'>
@@ -130,12 +97,12 @@ if(isset($_SESSION['userID'])){
                 <h5>Category</h5>
                 <hr>
                 <a href="forum.php"><h3>All</h3></a>
-                <a href="forum.php?category='environment-protection'"><h3>Environment Protection</h3></a>
-                <a href="forum.php?category='energy-resource'"><h3>Energy and Resource</h3></a>
-                <a href="forum.php?category='waste-recycling'"><h3>Waste Reduction and Recycling</h3></a>
-                <a href="forum.php?category='carbon-footprint'"><h3>Carbon Footprint</h3></a>
-                <a href="forum.php?category='transportation'"><h3>Transportation</h3></a>
-                <a href="forum.php?category='other'"><h3>Other</h3></a>
+                <a href="forum.php?category=environment-protection"><h3>Environment Protection</h3></a>
+                <a href="forum.php?category=energy-resource"><h3>Energy and Resource</h3></a>
+                <a href="forum.php?category=waste-recycling"><h3>Waste Reduction and Recycling</h3></a>
+                <a href="forum.php?category=carbon-footprint"><h3>Carbon Footprint</h3></a>
+                <a href="forum.php?category=transportation"><h3>Transportation</h3></a>
+                <a href="forum.php?category=other"><h3>Other</h3></a>
             </div>
         </div>
         
@@ -169,7 +136,6 @@ if(isset($_SESSION['userID'])){
                 ?>
                 <div class="posthover">
                 <div class='post'>
-                    <!-- name -->
                     <div class='postHeader'>
                         <span>
                             <div class='postInfo'>
@@ -202,22 +168,18 @@ if(isset($_SESSION['userID'])){
                     <a href="post.php?postID='<?php echo  $row['postID']; ?>'" class="postlink">
                         <div class='postDetails'>
                             <div class='word'>
-                                <!-- title -->
                                 <div class='postTitle'>
                                 <?php echo $row['postTitle']; ?>
                                 </div>
-                                <!-- description -->
                                 <div class='postContent'>
                                     <p class="pcontent">
                                         <?php echo $row['postContent']; ?>
                                     </p>
                                 </div>
-                                <!-- comment -->
                                 <div class='interact'>
                                     <span><i class="bi bi-chat-dots" style="margin-right: 10px;"></i><?php echo $row['commentNum']; ?></span>
                                 </div>
                             </div>
-                            <!-- picture(optional) -->
                             <div class='postPic'>
                                 <?php if($row['postPic'] != ""){ ?>
                                     <img src="<?php echo './images/postImg/' . $row['postPic']; ?>"  width='100' height='100' alt='thumbnail' />

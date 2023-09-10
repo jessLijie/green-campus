@@ -2,7 +2,6 @@
     padding: 60px 50px 20px;
     min-height: 100vh;
     min-width: 1000px;
-    border: 2px red solid;
 }
 
 .goback{
@@ -86,52 +85,105 @@ th{
     background-color: rgb(206, 116, 116);
 }
 
-.error{
-    border: rgb(250, 145, 145) solid 2px;
-    background-color: rgb(251, 161, 161);
-}
-
-.success{
-    border: rgb(171, 255, 171) solid 2px;
-    background-color: rgb(195, 255, 202);
-}
-
-.success, .error{
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    padding: 10px;
-    width: fit-content;
-    margin-left: 50px;
+.statusMessageBox1{
     position: fixed;
-    display: flex;
-    align-items: center;
-    bottom: 20px;
+    bottom: 30px;
     right: 40px;
-    animation: deleteAnimation 5s linear forwards;;
-    animation-fill-mode: forwards;
+    background: #fff;
+    min-width: 100px;
+    min-height: 30px;
+    padding: 10px 25px 10px 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* transform: translateX(calc(100% + 100px)); */
+    /* transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35); */
+    z-index: 2;
+    animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
 }
-@keyframes deleteAnimation {
-    0% {
-        /* opacity: 1; */
-        right: -200px;
+@keyframes slideIn {
+    from {
+        transform: translateX(calc(100% + 100px));
     }
-    20%{
-        right: 40px;
+    to {
+        transform: translateX(0);
     }
-    40%{
-        right: 40px;
+}
+.statusMessageBox1.slideOut{
+    animation: slideOut 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+}
+@keyframes slideOut{
+    from {
+        transform: translateX(0);
     }
-    70%{
-        right: 40px;
+    to {
+        transform: translateX(calc(100% + 100px));
     }
-    90%{
-        right: -100px;
-    }
-    100% {
-        right: -200px;
-        display: none;
-    }
-  }
+}
 
-.success img, .error img{
-    margin-right: 10px;
+.toast-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.toast-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+}
+.greenColor{
+    background-color: #40f467;
+}
+.redColor{
+    background-color: #f44040;
+}
+.message{
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+}
+.message-text{
+    font-size: 20px;
+    font-weight: 600;
+}
+.text-1{
+    color: #333;
+}
+.text-2{
+    color: #666;
+    font-weight: 400;
+    font-size: 16px;
+}
+.toast-close{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    padding: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.toast-close:hover{
+    opacity: 1;
+}
+.progressbar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    width: 100%;
+    /* background-color: #40f467; */
+}
+
+.progressbar.active{
+    animation: progress 4s linear forwards;
+    }
+    @keyframes progress {
+    100%{
+        width: 0%;
+    }
 }
