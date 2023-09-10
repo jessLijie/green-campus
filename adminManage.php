@@ -26,6 +26,7 @@ include("header.php");
 
         table {
             border: 1px #dee2e6 solid;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
 
         .border-bottom-0 {
@@ -35,15 +36,33 @@ include("header.php");
         }
 
         .returnLink {
-            color: grey;
+            color: black;
+            font-size: calc(1.275rem + .3vw);
             text-decoration: none;
             margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .returnLink:hover {
+            color: grey;
         }
 
         .noResult {
             text-align: center;
             margin: 100px;
         }
+
+        .newsImage{
+            width: 71.5px;
+            height: 45px;
+        }
+
+        .editNewsImage{
+            width: 214.5px; 
+            height: 135px; 
+            margin: 5px 0px;
+        }
+
     </style>
 </head>
 
@@ -142,7 +161,9 @@ include("header.php");
                 $query = mysqli_real_escape_string($con, $_GET['query']);
                 $query = "%" . $query . "%";
                 $result = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
-                echo '<a href="adminManage.php" class="returnLink">< Return to previous page</a>';
+                echo '<a href="adminManage.php" class="returnLink"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 19 19">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+              </svg> Back</a>';
                 echo '<h5>Search results for : ' . $_GET['query'] . '</h5>';
 
             } else {
@@ -159,21 +180,21 @@ include("header.php");
                 echo '<th scope="col">Author</th>';
                 echo '<th scope="col">Publish Date</th>';
                 echo '<th scope="col">Category</th>';
-                echo '<th scope="col" colspan="2">Action</th>';
+                echo '<th scope="col">Action</th>';
                 echo '</tr>';
                 echo '</thead>';
                 echo '<tbody>';
 
                 while ($row = mysqli_fetch_array($result)) {
                     echo '<tr>';
-                    echo '<th scope="row">' . $row['id'] . '</th>';
-                    echo '<td><img src="images/newsImg/' . $row['image_url'] . '" alt="..." style="width:71.5px ;height:45px;"></td>';
+                    echo '<th scope="row"> ' . $row['id'] . ' </th>';
+                    echo '<td><img src="images/newsImg/' . $row['image_url'] . '" class="newsImage" alt="..."></td>';
                     echo '<td><a href="newsPost.php?id=' . $row['id'] . '">' . $row['title'] . '</a></td>';
                     echo '<td>' . $row['author'] . '</td>';
                     echo '<td>' . $row['publish_date'] . '</td>';
                     echo '<td>' . $row['category'] . '</td>';
                     echo '<td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
-                data-bs-target="#editNewsModal' . $row['id'] . '" style="width: 70px">Edit</button></td>';
+                data-bs-target="#editNewsModal' . $row['id'] . '" style="width: 70px">Edit</button>';
 
                     ?>
 
@@ -222,8 +243,8 @@ include("header.php");
                                         </div>
                                         <div>
                                             <label for="file">Image:</label><br>
-                                            <img src="images/newsImg/<?php echo $row['image_url'] ?>" alt="..."
-                                                style="width:143px; height:90px; margin: 5px 0px"><br>
+                                            <img src="images/newsImg/<?php echo $row['image_url'] ?>" class="editNewsImage" alt="..."
+                                                ><br>
                                         </div>
                                         <div class="form-group">
                                             <input type="file" class="form-control" name="file"><br>
@@ -258,7 +279,7 @@ include("header.php");
 
                     <?php
 
-                    echo '<td><button id="delete-news"  class="btn btn-outline-danger" onclick="showDeleteConfirmation(' . $row['id'] . ')" style="width: 70px">Delete</button></td>';
+                    echo '<button id="delete-news"  class="btn btn-outline-danger" onclick="showDeleteConfirmation(' . $row['id'] . ')" style="width: 70px">Delete</button></td>';
                     echo '</tr>';
                 }
 
