@@ -96,7 +96,18 @@ if(isset($_SESSION['userID'])){
             $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
             $resdelpost = mysqli_query($con, $sqlDelpost);
             if($resdelpost){
-                $_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
+                //$_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
+                $_SESSION['deletePost'] = "<div class='statusMessageBox1'>
+                    <div class='toast-content'>
+                    <i class='bi bi-check2 toast-check'></i>
+                    <div class='message'>
+                        <span class='message-text text-1'>Success</span>
+                        <span class='message-text text-2'>Post deleted successfully</span>
+                    </div>
+                    </div>
+                    <i class='bi bi-x toast-close'></i>
+                    <div class='progressbar active'></div>
+            </div>";
                 header("location: forum.php");
             } else{
                 $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
@@ -271,7 +282,6 @@ if(isset($_SESSION['userID'])){
     <script>
             document.addEventListener('DOMContentLoaded', function() {
             var dropdownbtns = document.querySelectorAll(".postFeature");
-            var savedScrollPosition = 0;
             
             dropdownbtns.forEach(function(dropdownbtn) {
                 dropdownbtn.addEventListener('click', function(event) {
@@ -304,6 +314,33 @@ if(isset($_SESSION['userID'])){
                     }
                 });
             }
+
+            var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if(statusMessageBox){
+                setTimeout(function() {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.progressbar.active');
+            if (progressbar) {
+                setTimeout(function() {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.toast-close');
+            toastCloseButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
