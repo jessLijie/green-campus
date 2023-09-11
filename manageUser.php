@@ -21,10 +21,133 @@ include("header.php");
             box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
         }
 
+        a:hover {
+            color: grey;
+        }
+
         .goback {
             font-size: 20px;
             text-decoration: none;
             color: black;
+        }
+
+        .statusMessageBox1 {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            background: #fff;
+            min-width: 100px;
+            min-height: 30px;
+            padding: 10px 25px 10px 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            /* transform: translateX(calc(100% + 100px)); */
+            /* transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35); */
+            z-index: 2;
+            animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(calc(100% + 100px));
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .statusMessageBox1.slideOut {
+            animation: slideOut 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(100% + 100px));
+            }
+        }
+
+        .toast-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .toast-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .greenColor {
+            background-color: #40f467;
+        }
+
+        .redColor {
+            background-color: #f44040;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            margin: 0 20px;
+        }
+
+        .message-text {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .text-1 {
+            color: #333;
+        }
+
+        .text-2 {
+            color: #666;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .toast-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            padding: 5px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+        }
+
+        .progressbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            width: 100%;
+            /* background-color: #40f467; */
+        }
+
+        .progressbar.active {
+            animation: progress 4s linear forwards;
+        }
+
+        @keyframes progress {
+            100% {
+                width: 0%;
+            }
         }
     </style>
 </head>
@@ -32,6 +155,16 @@ include("header.php");
 <body>
     <?php
     include("connectdb.php");
+
+    if (isset($_SESSION['approveUser'])) {
+        echo $_SESSION['approveUser'];
+        unset($_SESSION['approveUser']);
+    }
+
+    if (isset($_SESSION['disapproveUser'])) {
+        echo $_SESSION['disapproveUser'];
+        unset($_SESSION['disapproveUser']);
+    }
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\Exception;
@@ -87,15 +220,49 @@ include("header.php");
 
             if (sendEmail($email, $subject, $body)) {
                 echo "<div class='success'><p>An email has been sent to the user account</p></div><br /><br /><br />";
+                $_SESSION['approveUser'] = "<div class='statusMessageBox1'>
+                                            <div class='toast-content'>
+                                            <i class='bi bi-check2 toast-icon greenColor'></i>
+                                            <div class='message'>
+                                                <span class='message-text text-1'>Success</span>
+                                                <span class='message-text text-2'>User approved, and email send successfully</span>
+                                            </div>
+                                            </div>
+                                            <i class='bi bi-x toast-close'></i>
+                                            <div class='progressbar active greenColor'></div>
+                                    </div>";
             } else {
                 echo "Email could not be sent.";
+                $_SESSION['approveUser'] = "<div class='statusMessageBox1'>
+                                        <div class='toast-content'>
+                                        <i class='bi bi-x toast-icon redColor'></i>
+                                        <div class='message'>
+                                            <span class='message-text text-1'>Failed</span>
+                                            <span class='message-text text-2'>User approved successfully but failed to sent the email</span>
+                                        </div>
+                                        </div>
+                                        <i class='bi bi-x toast-close'></i>
+                                        <div class='progressbar active redColor'></div>
+                                </div>";
             }
 
-            header('Location: manageUser.php');
-            exit;
         } else {
             echo "Error approving user: " . mysqli_error($con);
+            $_SESSION['approveUser'] = "<div class='statusMessageBox1'>
+                                        <div class='toast-content'>
+                                        <i class='bi bi-x toast-icon redColor'></i>
+                                        <div class='message'>
+                                            <span class='message-text text-1'>Failed</span>
+                                            <span class='message-text text-2'>Failed to approve the user</span>
+                                        </div>
+                                        </div>
+                                        <i class='bi bi-x toast-close'></i>
+                                        <div class='progressbar active redColor'></div>
+                                </div>";
+
         }
+        header('Location: manageUser.php');
+        exit;
     }
 
     if (isset($_GET['disapprovedUserId'])) {
@@ -120,15 +287,50 @@ include("header.php");
 
             if (sendEmail($email, $subject, $body)) {
                 echo "<div class='success'><p>An email has been sent to the user account</p></div><br /><br /><br />";
+                echo "<div class='success'><p>An email has been sent to the user account</p></div><br /><br /><br />";
+                $_SESSION['disapproveUser'] = "<div class='statusMessageBox1'>
+                                            <div class='toast-content'>
+                                            <i class='bi bi-check2 toast-icon greenColor'></i>
+                                            <div class='message'>
+                                                <span class='message-text text-1'>Success</span>
+                                                <span class='message-text text-2'>User disapproved, and email send successfully</span>
+                                            </div>
+                                            </div>
+                                            <i class='bi bi-x toast-close'></i>
+                                            <div class='progressbar active greenColor'></div>
+                                    </div>";
             } else {
                 echo "Email could not be sent.";
+                $_SESSION['disapproveUser'] = "<div class='statusMessageBox1'>
+                                            <div class='toast-content'>
+                                            <i class='bi bi-x toast-icon redColor'></i>
+                                            <div class='message'>
+                                                <span class='message-text text-1'>Failed</span>
+                                                <span class='message-text text-2'>User disapproved successfully but failed to sent the email</span>
+                                            </div>
+                                            </div>
+                                            <i class='bi bi-x toast-close'></i>
+                                            <div class='progressbar active redColor'></div>
+                                        </div>";
             }
 
-            header('Location: manageUser.php');
-            exit;
+
         } else {
             echo "Error disapproving user: " . mysqli_error($con);
+            $_SESSION['disapproveUser'] = "<div class='statusMessageBox1'>
+                                        <div class='toast-content'>
+                                        <i class='bi bi-x toast-icon redColor'></i>
+                                        <div class='message'>
+                                            <span class='message-text text-1'>Failed</span>
+                                            <span class='message-text text-2'>Failed to disapprove the user</span>
+                                        </div>
+                                        </div>
+                                        <i class='bi bi-x toast-close'></i>
+                                        <div class='progressbar active redColor'></div>
+                                </div>";
         }
+        header('Location: manageUser.php');
+        exit;
     }
     ?>
     <div>
@@ -232,7 +434,7 @@ include("header.php");
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <img src="images/cardMatricImg/{$row['matricImg']}" width="765px" alt="...">
+                            <img src="images/cardMatricImg/{$row['matricImg']}" width="765px" alt="error">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -254,6 +456,36 @@ include("header.php");
 
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if (statusMessageBox) {
+                setTimeout(function () {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.progressbar.active');
+            if (progressbar) {
+                setTimeout(function () {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.toast-close');
+            toastCloseButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function () {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -28,8 +28,32 @@ if (isset($_POST['editNews'])) {
     $update = "UPDATE newsfeed SET title = '$newTitle', content = '$newContent', publish_date = '$newPublishDate', author = '$newAuthor', category = '$newCategory' WHERE id = $id";
     if (mysqli_query($con, $update)) {
         echo "News post updated successfully.";
+        $_SESSION['editNews'] = "<div class='statusMessageBox1'>
+                                            <div class='toast-content'>
+                                            <i class='bi bi-check2 toast-icon greenColor'></i>
+                                            <div class='message'>
+                                                <span class='message-text text-1'>Success</span>
+                                                <span class='message-text text-2'>News edited successfully</span>
+                                            </div>
+                                            </div>
+                                            <i class='bi bi-x toast-close'></i>
+                                            <div class='progressbar active greenColor'></div>
+                                    </div>";
     } else {
         echo "Error updating news post: " . mysqli_error($con);
+        $_SESSION['editNews'] = "<div class='statusMessageBox1'>
+                                        <div class='toast-content'>
+                                        <i class='bi bi-x toast-icon redColor'></i>
+                                        <div class='message'>
+                                            <span class='message-text text-1'>Failed</span>
+                                            <span class='message-text text-2'>Failed to edit news</span>
+                                        </div>
+                                        </div>
+                                        <i class='bi bi-x toast-close'></i>
+                                        <div class='progressbar active redColor'></div>
+                                </div>";
+        header('Location: adminManage.php');
+        exit;
     }
 
     if ($_FILES["file"]["name"]) {
@@ -56,6 +80,17 @@ if (isset($_POST['editNews'])) {
                 }
             } else {
                 $statusMsg = "Sorry, there was an error uploading your file.";
+                $_SESSION['editNews'] = "<div class='statusMessageBox1'>
+                                                <div class='toast-content'>
+                                                <i class='bi bi-x toast-icon redColor'></i>
+                                                <div class='message'>
+                                                    <span class='message-text text-1'>Failed</span>
+                                                    <span class='message-text text-2'>Failed to upload image</span>
+                                                </div>
+                                                </div>
+                                                <i class='bi bi-x toast-close'></i>
+                                                <div class='progressbar active redColor'></div>
+                                        </div>";
             }
         } else {
             $statusMsg = 'Sorry, only JPG, JPEG, PNG, & GIF files are allowed to upload.';
