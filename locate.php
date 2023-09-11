@@ -218,7 +218,7 @@ if (isset($_SESSION['success_message'])) {
                 </div>
             </div>
         </div>
-
+        <?php } ?>
     </div>
 
     <script>
@@ -297,7 +297,7 @@ if (isset($_SESSION['success_message'])) {
                     tooltip.close();
                     infoWindowOpen = false;
                     setTimeout(() => {
-                        document.querySelector(".gm-ui-hover-effect").style.display = "";
+                        document.querySelector(".gm-ui-hover-effect").style.display = "none";
                     }, 10);
                 });
 

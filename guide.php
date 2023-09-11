@@ -152,13 +152,8 @@ if(isset($_SESSION['urole'])){
                                 $guideContent = nl2br($row['guideContent']);
                                 $guideImg = $row['guideImg'];
                                 $guideCategory = $row["guideCategory"];
-
-                                $modalContent[$row['guideID']] = array(
-                                    "guideTitle" => $row["guideTitle"],
-                                    "guideContent" => nl2br($row["guideContent"]),
-                                    "guideImg" => $row["guideImg"],
-                                    "guideCategory" => $row["guideCategory"]
-                                );?>
+                                
+                            ?>
 
                         <a style="text-decoration: none; color: black;" href="#" type="button" data-bs-toggle="modal" data-bs-target="#guideDetailsContainer<?php echo $row["guideID"]; ?>" >    
                             <div class="guideCard">

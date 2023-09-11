@@ -136,29 +136,29 @@ if(isset($_SESSION['urole'])){
                                     </button>
                                 </td>
                                 <td style="padding-left: 0;">
-                                    <button class='delguide' data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $guideID; ?>">
+                                    <button class='delguide' data-bs-toggle="modal" data-bs-target="#deleteGuideModal<?php echo $guideID; ?>">
                                         <i class="bi bi-trash3-fill"></i>
                                     </button>
                                 </td>
                             </tr>
                             
-                            <div class="modal fade .modal-dialog-centered" id="deleteModal<?php echo $guideID; ?>" tabindex="-1" aria-labelledby="deletePostFormContainerLabel" aria-hidden="true">
+                            <div class="modal fade .modal-dialog-centered" id="deleteGuideModal<?php echo $guideID; ?>" tabindex="-1" aria-labelledby="deleteGuideFormContainerLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="deletePostFormContainerLabel">Edit Post</h1>
+                                            <h1 class="modal-title fs-5" id="deleteGuideFormContainerLabel">Delete Guide</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <p>Are you sure you want to delete?</p>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                             <form method="post" action="deleteGuide.php">
                                                 <input type='hidden' name='delguideID' value="<?php echo $guideID; ?>" />
                                                 <input type='hidden' name='delguideImg' value="<?php echo $guideImg; ?>" />
                                                 <input type='hidden' name='action' value='delete' />
-                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                                <button type="submit" class="btn btn-danger">Delete</button>
                                             </form>
                                         </div>
                                     </div>

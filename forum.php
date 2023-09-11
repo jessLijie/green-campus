@@ -80,7 +80,6 @@ if(isset($_SESSION['userID'])){
         ?>
         <?php
         include("editPost.php");
-        include("deletePost.php");
         ?>
 
     <div class='forum-container'>
@@ -123,16 +122,6 @@ if(isset($_SESSION['userID'])){
                     $count = mysqli_num_rows($result);
                     if($count > 0){
                         while($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                            $postModalContent[$row['postID']] = array(
-                                "postTitle" => $row['postTitle'],
-                                "postContent" => $row['postContent'],
-                                "postPic" => $row['postPic'],
-                                "postCategory" => $row['postCategory'],
-                                "postUser" => $row['username'],
-                                "postDate" => $row['postDate'],
-                                "postUserImg" => $row['userImage'],
-                                "postUserID" => $row['userID']
-                            );
                 ?>
                 <div class="posthover">
                 <div class='post'>
@@ -151,21 +140,16 @@ if(isset($_SESSION['userID'])){
                                         <button class='editpost' data-bs-toggle="modal" data-bs-target="#editPostFormContainer<?php echo $row["postID"]; ?>" >
                                             <i class="bi bi-pencil-square"></i>Edit Post
                                         </button>
-                                        <form method="post" action="">
-                                            <input type='hidden' name='delpostID' value="<?php echo $row['postID']; ?>" />
-                                            <input type='hidden' name='delpostImg' value="<?php echo $row['postPic']; ?>" />
-                                            <input type='hidden' name='action' value='delete' />
-                                            <button type="submit" class='delpost' onClick="javascript: return confirm('Please confirm deletion.');">
-                                                <i class="bi bi-trash"></i>Delete Post
-                                            </button>
-                                        </form>
+                                        <button class='delpost' data-bs-toggle="modal" data-bs-target="#deletePostFormContainer<?php echo $row["postID"]; ?>" >
+                                            <i class="bi bi-trash"></i>Delete Post
+                                        </button>
                                     </div>
                                 </div>
 
                             <?php } ?>
                         </span>
                     </div>
-                    <a href="post.php?postID='<?php echo  $row['postID']; ?>'" class="postlink">
+                    <a href="post.php?postID='<?php echo $row['postID']; ?>'" class="postlink">
                         <div class='postDetails'>
                             <div class='word'>
                                 <div class='postTitle'>
@@ -190,8 +174,9 @@ if(isset($_SESSION['userID'])){
                </div>
                 </div>
                <hr>
-            
+                
             <?php
+                    include("deletePostModal.php");
                     include('editpostModal.php');
                 }}else{
                     echo "<div class='noPost'>No post yet</div>";

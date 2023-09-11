@@ -9,7 +9,7 @@ if(isset($_SESSION["userID"])){
 $commentQuery = "SELECT comments.*, users.username, users.userImage FROM comments
                 LEFT JOIN users ON comments.userID = users.userID 
                 WHERE parent_commentId = 0 AND postID={$_POST['postID']}
-                ORDER BY comments.commentID DESC";
+                ORDER BY comments.commentDate DESC";
 $commentsResult = mysqli_query($con, $commentQuery) or die("database error:". mysqli_error($con));
 $commentHTML = '';
 $count1 = mysqli_num_rows($commentsResult);
