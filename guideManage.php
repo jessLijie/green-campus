@@ -59,30 +59,8 @@ if(isset($_SESSION['urole'])){
 
         ?>
         <?php
-            //delete guide
-            if(isset($_POST['action']) && $_POST['action']=="delete"){
-                $delguideid = $_POST['delguideID'];
-                $delguideImg = $_POST['delguideImg'];
-                if($delguideImg != ""){
-                    $path = "./images/guideImg/$delguideImg";
-                    $remove = unlink($path);
-            
-                    if($remove==false){
-                        $_SESSION['remove-failed'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
-                        header("location: guideManage.php");
-                        die();
-                    }
-                }
-                $sqlDelguide = "DELETE FROM guides WHERE guideID=$delguideid";
-                $resdelguide = mysqli_query($con, $sqlDelguide);
-                if($resdelguide){
-                    $_SESSION['deleteGuide'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Guide deleted successfully.</div>";
-                    header("location: guideManage.php");
-                } else{
-                    $_SESSION['deleteGuide'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete guide.</div>";
-                    header("location: guideManage.php");
-                }
-            }
+            include("addguideModal.php");
+            include("deleteGuide.php");
         ?>
 
         <div class="guideManageContainer">
@@ -181,7 +159,6 @@ if(isset($_SESSION['urole'])){
                 
             </div>
         </div>
-        <?php include("addguideModal.php"); ?>
         <script>
             var filter = document.getElementById("guideFilterOption");
             filter.addEventListener("change", function (){
@@ -212,6 +189,35 @@ if(isset($_SESSION['urole'])){
                 } else {
                     window.location.href = "guideManage.php";
                 }
+            });
+
+            document.addEventListener('DOMContentLoaded', function(){
+                var statusMessageBox = document.querySelector('.statusMessageBox1');
+                if(statusMessageBox){
+                    setTimeout(function() {
+                        statusMessageBox.classList.add("slideOut");
+                    }, 4000);
+                }
+                var progressbar = document.querySelector('.progressbar.active');
+                if (progressbar) {
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 4500);
+                }
+
+                var toastCloseButtons = document.querySelectorAll('.toast-close');
+                toastCloseButtons.forEach(function(button) {
+                    button.addEventListener("click", function() {
+                        var statusMessageBox = document.querySelector('.statusMessageBox1');
+                        statusMessageBox.classList.add("slideOut");
+
+                        setTimeout(function() {
+                            progressbar.classList.remove("active");
+                            statusMessageBox.remove();
+                        }, 300);
+                    });
+                });
             });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

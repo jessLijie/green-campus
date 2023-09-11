@@ -71,7 +71,6 @@
             $status = 'error';
 
             if(!empty($_FILES["epostImg"]["name"])) {
-                $_SESSION['hhh'] = $_FILES["epostImg"]["name"];
                 // Get file info 
                 $postImgName = $_FILES["epostImg"]["name"];
                 if($postImgName!=""){
@@ -91,7 +90,17 @@
                     $upload = move_uploaded_file($src, $dst);
 
                     if($upload==false){
-                        $_SESSION['upload'] = "<div class='error><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to upload image.</div>";
+                        $_SESSION['upload'] = "<div class='statusMessageBox1'>
+                                                <div class='toast-content'>
+                                                <i class='bi bi-x toast-icon redColor'></i>
+                                                <div class='message'>
+                                                    <span class='message-text text-1'>Failed</span>
+                                                    <span class='message-text text-2'>Failed to upload image</span>
+                                                </div>
+                                                </div>
+                                                <i class='bi bi-x toast-close'></i>
+                                                <div class='progressbar active redColor'></div>
+                                        </div>";
                         header('location: forum.php');
                         die();
                     }
@@ -101,7 +110,17 @@
                         $remove = unlink($path);
 
                         if($remove == false){
-                            $_SESSION['remove-failed'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to remove current image.</div>";
+                            $_SESSION['remove-failed'] = "<div class='statusMessageBox1'>
+                                                                <div class='toast-content'>
+                                                                <i class='bi bi-x toast-icon redColor'></i>
+                                                                <div class='message'>
+                                                                    <span class='message-text text-1'>Failed</span>
+                                                                    <span class='message-text text-2'>Failed to remove current image</span>
+                                                                </div>
+                                                                </div>
+                                                                <i class='bi bi-x toast-close'></i>
+                                                                <div class='progressbar active redColor'></div>
+                                                        </div>";
                             echo "<script>window.location.href='forum.php';</script>";
                             die();
                         }
@@ -124,10 +143,30 @@
 
             $result2 = mysqli_query($con, $sql2);
             if($result2==true){
-                $_SESSION['editpost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Post edited successfully.</div>";
+                $_SESSION['editpost'] = "<div class='statusMessageBox1'>
+                                            <div class='toast-content'>
+                                            <i class='bi bi-check2 toast-icon greenColor'></i>
+                                            <div class='message'>
+                                                <span class='message-text text-1'>Success</span>
+                                                <span class='message-text text-2'>Post edited successfully</span>
+                                            </div>
+                                            </div>
+                                            <i class='bi bi-x toast-close'></i>
+                                            <div class='progressbar active greenColor'></div>
+                                    </div>";
                 
             } else {
-                $_SESSION['editpost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to edit post.</div>";
+                $_SESSION['editpost'] = "<div class='statusMessageBox1'>
+                                                <div class='toast-content'>
+                                                <i class='bi bi-x toast-icon redColor'></i>
+                                                <div class='message'>
+                                                    <span class='message-text text-1'>Failed</span>
+                                                    <span class='message-text text-2'>Failed to edit post</span>
+                                                </div>
+                                                </div>
+                                                <i class='bi bi-x toast-close'></i>
+                                                <div class='progressbar active redColor'></div>
+                                        </div>";
                 
             }
         }

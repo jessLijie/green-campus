@@ -8,31 +8,18 @@
 <html>
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/forum.css" />
     <link rel="stylesheet" href="./css/post.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 <body>
     <?php include("header.php"); 
-    if(isset($_SESSION['addcomment'])){
-        echo $_SESSION['addcomment'];
-        unset($_SESSION['addcomment']);
-    }
-    if(isset($_SESSION['editcomment'])){
-        echo $_SESSION['editcomment'];
-        unset($_SESSION['editcomment']);
-    }
-    if(isset($_SESSION['delcomment'])){
-        echo $_SESSION['delcomment'];
-        unset($_SESSION['delcomment']);
-    }
+    
     if(isset($_SESSION['editpost'])){
         echo $_SESSION['editpost'];
         unset($_SESSION['editpost']);
-    }
-    if(isset($_SESSION['deletePost'])){
-        echo $_SESSION['deletePost'];
-        unset($_SESSION['deletePost']);
     }
     if(isset($_SESSION['upload'])){
         echo $_SESSION['upload'];
@@ -55,6 +42,7 @@
             $resultPost = mysqli_query($con, $sql);
             $row = mysqli_fetch_array($resultPost);
             $postID = $row['postID'];
+            $postIDjs = json_encode($postID);
             $postTitle = $row['postTitle'];
             $postContent = $row['postContent'];
             $postImg = $row['postPic'];
@@ -69,67 +57,21 @@
         }
     ?>
     <?php
-        //add comment
-        if(isset($_POST['submitComment'])){
-            $addcomment = $_POST['postComment'];
-            date_default_timezone_set('Asia/Kuala_Lumpur');
-            $currentTime = date('Y-m-d H:i:s');
-            $pid = $_POST['pid'];
-            $addComsql = "INSERT INTO comments(commentContent, commentDate, userID, postID) 
-                        VALUES ('$addcomment', '$currentTime', $userID, $pid)";
-            $resAddComment = mysqli_query($con, $addComsql);
-            if($resAddComment==true){
-                $_SESSION['addcomment'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Comment added successfully.</div>";
-                
-            } else {
-                $_SESSION['addcomment'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to add comment.</div>";
-                
-            }
-            echo "<meta http-equiv='refresh' content='0'>";
-        }
-    ?>
-    <?php
-        //delete comment
-        if(isset($_POST['delcommentID'])){
-            echo "<meta http-equiv='refresh' content='0'>";
-            $delcommentid = $_POST['delcommentID'];
-            $sqlDelcomment = "DELETE FROM comments WHERE commentID=$delcommentid";
-            $resdelcomment = mysqli_query($con, $sqlDelcomment);
-            if($resdelcomment){
-                $_SESSION['delcomment'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Comment deleted successfully.</div>";
-            } else {
-                $_SESSION['delcomment'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to delete comment.</div>";
-            }
-        }
-
-    ?>
-    <?php
         //delete post
-        if(isset($_POST['action']) && $_POST['action']=="delete"){
-            $delpostid = $_POST['delpostID'];
-            $delpostImg = $_POST['delpostImg'];
-            if($delpostImg != ""){
-                $path = "./images/postImg/$delpostImg";
-                $remove = unlink($path);
-        
-                if($remove==false){
-                    $_SESSION['deletePost'] = "<div><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture</div>";
-                    header("location: forum.php");
-                    die();
-                }
-            }
-            $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
-            $resdelpost = mysqli_query($con, $sqlDelpost);
-            if($resdelpost){
-                $_SESSION['deletePost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
-                header("location: forum.php");
-            } else{
-                $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
-                header("location: forum.php");
-            }
-        }
+        include("deletePost.php");
         ?>
-    
+    <div class="statusMessageBox">
+        <div class="toast-content">
+        <i class="bi bi-check2 toast-check"></i>
+        <div class="message">
+            <span class="message-text text-1"></span>
+            <span class="message-text text-2"></span>
+        </div>
+        </div>
+        <i class="bi bi-x toast-close"></i>
+        <div class="progressbar"></div>
+  </div>
+
     <div class="forum-container">
         <div class="tool">
             <div class="search-box">
@@ -185,37 +127,13 @@
                                 </form>
                             </div>
                         </div>
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function() {
-                            var dropdownbtns = document.querySelectorAll(".postFeature");
-
-                            dropdownbtns.forEach(function(dropdownbtn) {
-                                dropdownbtn.addEventListener('click', function(event) {
-                                    event.stopPropagation(); // Prevent the click from propagating to the window
-                                    this.classList.toggle("dropActive");
-                                });
-                            });
-
-                            window.onclick = function(event) {
-                                if (!event.target.matches('.postFeature')) {
-                                    var dropdowns = document.getElementsByClassName("postFeature");
-                                    for (var i = 0; i < dropdowns.length; i++) {
-                                        var openDropdown = dropdowns[i];
-                                        if (openDropdown.classList.contains('dropActive')) {
-                                            openDropdown.classList.remove('dropActive');
-                                        }
-                                    }
-                                }
-                            };
-                        });
-                        </script>
                     <?php } ?>
                 </div>
                 <div class="post-bodyContent">
                     <div class='post-title'>
                         <?php echo $postTitle; ?>
                     </div>
-                    <!-- description -->
+
                     <div class='post-content'>
                         <?php echo $postContent; ?>
                     </div>
@@ -228,61 +146,18 @@
             </div>
             <hr>
             <div class="post-comment-container">
-                <div style="margin: 0 0 10px 0" >Total <?php echo $row['commentNum']; ?> comments</div>
+                <div style="margin: 0 0 10px 0" >Total <p style="display: inline;" id="commentCount"><?php echo $row['commentNum']; ?></p> comments</div>
                 <div class="addcomment">
                     <img src="images/profileImg/<?php echo (isset($_SESSION['userImage'])&& $_SESSION['userImage']!="") ?  $_SESSION['userImage'] : 'defaultprofile.png'; ?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
-                    <form action="" method="post">
+                    <form action="" method="post" id="commentForm">
                         <input type="text" name="postComment" class="commentInput" required />
                         <input type="hidden" name="pid" value="<?php echo $postID; ?>"/>
+                        <input type="hidden" name="parent_commentID" id="commentID" value='0'/>
                         <input type="submit" name="submitComment" value="Add Comment" class="submitCommentBtn"/>
                     </form>
                 </div>
-                <div class="comment-list">
-                    <?php
-                    $sql = "SELECT comments.*, users.username, users.userImage FROM comments
-                            LEFT JOIN users ON comments.userID=users.userID
-                            WHERE postID=$postID
-                            ORDER BY comments.commentDate DESC";
-                    $resultComment = mysqli_query($con, $sql);
-                    $count = mysqli_num_rows($resultComment);
-                    if($count>0){
-                        while($row=mysqli_fetch_array($resultComment, MYSQLI_ASSOC)){
-                            $commentModal[$row['commentID']] = array(
-                                "cuserID" => $row['userID'],
-                                "cusername" => $row['username'],
-                                "cuserImg" => $row['userImage'],
-                                "commentTime" => $row['commentDate'],
-                                "commentContent" => $row['commentContent']
-                            );
-                    ?>
-                    <div class="comment">
-                        <div class="commentUser">
-                            <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
-                            <p style='margin: 0 10px 0 0; font-weight: bold;'><?php echo $row['username']; ?></p>
-                            <p style='margin: 0;'><?php echo $row['commentDate']; ?></p>
-                        </div>
-                        <div class="comment-content">
-                            <p style='margin: 0 0 5px 0;'><?php echo $row['commentContent']; ?></p>
-                        </div>
-                        <div class="comment-feature">
-                        <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>
-                            <button class='editcomment' data-bs-toggle="modal" data-bs-target="#editCommentFormContainer<?php echo $row["commentID"]; ?>" >
-                                <i class="bi bi-pencil-square"></i>Edit
-                            </button>
-                            <form method="post" action="">
-                                <input type='hidden' name='delcommentID' value='<?php echo $row['commentID']; ?>' />
-                                <button type="submit" class='delcomment' onClick="javascript: return confirm('Please confirm deletion.');">
-                                    <i class="bi bi-trash"></i>Delete
-                                </button>
-                            </form>
-                            <?php } ?>
-                        </div>
-                    </div>
-                    <?php 
-                        include("editcommentModal.php"); 
-                    }} else {
-                        echo "<div style='text-align: center;'>No comment yet</div>";
-                    }?>
+                <div class="comment-list" id="comment-list">
+                    <!-- comment list container -->
                 </div>
             </div>
         </div>
@@ -324,7 +199,253 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){ 
+            showComments();
+            $('#commentForm').on('submit', function(event){
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    url: "addcomments.php",
+                    method: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success:function(response) {
+                        if(!response.error) {
+                            $('#commentForm')[0].reset();
+                            $('#commentId').val(0);
+                            var currentCount = parseInt($("#commentCount").text());
+                            $("#commentCount").text(currentCount + 1);
+                            //status
+                            showSuccessMessage(response);
+                            showComments();
+                        } else if(response.error){
+                            showErrorMessage(response);
+                            showComments();
+                        }
+                    }
+                })
+            });
 
+            $(document).on('submit', '#editCommentForm', function(event){
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $(this).closest(".modal").modal('hide');
+
+                $.ajax({
+                    url: "editComment.php",
+                    method: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success:function(response) {
+                        if(!response.error) {
+                            $('#editCommentForm')[0].reset();
+                            //status
+                            showSuccessMessage(response);
+                            showComments();
+                        } else if(response.error){
+                            showErrorMessage(response);
+                            showComments();
+                        }
+                    }
+                })
+            });	
+
+            $(document).on('submit','#delcommentForm', function(event){
+                event.preventDefault();
+                var formData = $(this).serialize();
+                var additionalData = {
+                    postID: <?php echo $postIDjs; ?>
+                };
+                var requestData = $.param(additionalData) + '&' + formData;
+                $.ajax({
+                    url: "deleteComment.php",
+                    method: "POST",
+                    data: requestData,
+                    dataType: "json",
+                    success:function(response) {
+                        if(!response.error) {
+                            $('#delcommentForm')[0].reset();
+                            $("#commentCount").text(response.commentCount);
+                            //status
+                            showSuccessMessage(response);
+                            showComments();
+                        } else if(response.error){
+                            showErrorMessage(response);
+                            showComments();
+                        }
+                    }
+                })
+            });	
+
+            $(document).on('click', '.comment-feature', function(){
+                closeAllDropdownsExcept(this);
+                this.classList.toggle("dropActive");
+            });
+
+            $(document).on('click', '.postFeature', function(){
+                closeAllDropdownsExcept(this);
+                this.classList.toggle("dropActive");
+            });
+
+            $(document).on('click', '.replyToggleBtn', function(){
+                this.classList.toggle("repActive");
+            });
+
+            $(document).on('click', '.closeReplybtn', function(){
+                $(this).closest(".replyForm").siblings(".replyToggleBtn.repActive").removeClass('repActive');
+            });
+
+            function showSuccessMessage(response){
+                $('.statusMessageBox').addClass("active");
+                $('.message-text.text-1').text(response.message['title']);
+                $('.message-text.text-2').text(response.message['content']);
+                $('.progressbar').addClass("active");
+                setTimeout(function() {
+                    $('.statusMessageBox').removeClass("active");
+                }, 4000);
+
+                setTimeout(function() {
+                    $('.progressbar').removeClass("active");
+                }, 4300);
+                $('.toast-close').on("click", function() {
+                    $('.statusMessageBox').removeClass("active");
+
+                    setTimeout(function() {
+                        $('.progressbar').removeClass("active");
+                    }, 300);
+                });
+            }
+            function showErrorMessage(response){
+                $('.statusMessageBox').addClass("active");
+                $('.toast-check').css('background-color', 'red');
+                $('.toast-check').removeClass('bi-check2').addClass('bi-x');
+                $('.message-text.text-1').text(response.message['title']);
+                $('.message-text.text-2').text(response.message['content']);
+                $('.progressbar').addClass("active");
+                $('.progressbar').css('background-color', 'red');
+                setTimeout(function() {
+                    $('.statusMessageBox').removeClass("active");
+                }, 4000);
+
+                setTimeout(function() {
+                    $('.progressbar').removeClass("active");
+                }, 4300);
+                $('.toast-close').on("click", function() {
+                    $('.statusMessageBox').removeClass("active");
+
+                    setTimeout(function() {
+                        $('.progressbar').removeClass("active");
+                    }, 300);
+                });
+            }
+
+            $(document).on('click', '.replybtn', function(){
+                var parentCommentID = $(this).attr("id");
+                var postComment = $(this).closest('.replyForm').find('.replyInput').val();
+                var pid = <?php echo $postIDjs; ?>;
+                var comment = $(this).closest('.comment');
+                $.ajax({
+                    url: "addcomments.php",
+                    method: "POST",
+                    data: {parent_commentID: parentCommentID,
+                        postComment: postComment,
+                        pid: pid},
+                    dataType: "json",
+                    success:function(response) {
+                    if(!response.error) {
+                        var currentCount = parseInt($("#commentCount").text());
+                        $("#commentCount").text(currentCount + 1);
+                        //status
+                        showSuccessMessage(response);
+                        var commentReplies = $('.comment-replies[data-comment-id="' + parentCommentID + '"]');
+                        if (commentReplies.length === 0) {
+                            commentReplies = $('<div class="comment-replies" data-comment-id="' + parentCommentID + '"></div>');
+                            commentReplies.insertAfter(comment);
+                        }
+                        $('.comment-replies[data-comment-id="' + parentCommentID + '"]').show();
+                        showComments();
+                        
+                    } else if(response.error){
+                        showErrorMessage(response);
+                        showComments();
+                    }
+                }
+                })
+            });
+
+            $(document).on('click', '.showRepliesbtn', function(){
+                var repliesContainer = $(this).next('.comment-replies');
+                //repliesContainer.slideToggle();
+                repliesContainer.slideToggle("fast", "swing", function() {
+                    // Check the current visibility state
+                    var isVisible = $(this).is(":visible");
+                    // Set button text based on visibility state
+                    if (isVisible) {
+                        $(this).prev('.showRepliesbtn').html('<i class="bi bi-caret-up-fill"></i> Hide Replies');
+                    } else {
+                        $(this).prev('.showRepliesbtn').html('<i class="bi bi-caret-down-fill"></i> Show Replies');
+                    }
+                });
+            });
+
+            function closeAllDropdownsExcept(keepOpen) {
+                var commentdropdowns = $('.comment-feature');
+                commentdropdowns.each(function(index, dropdownbtn) {
+                    var $dropdownbtn = $(dropdownbtn); // Convert the native DOM element to a jQuery object
+                    if (!$dropdownbtn.is(keepOpen) && $dropdownbtn.hasClass('dropActive')) {
+                        $dropdownbtn.removeClass('dropActive');
+                    }
+                });
+
+                var postdropdowns = $('.postFeature.dropActive');
+                if (!postdropdowns.is(keepOpen) && postdropdowns.hasClass('dropActive')) {
+                        postdropdowns.removeClass('dropActive');
+                }
+            }
+
+            function closeAllDropdowns() {
+                var commentdropdowns = $('.comment-feature.dropActive');
+                var postdropdowns = $('.postFeature.dropActive');
+
+                commentdropdowns.removeClass('dropActive');
+                postdropdowns.removeClass('dropActive');
+            }
+
+            // Attach a click event handler to the document
+            $(document).on('click', function(event) {
+                var target = $(event.target);
+                // Check if the clicked element is not within a dropdown container
+                if (!target.closest('.threeDotImg').length) {
+                    closeAllDropdowns();
+                }
+            });
+        });
+        // function to show comments
+        function showComments()	{
+            var postID = <?php echo $postIDjs; ?>;
+            var visibilityStatus = {};
+            $('.comment-replies:visible').each(function () {
+                var commentId = $(this).data('comment-id'); // Use a unique identifier here
+                visibilityStatus[commentId] = true; // Mark it as visible
+            });
+            
+            $.ajax({
+                url:"show_comments.php",
+                method:"POST",
+                data: {postID: postID},
+                success:function(response) {
+                    $('#comment-list').html(response);
+                    for (var commentId in visibilityStatus) {
+                        if (visibilityStatus[commentId]) {
+                            $('.comment-replies[data-comment-id="' + commentId + '"]').show();
+                            $('.comment-replies[data-comment-id="' + commentId + '"]').prev().html('<i class="bi bi-caret-up-fill"></i> Hide Replies');
+                        }
+                    }
+                }
+            })
+        }
+    </script>
 <?php ob_end_flush(); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

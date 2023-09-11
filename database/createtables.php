@@ -100,6 +100,7 @@ $sql="CREATE TABLE comments(
         commentID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         commentContent TEXT,
         commentDate datetime,
+        parent_commentID int,
         userID int,
         postID int,
         FOREIGN KEY (userID) REFERENCES users(userID),
