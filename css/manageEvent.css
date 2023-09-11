@@ -1,0 +1,12 @@
+.table-container{
+    padding: 60px 50px;
+}
+
+.title{
+    margin: 10px 5px;
+}
+
+#categoryFilter{
+    width:200px;
+    cursor: pointer;
+}

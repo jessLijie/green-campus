@@ -105,18 +105,13 @@
                         <a class="nav-link <?php echo ($currentPage=="home")? 'active' : ''?> " aria-current="page" href="<?php echo (isset($_SESSION['role'])) ? (($_SESSION['role']=="admin")? 'adminHome.php' : 'userHome.php') : 'main.php' ?>"> <i class="bi bi-house"></i> Home</a>
                     </li>
 
-                    <div class="account">
-                        <div class="accountInfo">
-                            <li class="nav-item">
-                                <a class="nav-link <?php echo ($currentPage=="locate")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>" > <i class="bi bi-geo-alt"></i>Locate
-                                <i class="bi bi-caret-down-fill" style='margin: 0 10px;'></i></a>
-                            </li>
-                        </div>
-                        <ul class="accountDropdown">
-                            <li><a href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>"><i class="bi bi-signpost-2" style='margin: 0 10px 0 0;'></i>Item</a></li>
-                            <li><a href="<?php echo (isset($_SESSION['login']))? 'event.php' : 'login.php'; ?>""><i class="bi bi-calendar-event" style='margin: 0 10px 0 0;'></i>Event</a></li>
-                        </ul>
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($currentPage=="locate")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'locate.php' : 'login.php'; ?>"> <i class="bi bi-signpost-2"></i> Locate</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo ($currentPage=="event")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'event.php' : 'login.php'; ?>"> <i class="bi bi-calendar-event"></i> Event</a>
+                    </li>
                     
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($currentPage=="forum")? 'active' : ''?> " href="<?php echo (isset($_SESSION['login']))? 'forum.php' : 'login.php'; ?>"> <i class="bi bi-megaphone"></i> Forum</a>
