@@ -49,10 +49,25 @@ if (isset($_SESSION['userID'])) {
       box-shadow: 0 0 0 transparent;
     }
 
+    .calculatorResult:hover {
+      background-image: linear-gradient(90deg, #DEE4EA, #F9FCFF, #DEE4EA, #F9FCFF, #DEE4EA);
+      animation: slidebg 3s linear infinite;
+    }
+
     .overflow-auto {
       height: 550px;
       width: 3800px;
       margin: 4%;
+    }
+
+    .card:hover {
+      background-color: #EEEEEE;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      -webkit-animation: swing 1s ease;
+      animation: swing 1s ease;
+      -webkit-animation-iteration-count: 1;
+      animation-iteration-count: 1;
+      /* color: white */
     }
 
     .noResult {

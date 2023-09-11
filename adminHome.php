@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Greenify UTM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -44,8 +44,21 @@
             box-shadow: 0 0 0 transparent;
         }
 
+        @keyframes slidebg {
+            to {
+                background-position: 20vw;
+            }
+        }
+
         .calculatorResult:hover {
-            /* background-image: url(images/footprint.png); */
+            background-image: linear-gradient(90deg, #DEE4EA, #F9FCFF, #DEE4EA, #F9FCFF, #DEE4EA);
+            animation: slidebg 3s linear infinite;
+        }
+
+        .overflow-auto {
+            height: 550px;
+            width: 3800px;
+            margin: 4%;
         }
 
         .noResult {
@@ -55,6 +68,11 @@
 
         .card:hover {
             background-color: #EEEEEE;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            -webkit-animation: swing 1s ease;
+            animation: swing 1s ease;
+            -webkit-animation-iteration-count: 1;
+            animation-iteration-count: 1;
             /* color: white */
         }
 
@@ -148,7 +166,6 @@
             -webkit-animation-iteration-count: 1;
             animation-iteration-count: 1;
         }
-
     </style>
 </head>
 
@@ -167,10 +184,24 @@
     }
     ?>
     <div class="d-flex flex-nowrap" style="margin: 2%">
-        <div class="overflow-auto" style="height: 550px; width: 3800px; margin: 4%; ">
-            <div style="display: block; margin-bottom: 1% "><a href="adminManage.php"><button type="button"
-                        class="btn btn-primary">Manage
-                        News</button></a></div>
+        <div class="overflow-auto">
+            <div style="display: block; margin-bottom: 1%;"><a href="adminManage.php"><button type="button"
+                        class="btn btn-outline-secondary" style="margin-right: 1%">Manage
+                        News <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-newspaper" viewBox="0 0 19 19">
+                            <path
+                                d="M0 2.5A1.5 1.5 0 0 1 1.5 1h11A1.5 1.5 0 0 1 14 2.5v10.528c0 .3-.05.654-.238.972h.738a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 1 1 0v9a1.5 1.5 0 0 1-1.5 1.5H1.497A1.497 1.497 0 0 1 0 13.5v-11zM12 14c.37 0 .654-.211.853-.441.092-.106.147-.279.147-.531V2.5a.5.5 0 0 0-.5-.5h-11a.5.5 0 0 0-.5.5v11c0 .278.223.5.497.5H12z" />
+                            <path
+                                d="M2 3h10v2H2V3zm0 3h4v3H2V6zm0 4h4v1H2v-1zm0 2h4v1H2v-1zm5-6h2v1H7V6zm3 0h2v1h-2V6zM7 8h2v1H7V8zm3 0h2v1h-2V8zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1zm-3 2h2v1H7v-1zm3 0h2v1h-2v-1z" />
+                        </svg></button></a><a href="manageUser.php"><button type="button"
+                        class="btn btn-outline-secondary">Manage
+                        User <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                            class="bi bi-person-exclamation" viewBox="0 0 19 19">
+                            <path
+                                d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z" />
+                            <path
+                                d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5Zm0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Z" />
+                        </svg></button></a></div>
             <div style="display: inline-flex; width:100%; justify-content: space-between">
                 <div style="display: inline-flex">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -298,8 +329,8 @@
                         d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
                 </svg></h6>
             <div>
-                <p class="calculatorResult"><span id="tree">0 Trees</span>&nbsp<img src="images/tree.png" class="swing" width="25"
-                        height="25"></p>
+                <p class="calculatorResult"><span id="tree">0 Trees</span>&nbsp<img src="images/tree.png" class="swing"
+                        width="25" height="25"></p>
                 <div>
                 </div>
             </div>

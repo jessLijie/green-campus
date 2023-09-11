@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Greenify UTM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
@@ -191,13 +191,21 @@
             </div>
 
             <div class="mb-3">
-                <label for="matricNo" class="form-label">Matric Number</label>
+                <label for="newMatricNo" class="form-label" <?php if ($row['urole'] == 'admin') {
+                    echo 'hidden';
+                } ?>>Matric Number</label>
                 <div>
                     <input type="text" class="form-control" id="newMatricNo" name="newMatricNo" value="<?php if ($newMatricNo) {
                         echo $newMatricNo;
                     } else {
                         echo $row['matricNo'];
-                    } ?>" required>
+                    }
+
+                    ?>" <?php if ($row['urole'] == 'admin') {
+                        echo 'hidden';
+                    } else {
+                        echo 'required';
+                    } ?> readonly>
                     <p class="errorMsg">
                         <?php echo $matricNoErrorMsg ?>
                     <p>
@@ -205,19 +213,30 @@
             </div>
 
             <div class="mb-3">
-                <label for="faculty" class="form-label">Faculty</label>
+                <label for="faculty" class="form-label" <?php if ($row['urole'] == 'admin') {
+                    echo 'hidden';
+                } ?>>Faculty</label>
                 <div>
-                    <select id="faculty" name="newFaculty" class="form-control" required>
+                    <select id="faculty" name="newFaculty" class="form-control" <?php if ($row['urole'] == 'admin') {
+                        echo 'hidden';
+                    } else {
+                        echo 'required';
+                    } ?>>
                         <option value="">Select a faculty</option>
                         <option value="Civil Engineering" <?php selectOption('Civil Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Civil Engineering</option>
                         <option value="Mechanical Engineering" <?php selectOption('Mechanical Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Mechanical Engineering</option>
                         <option value="Electrical Engineering" <?php selectOption('Electrical Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Electrical Engineering</option>
-                        <option value="Chemical & Energy Engineering" <?php selectOption('Chemical & Energy Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Chemical & Energy Engineering</option>
-                        <option value="Computing" <?php selectOption('Computing', $newFaculty, $row['faculty']) ?>>Faculty of Computing</option>
-                        <option value="Science" <?php selectOption('Science', $newFaculty, $row['faculty']) ?>>Faculty of Science</option>
-                        <option value="Built Environment & Surveying" <?php selectOption('Built Environment & Surveying', $newFaculty, $row['faculty']) ?>>Faculty of Built Environment & Surveying</option>
+                        <option value="Chemical & Energy Engineering" <?php selectOption('Chemical & Energy Engineering', $newFaculty, $row['faculty']) ?>>Faculty of Chemical & Energy Engineering
+                        </option>
+                        <option value="Computing" <?php selectOption('Computing', $newFaculty, $row['faculty']) ?>>
+                            Faculty of Computing</option>
+                        <option value="Science" <?php selectOption('Science', $newFaculty, $row['faculty']) ?>>Faculty
+                            of Science</option>
+                        <option value="Built Environment & Surveying" <?php selectOption('Built Environment & Surveying', $newFaculty, $row['faculty']) ?>>Faculty of Built Environment & Surveying
+                        </option>
                         <option value="Social Sciences & Humanities" <?php selectOption('Social Sciences & Humanities', $newFaculty, $row['faculty']) ?>>Faculty of Social Sciences & Humanities</option>
-                        <option value="Management" <?php selectOption('Management', $newFaculty, $row['faculty']) ?>>Faculty of Management</option>
+                        <option value="Management" <?php selectOption('Management', $newFaculty, $row['faculty']) ?>>
+                            Faculty of Management</option>
                     </select>
                 </div>
             </div>

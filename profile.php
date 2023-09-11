@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Greenify UTM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <style>
@@ -82,17 +82,25 @@
             </div>
 
             <div class="mb-3">
-                <label for="matricNo" class="form-label">Matric Number</label>
+                <label for="matricNo" class="form-label" <?php if ($row['urole'] == 'admin') {
+                    echo 'hidden';
+                } ?>>Matric Number</label>
                 <div>
                     <input type="text" readonly class="form-control" id="matricNo"
-                        value="<?php echo $row['matricNo']; ?>">
+                        value="<?php echo $row['matricNo']; ?>" <?php if ($row['urole'] == 'admin') {
+                               echo 'hidden';
+                           } ?>>
                 </div>
             </div>
 
             <div class="mb-3">
-                <label for="faculty" class="form-label">Faculty</label>
+                <label for="faculty" class="form-label" <?php if ($row['urole'] == 'admin') {
+                    echo 'hidden';
+                } ?>>Faculty</label>
                 <div>
-                    <select id="faculty" name="faculty" class="form-control" disabled>
+                    <select id="faculty" name="faculty" class="form-control" disabled <?php if ($row['urole'] == 'admin') {
+                        echo 'hidden';
+                    } ?>>
                         <option value=""></option>
                         <option value="Civil Engineering" <?php if ($row['faculty'] == 'Civil Engineering') {
                             echo 'selected';
