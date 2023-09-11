@@ -52,12 +52,9 @@ if($count1>0){
                     <button class="editcomment" data-bs-toggle="modal" data-bs-target="#editCommentFormContainer'.$row["commentID"].'" >
                         <i class="bi bi-pencil-square"></i>Edit
                     </button>
-                    <form method="post" action="" id="delcommentForm">
-                        <input type="hidden" name="delcommentID" value="'.$row["commentID"].'" />
-                        <button type="submit" class="delcomment" onClick="return confirm(\'Please confirm deletion.\');">
-                            <i class="bi bi-trash"></i>Delete
-                        </button>
-                    </form>
+                    <button class="delcomment" data-bs-toggle="modal" data-bs-target="#deleteComment'.$row["commentID"].'" >
+                        <i class="bi bi-trash"></i>Delete
+                    </button>
                 </div>
             </div>';
         }
@@ -65,6 +62,7 @@ if($count1>0){
 
         $commentHTML .= getCommentReply($con, $userID, $row["commentID"]);
         $commentHTML .= '</div>';
+        include("deleteCommentModal.php");
         include("editcommentModal.php"); 
     }
 } else {
@@ -126,19 +124,16 @@ function getCommentReply($con, $userID, $parentId = 0, $marginLeft = 0) {
                         <button class="editcomment" data-bs-toggle="modal" data-bs-target="#editCommentFormContainer'.$row["commentID"].'" >
                             <i class="bi bi-pencil-square"></i>Edit
                         </button>
-                        <form method="post" action="" id="delcommentForm">
-                            <input type="hidden" name="delcommentID" value="'.$row["commentID"].'" />
-                            <button type="submit" class="delcomment" onClick="return confirm(\'Please confirm deletion.\');">
-                                <i class="bi bi-trash"></i>Delete
-                            </button>
-                        </form>
+                        <button class="delcomment" data-bs-toggle="modal" data-bs-target="#deleteComment'.$row["commentID"].'" >
+                            <i class="bi bi-trash"></i>Delete
+                        </button>
                     </div>
                 </div>';
             }
 
             $commentHTML .= '</div>';
 			$commentHTML .= getCommentReply($con, $userID, $row["commentID"], $marginLeft);
-            
+            include("deleteCommentModal.php");
             include("editcommentModal.php"); 
 		}
         $commentHTML .= '</div>';

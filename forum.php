@@ -79,7 +79,7 @@ if(isset($_SESSION['userID'])){
         }
         ?>
         <?php
-        //delete post
+        include("editPost.php");
         include("deletePost.php");
         ?>
 
