@@ -68,12 +68,147 @@ include("header.php");
             height: 135px;
             margin: 5px 0px;
         }
+
+        .statusMessageBox1 {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            background: #fff;
+            min-width: 100px;
+            min-height: 30px;
+            padding: 10px 25px 10px 15px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            /* transform: translateX(calc(100% + 100px)); */
+            /* transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35); */
+            z-index: 2;
+            animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(calc(100% + 100px));
+            }
+
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .statusMessageBox1.slideOut {
+            animation: slideOut 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(calc(100% + 100px));
+            }
+        }
+
+        .toast-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .toast-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 35px;
+            width: 35px;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        .greenColor {
+            background-color: #40f467;
+        }
+
+        .redColor {
+            background-color: #f44040;
+        }
+
+        .message {
+            display: flex;
+            flex-direction: column;
+            margin: 0 20px;
+        }
+
+        .message-text {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .text-1 {
+            color: #333;
+        }
+
+        .text-2 {
+            color: #666;
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .toast-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            padding: 5px;
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+        }
+
+        .progressbar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            width: 100%;
+            /* background-color: #40f467; */
+        }
+
+        .progressbar.active {
+            animation: progress 4s linear forwards;
+        }
+
+        @keyframes progress {
+            100% {
+                width: 0%;
+            }
+        }
     </style>
 </head>
 
 <body>
     <?php
     include("connectdb.php");
+
+    if (isset($_SESSION['editNews'])) {
+        echo $_SESSION['editNews'];
+        unset($_SESSION['editNews']);
+    }
+
+    if (isset($_SESSION['addNews'])) {
+        echo $_SESSION['addNews'];
+        unset($_SESSION['addNews']);
+    }
+
+    if (isset($_SESSION['deleteNews'])) {
+        echo $_SESSION['deleteNews'];
+        unset($_SESSION['deleteNews']);
+    }
+
     ?>
     <div>
         <div style="padding: 10px 50px 0px;">
@@ -147,7 +282,8 @@ include("header.php");
                             </div>
                             <div class="form-group">
                                 <label for="file">Image:</label><br>
-                                <input type="file" class="form-control" name="file" required><br>
+                                <input type="file" class="form-control" name="file" accept=".jpg, .png, .jpeg, .gif"
+                                    required><br>
                             </div>
                             <div class="form-group">
                                 <label for="category">Category:</label><br>
@@ -266,7 +402,8 @@ include("header.php");
                                                 alt="..."><br>
                                         </div>
                                         <div class="form-group">
-                                            <input type="file" class="form-control" name="file"><br>
+                                            <input type="file" class="form-control" name="file"
+                                                accept=".jpg, .png, .jpeg, .gif"><br>
                                         </div>
                                         <div class="form-group">
                                             <label for="category">Category:</label><br>
@@ -353,6 +490,35 @@ include("header.php");
                 window.location.href = "deleteNews.php?id=" + id;
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if (statusMessageBox) {
+                setTimeout(function () {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.progressbar.active');
+            if (progressbar) {
+                setTimeout(function () {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.toast-close');
+            toastCloseButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function () {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
+        });
     </script>
 </body>
 
