@@ -57,7 +57,7 @@
         }
     ?>
     <?php
-        //delete post
+        include("editPost.php");
         include("deletePost.php");
         ?>
     <div class="statusMessageBox">

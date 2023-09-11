@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); ob_start();
 include("connectdb.php");
 if(isset($_POST['action']) && $_POST['action']=="delete"){
     $delguideid = $_POST['delguideID'];

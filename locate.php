@@ -13,6 +13,7 @@ if (isset($_SESSION['success_message'])) {
 <head>
     <link rel="icon" type="image/x-icon" href="images/icon.png">
     <link rel="stylesheet" href="css/locate.css" />
+    <link rel="stylesheet" href="css/forum.css" />
     <title>Greenify | Locate</title>
 </head>
 
@@ -21,10 +22,9 @@ if (isset($_SESSION['success_message'])) {
 
     <?php
     if (isset($successMessage)) {
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
+        echo "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />";
         echo $successMessage;
-        echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-        echo '</div>';
+        echo "</div>";
     }
     ?>
     <div class="map-container">
@@ -38,7 +38,7 @@ if (isset($_SESSION['success_message'])) {
                     <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
                     <span style="margin-right: 5px;">Filter by:</span>
                     <select id="itemTypeFilter" class="form-select" onchange="applyMarkersFilter()"
-                        style="width:200px;margin-top:10px;">
+                        style="width:200px;">
                         <option value="">All Items</option>
                         <option value="hub">Recycle Hub</option>
                         <option value="bus">Bus Stop</option>
@@ -76,7 +76,8 @@ if (isset($_SESSION['success_message'])) {
             </center>
 
             <!-- Button trigger modal -->
-            <?php if(isset($_SESSION['role']) && ($_SESSION['role'])=="admin"){ ?>
+            <?php if($_SESSION['role']=='admin'){ ?>
+
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-outline-danger"
                     style="margin-top:20px;width:100px;margin-right:15px" data-bs-toggle="modal"
@@ -88,7 +89,7 @@ if (isset($_SESSION['success_message'])) {
                     Create
                 </button>
             </div>
-            <?php } ?>
+
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
@@ -215,9 +216,6 @@ if (isset($_SESSION['success_message'])) {
                         </form>
                     </div>
                 </div>
-            </div>
-            <div class="events">
-
             </div>
         </div>
 
@@ -359,12 +357,6 @@ if (isset($_SESSION['success_message'])) {
             totalCountDisplay.innerHTML = `Total labelled <strong>${selectedItemType}</strong> item(s) : ${totalCount}`;
 
         }
-
-
-
-
-
-
 
     </script>
     <script

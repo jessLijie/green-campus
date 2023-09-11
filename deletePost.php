@@ -1,5 +1,4 @@
 <?php
-session_start();
 if(isset($_POST['action']) && $_POST['action']=="delete"){
     $delpostid = $_POST['delpostID'];
     $delpostImg = $_POST['delpostImg'];
