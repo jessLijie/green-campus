@@ -149,7 +149,7 @@ if(isset($_SESSION['userID'])){
                             <?php } ?>
                         </span>
                     </div>
-                    <a href="post.php?postID='<?php echo $row['postID']; ?>'" class="postlink">
+                    <a href="forumPost.php?postID='<?php echo $row['postID']; ?>'" class="postlink">
                         <div class='postDetails'>
                             <div class='word'>
                                 <div class='postTitle'>
