@@ -18,7 +18,28 @@ if(isset($_SESSION['urole'])){
         <title>Greenify UTM</title>
     </head>
     <body>
-        <?php include("header.php"); ?>
+        <?php include("header.php"); 
+        if(isset($_SESSION['editguide'])){
+            echo $_SESSION['editguide'];
+            unset($_SESSION['editguide']);
+        }
+        if(isset($_SESSION['upload'])){
+            echo $_SESSION['upload'];
+            unset($_SESSION['upload']);
+        }
+        if(isset($_SESSION['addguide'])){
+            echo $_SESSION['addguide'];
+            unset($_SESSION['addguide']);
+        }
+        if(isset($_SESSION['deleteGuide'])){
+            echo $_SESSION['deleteGuide'];
+            unset($_SESSION['deleteGuide']);
+        }
+        if(isset($_SESSION['remove-failed'])){
+            echo $_SESSION['remove-failed'];
+            unset($_SESSION['remove-failed']);
+        }
+        ?>
         <?php
 
             if(isset($_GET["filter"]) && isset($_GET["search"])){
@@ -38,31 +59,8 @@ if(isset($_SESSION['urole'])){
 
         ?>
         <?php
-            //delete guide
-            if(isset($_POST['action']) && $_POST['action']=="delete"){
-                $delguideid = $_POST['delguideID'];
-                $delguideImg = $_POST['delguideImg'];
-                if($delguideImg != ""){
-                    $path = "./images/guideImg/$delguideImg";
-                    $remove = unlink($path);
-            
-                    if($remove==false){
-                        $_SESSION['deleteGuide'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
-                        header("location: guideManage.php");
-                        die();
-                    }
-                }
-                $sqlDelguide = "DELETE FROM guides WHERE guideID=$delguideid";
-                $resdelguide = mysqli_query($con, $sqlDelguide);
-                if($resdelguide){
-                    $_SESSION['deleteGuide'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Guide deleted successfully.</div>";
-                    header("location: guideManage.php");
-                } else{
-                    $_SESSION['deleteGuide'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete guide.</div>";
-                    header("location: guideManage.php");
-                }
-            }
-            ?>
+            include("addguideModal.php");
+            //include("deleteGuide.php");
         ?>
 
         <div class="guideManageContainer">
@@ -71,6 +69,11 @@ if(isset($_SESSION['urole'])){
                 <span>Back</span>
             </a>
             <h1 style="font-size: 30px; text-align: center; margin: 15px 0 30px 0;">Guide List</h1>
+            <div style="margin: 20px 0; text-align: right;">
+                <button type="button" class="addGuideBtn" data-bs-toggle="modal" data-bs-target="#addGuideFormContainer">
+                        <i class="bi bi-plus-circle"></i> Add Guide
+                </button>
+            </div>
             <div class="guideMTool">
                 <div class="guidefilter">
                     <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
@@ -89,71 +92,84 @@ if(isset($_SESSION['urole'])){
                     <input type="text" name="search" class="form-control" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Guide Title" />
                     <button name="searchbtn" id="guideSearch" class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
                 </div>
-                <button type="button" class="addGuideBtn" data-bs-toggle="modal" data-bs-target="#addGuideFormContainer">
-                    Add Guide
-                </button>
             </div>
             
             <div class="guideMTable">
-                <table>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Content</th>
-                        <th>Image</th>
-                        <th>Category</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                
+                <table class="table table-hover">
+                    <thead class="table">
+                        <tr>
+                            <th style="width: 5%;">No</th>
+                            <th style="width: 30%;">Title</th>
+                            <th style="width: 20%;">Image</th>
+                            <th style="width: 25%;">Category</th>
+                            <th colspan="2" style="width: 10%;">Action</th>
+                        </tr>
+                    </thead>
                     <?php 
                         $result = mysqli_query($con, $sql);
                         $count = mysqli_num_rows($result);
+                        $numcount = 1;
                         if($count>0){
                             while($row=mysqli_fetch_assoc($result)){
                                 $guideID = $row['guideID'];
                                 $guideTitle = $row['guideTitle'];
-                                $guideContent = $row['guideContent'];
+                                $guideContent = nl2br($row['guideContent']);
                                 $guideImg = $row['guideImg'];
                                 $guideCategory = $row["guideCategory"];
                     ?>
-                            <tr>
-                                <td><?php echo $guideID; ?></td>
+                            <tr class="tableRow">
+                                <td><?php echo $numcount; ?></td>
                                 <td><?php echo $guideTitle; ?></td>
-                                <td><?php echo $guideContent; ?></td>
                                 <td>
                                     <?php 
                                         if($guideImg!=""){ ?>
                                             <img src="./images/guideImg/<?php echo $guideImg;?>" alt="guideImg-<?php echo $guideID; ?>" style="width: 130px; height: 100px;" />
-                                    <?php    } else{
+                                    <?php } else{
                                             echo "No Image";
                                         }
                                     ?>
                                 </td>
                                 <td><?php echo $guideCategory; ?></td>
-                                <td>
-                                    <form method="post" action="" >
-                                        <input type='hidden' name='action' value='edit' />
-                                        <input type='hidden' name='editguideID' value="<?php echo $row['guideID']; ?>" />
-                                        <button type="submit" class='editguide'>
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </form>
+                                <td style="padding-right: 0;">
+                                    <button class='editguide' data-bs-toggle="modal" data-bs-target="#editGuideFormContainer<?php echo $guideID; ?>" > 
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
                                 </td>
-                                <td>
-                                    <form method="post" action="">
-                                        <input type='hidden' name='delguideID' value="<?php echo $guideID; ?>" />
-                                        <input type='hidden' name='delguideImg' value="<?php echo $guideImg; ?>" />
-                                        <input type='hidden' name='action' value='delete' />
-                                        <button type="submit" class='delguide' onClick="javascript: return confirm('Please confirm deletion.');">
-                                            <i class="bi bi-trash3-fill"></i>
-                                        </button>
-                                    </form>
+                                <td style="padding-left: 0;">
+                                    <button class='delguide' data-bs-toggle="modal" data-bs-target="#deleteModal<?php echo $guideID; ?>">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
                                 </td>
                             </tr>
+                            
+                            <div class="modal fade .modal-dialog-centered" id="deleteModal<?php echo $guideID; ?>" tabindex="-1" aria-labelledby="deletePostFormContainerLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="deletePostFormContainerLabel">Edit Post</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                            <form method="post" action="deleteGuide.php">
+                                                <input type='hidden' name='delguideID' value="<?php echo $guideID; ?>" />
+                                                <input type='hidden' name='delguideImg' value="<?php echo $guideImg; ?>" />
+                                                <input type='hidden' name='action' value='delete' />
+                                                <button type="submit" class="btn btn-danger">Yes</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         <?php
+                                include("editguideModal.php");
+                                $numcount++;
                             }
                         } else {
-                            echo "<tr><td colspan='7'>No guide yet</td></tr>";
+                            echo "<tr><td colspan='6'>No guide yet</td></tr>";
                         }
                         ?>
 
@@ -161,8 +177,6 @@ if(isset($_SESSION['urole'])){
                 
             </div>
         </div>
-        <?php include("addguideModal.php"); ?>
-        <?php include("editguideModal.php"); ?>
         <script>
             var filter = document.getElementById("guideFilterOption");
             filter.addEventListener("change", function (){
@@ -193,6 +207,35 @@ if(isset($_SESSION['urole'])){
                 } else {
                     window.location.href = "guideManage.php";
                 }
+            });
+
+            document.addEventListener('DOMContentLoaded', function(){
+                var statusMessageBox = document.querySelector('.statusMessageBox1');
+                if(statusMessageBox){
+                    setTimeout(function() {
+                        statusMessageBox.classList.add("slideOut");
+                    }, 4000);
+                }
+                var progressbar = document.querySelector('.progressbar.active');
+                if (progressbar) {
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 4500);
+                }
+
+                var toastCloseButtons = document.querySelectorAll('.toast-close');
+                toastCloseButtons.forEach(function(button) {
+                    button.addEventListener("click", function() {
+                        var statusMessageBox = document.querySelector('.statusMessageBox1');
+                        statusMessageBox.classList.add("slideOut");
+
+                        setTimeout(function() {
+                            progressbar.classList.remove("active");
+                            statusMessageBox.remove();
+                        }, 300);
+                    });
+                });
             });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>

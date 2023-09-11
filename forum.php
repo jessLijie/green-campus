@@ -48,7 +48,7 @@ if(isset($_SESSION['userID'])){
             $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
                     LEFT JOIN comments ON comments.postID=post.postID
-                    WHERE post.postCategory=$category_
+                    WHERE post.postCategory='$category_'
                     GROUP BY postID
                     ORDER BY post.postDate DESC";
 
@@ -79,30 +79,8 @@ if(isset($_SESSION['userID'])){
         }
         ?>
         <?php
-        //delete post
-        if(isset($_POST['action']) && $_POST['action']=="delete"){
-            $delpostid = $_POST['delpostID'];
-            $delpostImg = $_POST['delpostImg'];
-            if($delpostImg != ""){
-                $path = "./images/postImg/$delpostImg";
-                $remove = unlink($path);
-        
-                if($remove==false){
-                    $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to remove picture.</div>";
-                    header("location: forum.php");
-                    die();
-                }
-            }
-            $sqlDelpost = "DELETE FROM post WHERE postID=$delpostid";
-            $resdelpost = mysqli_query($con, $sqlDelpost);
-            if($resdelpost){
-                $_SESSION['deletepost'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='cross icon' />Post deleted successfully.</div>";
-                header("location: forum.php");
-            } else{
-                $_SESSION['deletePost'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon' />Failed to delete post.</div>";
-                header("location: forum.php");
-            }
-        }
+        include("editPost.php");
+        include("deletePost.php");
         ?>
 
     <div class='forum-container'>
@@ -110,7 +88,7 @@ if(isset($_SESSION['userID'])){
             <div class='search-box'>
                 <form action="" method="GET">  
                     <div class="search">
-                        <input type="text" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="post" />
+                        <input type="text" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Search Post" />
                         <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
                 </form>
@@ -119,12 +97,12 @@ if(isset($_SESSION['userID'])){
                 <h5>Category</h5>
                 <hr>
                 <a href="forum.php"><h3>All</h3></a>
-                <a href="forum.php?category='environment-protection'"><h3>Environment Protection</h3></a>
-                <a href="forum.php?category='energy-resource'"><h3>Energy and Resource</h3></a>
-                <a href="forum.php?category='waste-recycling'"><h3>Waste Reduction and Recycling</h3></a>
-                <a href="forum.php?category='carbon-footprint'"><h3>Carbon Footprint</h3></a>
-                <a href="forum.php?category='transportation'"><h3>Transportation</h3></a>
-                <a href="forum.php?category='other'"><h3>Other</h3></a>
+                <a href="forum.php?category=environment-protection"><h3>Environment Protection</h3></a>
+                <a href="forum.php?category=energy-resource"><h3>Energy and Resource</h3></a>
+                <a href="forum.php?category=waste-recycling"><h3>Waste Reduction and Recycling</h3></a>
+                <a href="forum.php?category=carbon-footprint"><h3>Carbon Footprint</h3></a>
+                <a href="forum.php?category=transportation"><h3>Transportation</h3></a>
+                <a href="forum.php?category=other"><h3>Other</h3></a>
             </div>
         </div>
         
@@ -145,38 +123,34 @@ if(isset($_SESSION['userID'])){
                     $count = mysqli_num_rows($result);
                     if($count > 0){
                         while($row=mysqli_fetch_array($result, MYSQLI_ASSOC)){
-                            $postID = $row['postID'];
-                            $postTitle = $row['postTitle'];
-                            $postContent = $row['postContent'];
-                            $postPic = $row['postPic'];
-                            $postUser = $row['username'];
-                            $postDate = $row['postDate'];
-                            $postUserImg = $row['userImage'];
+                            $postModalContent[$row['postID']] = array(
+                                "postTitle" => $row['postTitle'],
+                                "postContent" => $row['postContent'],
+                                "postPic" => $row['postPic'],
+                                "postCategory" => $row['postCategory'],
+                                "postUser" => $row['username'],
+                                "postDate" => $row['postDate'],
+                                "postUserImg" => $row['userImage'],
+                                "postUserID" => $row['userID']
+                            );
                 ?>
                 <div class="posthover">
                 <div class='post'>
-                    <!-- name -->
                     <div class='postHeader'>
                         <span>
                             <div class='postInfo'>
-                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 5px'>
-                                <!-- <i class="bi bi-person-circle" style='margin-right: 10px;'></i> -->
-                                <p style='margin: 0 10px 0 0;'><?php echo $postUser; ?></p>
-                                <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($postDate)) ?></p>
+                                <img src="images/profileImg/<?php if(!$row['userImage']){echo 'defaultprofile.png';}else{echo $row['userImage'];}?>" alt="userImg" style='width: 20px; height: 20px; border-radius: 20px; margin-right: 10px'>
+                                <p style='margin: 0 10px 0 0;'><?php echo $row['username']; ?></p>
+                                <p style='margin: 0;' ><?php echo date("d/m/Y H:i:s", strtotime($row['postDate'])) ?></p>
                             </div>
                             <?php if($userID == $row['userID'] || $_SESSION['role']=="admin" ){ ?>
                                 
                                 <div class="postFeature">
                                     <i class="bi bi-three-dots threeDotImg"></i>
                                     <div class="dropdownContainer">
-                                        <form method="post" action="" >
-                                            <input type='hidden' name='action' value='edit' />
-                                            <input type='hidden' name='editpostID' value="<?php echo $row['postID']; ?>" />
-                                            <button type="submit" class='editpost'>
-                                                <i class="bi bi-pencil-square"></i>Edit Post
-                                            </button>
-                                        </form>
-
+                                        <button class='editpost' data-bs-toggle="modal" data-bs-target="#editPostFormContainer<?php echo $row["postID"]; ?>" >
+                                            <i class="bi bi-pencil-square"></i>Edit Post
+                                        </button>
                                         <form method="post" action="">
                                             <input type='hidden' name='delpostID' value="<?php echo $row['postID']; ?>" />
                                             <input type='hidden' name='delpostImg' value="<?php echo $row['postPic']; ?>" />
@@ -191,28 +165,24 @@ if(isset($_SESSION['userID'])){
                             <?php } ?>
                         </span>
                     </div>
-                    <a href="post.php?postID='<?php echo $postID ?>'" class="postlink">
+                    <a href="post.php?postID='<?php echo  $row['postID']; ?>'" class="postlink">
                         <div class='postDetails'>
                             <div class='word'>
-                                <!-- title -->
                                 <div class='postTitle'>
-                                <?php echo $postTitle; ?>
+                                <?php echo $row['postTitle']; ?>
                                 </div>
-                                <!-- description -->
                                 <div class='postContent'>
                                     <p class="pcontent">
-                                        <?php echo $postContent; ?>
+                                        <?php echo $row['postContent']; ?>
                                     </p>
                                 </div>
-                                <!-- comment -->
                                 <div class='interact'>
-                                    <span><i class="bi bi-chat-left"></i> <?php echo $row['commentNum']; ?></span>
+                                    <span><i class="bi bi-chat-dots" style="margin-right: 10px;"></i><?php echo $row['commentNum']; ?></span>
                                 </div>
                             </div>
-                            <!-- picture(optional) -->
                             <div class='postPic'>
-                                <?php if($postPic != ""){ ?>
-                                    <img src="<?php echo "./images/postImg/$postPic"; ?>"  width='100' height='100' alt='tumbnail' />
+                                <?php if($row['postPic'] != ""){ ?>
+                                    <img src="<?php echo './images/postImg/' . $row['postPic']; ?>"  width='100' height='100' alt='thumbnail' />
                                 <?php } ?>
                             </div>
                         </div>
@@ -222,6 +192,7 @@ if(isset($_SESSION['userID'])){
                <hr>
             
             <?php
+                    include('editpostModal.php');
                 }}else{
                     echo "<div class='noPost'>No post yet</div>";
                 }
@@ -268,13 +239,11 @@ if(isset($_SESSION['userID'])){
     </div>
     <?php 
         include('addpostModal.php');
-        include('editpostModal.php') 
     ?>
 
     <script>
             document.addEventListener('DOMContentLoaded', function() {
             var dropdownbtns = document.querySelectorAll(".postFeature");
-            var savedScrollPosition = 0;
             
             dropdownbtns.forEach(function(dropdownbtn) {
                 dropdownbtn.addEventListener('click', function(event) {
@@ -308,10 +277,32 @@ if(isset($_SESSION['userID'])){
                 });
             }
 
-            const myModalEl = document.getElementById('editPostFormContainer');
-            myModalEl.addEventListener('hidden.bs.modal', event => {
-                location.replace(location.href);
-            })
+            var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if(statusMessageBox){
+                setTimeout(function() {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.progressbar.active');
+            if (progressbar) {
+                setTimeout(function() {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.toast-close');
+            toastCloseButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
