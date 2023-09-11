@@ -57,6 +57,12 @@
                     </form>
                     </div>
                 </div>
+
+                <input type="hidden" name="eid" value="<?php echo $editpostid; ?>" />
+                <input type="e" name="currentImg" value="<?php echo $currentImg; ?>" />
+                <div style="text-align: center; margin: 30px auto 10px;"><button type="submit" name="editPostSubmit" id="submit" class="btn btn-outline-success">Submit</button></div>
+            </form>
+
             </div>
         </div>
         
