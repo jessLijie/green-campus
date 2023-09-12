@@ -112,7 +112,7 @@
 }
 .guideListHeader .manageIcon{
 	margin-left: 10px;
-	background-color: rgb(210, 210, 210);
+	background-color: rgb(229, 229, 229);
 	color: black;
 	padding: 0 5px;
 	font-size: 1.5rem;
@@ -190,7 +190,6 @@
 	width: 260px;
 	height: 400px;
 	border-radius: 10px;
-	border: 2px solid rgb(242, 242, 242);
 	margin: 5px 20px 20px 10px;
 	transition: all .3s;
 	overflow: hidden;
@@ -246,6 +245,6 @@
 	right: 15px;
 }
 .guideCard:hover .learnmore{
-	color: rgb(40, 160, 70);
+	color: rgb(62, 155, 85);
 }
 

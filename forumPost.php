@@ -50,7 +50,7 @@
             $postUserID = $row['userID'];
             $postUser = $row['username'];
             $postUserImg = $row['userImage'];
-
+            include("deletePostModal.php");
             include("editpostModal.php");
         } else {
             header("location:forum.php");
@@ -58,7 +58,6 @@
     ?>
     <?php
         include("editPost.php");
-        include("deletePost.php");
         ?>
     <div class="statusMessageBox">
         <div class="toast-content">
@@ -86,12 +85,12 @@
                 <h5>Category</h5>
                 <hr>
                 <a href="forum.php"><h3>All</h3></a>
-                <a href="forum.php?category='environment-protection'"><h3>Environment Protection</h3></a>
-                <a href="forum.php?category='energy-resource'"><h3>Energy and Resource</h3></a>
-                <a href="forum.php?category='waste-recycling'"><h3>Waste Reduction and Recycling</h3></a>
-                <a href="forum.php?category='carbon-footprint'"><h3>Carbon Footprint</h3></a>
-                <a href="forum.php?category='transportation'"><h3>Transportation</h3></a>
-                <a href="forum.php?category='other'"><h3>Other</h3></a>
+                <a href="forum.php?category=environment-protection"><h3>Environment Protection</h3></a>
+                <a href="forum.php?category=energy-resource"><h3>Energy and Resource</h3></a>
+                <a href="forum.php?category=waste-recycling"><h3>Waste Reduction and Recycling</h3></a>
+                <a href="forum.php?category=carbon-footprint"><h3>Carbon Footprint</h3></a>
+                <a href="forum.php?category=transportation"><h3>Transportation</h3></a>
+                <a href="forum.php?category=other"><h3>Other</h3></a>
             </div>
         </div>
         
@@ -113,18 +112,12 @@
                         <div class='postFeature'>
                             <i class="bi bi-three-dots threeDotImg"></i>
                             <div class="dropdownContainer">
-                                <button type="submit" class='editpost' data-bs-toggle="modal" data-bs-target="#editPostFormContainer<?php echo $postID; ?>" >
+                                <button class='editpost' data-bs-toggle="modal" data-bs-target="#editPostFormContainer<?php echo $postID; ?>" >
                                     <i class="bi bi-pencil-square"></i>Edit Post
                                 </button>
-
-                                <form method="post" action="">
-                                    <input type='hidden' name='delpostID' value=<?php echo $postID; ?> />
-                                    <input type='hidden' name='delpostImg' value="<?php echo $postImg; ?>" />
-                                    <input type='hidden' name='action' value='delete' />
-                                    <button type="submit" class='delpost' onClick="javascript: return confirm('Please confirm deletion.');">
-                                        <i class="bi bi-trash"></i>Delete Post
-                                    </button>
-                                </form>
+                                <button class='delpost' data-bs-toggle="modal" data-bs-target="#deletePostFormContainer<?php echo $row["postID"]; ?>" >
+                                    <i class="bi bi-trash"></i>Delete Post
+                                </button>
                             </div>
                         </div>
                     <?php } ?>
@@ -293,7 +286,7 @@
             });
 
             $(document).on('click', '.closeReplybtn', function(){
-                $(this).closest(".replyForm").siblings(".replyToggleBtn.repActive").removeClass('repActive');
+                $(this).closest(".replyForm").prev(".replyToggleBtn.repActive").removeClass('repActive');
             });
 
             function showSuccessMessage(response){

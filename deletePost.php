@@ -1,4 +1,6 @@
 <?php
+session_start(); ob_start();
+include("connectdb.php");
 if(isset($_POST['action']) && $_POST['action']=="delete"){
     $delpostid = $_POST['delpostID'];
     $delpostImg = $_POST['delpostImg'];
