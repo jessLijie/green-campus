@@ -278,13 +278,13 @@ if (isset($_SESSION['userID'])) {
     <div class="calculator" style="width: 100%; margin: 2%; margin-left: 0">
       <h2>Carbon Footprint Calculator</h2>
       <label for="kwh">Electricity consumption (kWh)</label>
-      <input type="number" id="kwh" step="any" placeholder="Enter kilowatt-hours" value="0" oninput="calculateCarbon()">
+      <input type="number" id="kwh" class="focus-ring" step="any" placeholder="Enter kilowatt-hours" value="0" oninput="calculateCarbon()">
       <p id="errorKwh" style="color: red"></p>
       <label for="petrol">Petrol consumption (L)</label>
-      <input type="number" id="petrol" step="any" placeholder="Enter litres" value="0" oninput="calculateCarbon()">
+      <input type="number" id="petrol" class="focus-ring" step="any" placeholder="Enter litres" value="0" oninput="calculateCarbon()">
       <p id="errorPetrol" style="color: red"></p>
       <label for="waste">Household waste generated (kg)</label>
-      <input type="number" id="waste" step="any" placeholder="Enter kilograms" value="0" oninput="calculateCarbon()">
+      <input type="number" id="waste" class="focus-ring" step="any" placeholder="Enter kilograms" value="0" oninput="calculateCarbon()">
       <p id="errorWaste" style="color: red"></p>
       <h6>Estimated Carbon Footprint</h6>
       <div>
