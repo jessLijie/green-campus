@@ -60,7 +60,6 @@ if(isset($_SESSION['urole'])){
         ?>
         <?php
             include("addguideModal.php");
-            //include("deleteGuide.php");
         ?>
 
         <div class="guideManageContainer">

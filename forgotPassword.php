@@ -77,18 +77,18 @@
                     $subject = "Password Recovery - GREENIFY UTM";
                     
                     $email_to = $email;
-                    $fromserver = "jingyi012@gmail.com"; //Enter your email here
+                    $fromserver = "fafalettuce2023@gmail.com"; //Enter your email here
                     
                     $mail = new PHPMailer();
                     $mail->IsSMTP();
                     $mail->Host = "smtp.gmail.com"; // Enter your host here
                     $mail->SMTPAuth = true;
-                    $mail->Username = "jingyi012@gmail.com"; // Enter your email here
-                    $mail->Password = "asokwnbtgnkzmwoh"; //Enter your password here
+                    $mail->Username = "fafalettuce2023@gmail.com"; // Enter your email here
+                    $mail->Password = "fjoychryzqjjezwd"; //Enter your password here
                     $mail->Port = 465;
                     $mail->SMTPSecure = 'ssl';
                     $mail->IsHTML(true);
-                    $mail->From = "jingyi012@gmail.com";
+                    $mail->From = "fafalettuce2023@gmail.com";
                     $mail->FromName = "GREENIFY";
                     $mail->Sender = $fromserver; // indicates ReturnPath header
                     $mail->Subject = $subject;

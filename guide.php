@@ -1,8 +1,8 @@
 <?php session_start(); ?>
 <?php $currentPage = "guide"; 
 include("connectdb.php");
-if(isset($_SESSION['urole'])){
-    $role = $_SESSION['urole'];
+if(isset($_SESSION['role'])){
+    $role = $_SESSION['role'];
 }
 ?>
 <!doctype html>
@@ -138,7 +138,9 @@ if(isset($_SESSION['urole'])){
             <div class="guideListContainer">
                 <div class="guideListHeader">
                     <h4><i class="bi bi-list-ul" style="margin-right: 10px;"></i>Guide List</h4>
+                    <?php if(isset($_SESSION['role']) && $_SESSION['role']=="admin"){ ?>
                     <a href="./guideManage.php" class="manageIcon"><i class="bi bi-gear"></i></a>
+                    <?php } ?>
                 </div>
                 
                 <div class="guideCardList" id="guideCardList">
