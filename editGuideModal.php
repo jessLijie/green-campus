@@ -12,7 +12,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editGuideFormContainerLabel">Edit Guide</h1>
+                        <h1 class="modal-title fs-5" id="editGuideFormContainerLabel"><i class="bi bi-pencil-square"style="margin-right: 5px;" ></i>Edit Guide</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
