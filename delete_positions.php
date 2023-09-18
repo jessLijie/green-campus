@@ -9,7 +9,17 @@ if (isset($_GET['id'])) {
     if (mysqli_query($con, $deleteQuery)) {
  
         session_start();
-        $_SESSION['success_message'] = "Item deleted successfully!";
+        $_SESSION['success_message'] = "<div class='statusMessageBox1'>
+        <div class='toast-content'>
+        <i class='bi bi-check2 toast-icon greenColor'></i>
+        <div class='message'>
+            <span class='message-text text-1'>Success</span>
+            <span class='message-text text-2'>Item deleted successfully</span>
+        </div>
+        </div>
+        <i class='bi bi-x toast-close'></i>
+        <div class='progressbar active greenColor'></div>
+</div>";;
     } else {
 
         session_start();
