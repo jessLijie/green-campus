@@ -140,7 +140,7 @@ $sql = "CREATE TABLE guides(
         guideImg varchar(255),
         guideCategory varchar(255)
 )";
-
+mysqli_query($con, $sql);
 
 echo "Tables created";
 mysqli_close($con);
