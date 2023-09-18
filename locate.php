@@ -75,6 +75,7 @@ if (isset($_SESSION['success_message'])) {
 
             <!-- Button trigger modal -->
             <?php if($_SESSION['role']=='admin'){ ?>
+
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-outline-danger"
                     style="margin-top:20px;width:100px;margin-right:15px" data-bs-toggle="modal"
@@ -86,7 +87,7 @@ if (isset($_SESSION['success_message'])) {
                     Create
                 </button>
             </div>
-            <?php }?>
+
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">

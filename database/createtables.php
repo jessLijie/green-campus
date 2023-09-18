@@ -7,10 +7,13 @@ $sql1 = "CREATE TABLE users (
         email varchar(255),
         userImage varchar(255),
         urole varchar(20),
+        matricImg varchar(255),
+        status varchar(8),
         CONSTRAINT UC_User_Username UNIQUE (username),
         CONSTRAINT UC_User_Email UNIQUE (email)
 )";
 mysqli_query($con, $sql1);
+
 
 $sql2 = "CREATE TABLE events (
     eventID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -34,11 +37,12 @@ $sql2 = "CREATE TABLE events (
     )";
 
 mysqli_query($con, $sql2);
-    
-$sql = "INSERT INTO users(username, upassword, email, urole)
-        VALUES ('admin', md5('1122'), 'admin@gmail.com', 'admin'),
-        ('jingyi', md5('1122'), 'jingyi012@gmail.com', 'user'),
-        ('Jess', md5('1122'), 'wongjie@graduate.utm.my', 'user');";
+
+$sql = "INSERT INTO users(username, upassword, email, urole, status)
+        VALUES ('admin', md5('1122'), 'admin@gmail.com', 'admin', 'APPROVED'),
+        ('jingyi', md5('1122'), 'jingyi012@gmail.com', 'user', 'APPROVED'),
+        ('Jess', md5('1122'), 'wongjie@graduate.utm.my', 'user', 'APPROVED');";
+
 mysqli_query($con, $sql);
 
 $sql="CREATE TABLE `password_reset_temp` (
@@ -108,6 +112,7 @@ $sql="CREATE TABLE comments(
         commentID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         commentContent TEXT,
         commentDate datetime,
+        parent_commentID int,
         userID int,
         postID int,
         FOREIGN KEY (userID) REFERENCES users(userID),
@@ -133,6 +138,7 @@ $sql = "CREATE TABLE guides(
         guideImg varchar(255),
         guideCategory varchar(255)
 )";
+
 
 echo "Tables created";
 mysqli_close($con);

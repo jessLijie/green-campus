@@ -11,7 +11,7 @@ if (isset($_SESSION['userID'])) {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Greenify UTM</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -49,10 +49,25 @@ if (isset($_SESSION['userID'])) {
       box-shadow: 0 0 0 transparent;
     }
 
+    .calculatorResult:hover {
+      background-image: linear-gradient(90deg, #DEE4EA, #F9FCFF, #DEE4EA, #F9FCFF, #DEE4EA);
+      animation: slidebg 3s linear infinite;
+    }
+
     .overflow-auto {
       height: 550px;
       width: 3800px;
       margin: 4%;
+    }
+
+    .card:hover {
+      background-color: #EEEEEE;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      -webkit-animation: swing 1s ease;
+      animation: swing 1s ease;
+      -webkit-animation-iteration-count: 1;
+      animation-iteration-count: 1;
+      /* color: white */
     }
 
     .noResult {
@@ -76,6 +91,79 @@ if (isset($_SESSION['userID'])) {
       border-radius: 2px;
       outline: 0;
       box-shadow: 0 0 0 transparent;
+    }
+
+    @-webkit-keyframes swing {
+      15% {
+        -webkit-transform: translateY(5px);
+        transform: translateY(5px);
+      }
+
+      30% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+      }
+
+      50% {
+        -webkit-transform: translateY(3px);
+        transform: translateY(3px);
+      }
+
+      65% {
+        -webkit-transform: translateY(-3px);
+        transform: translateY(-3px);
+      }
+
+      80% {
+        -webkit-transform: translateY(2px);
+        transform: translateY(2px);
+      }
+
+      100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes swing {
+      15% {
+        -webkit-transform: translateY(5px);
+        transform: translateY(5px);
+      }
+
+      30% {
+        -webkit-transform: translateY(-5px);
+        transform: translateY(-5px);
+      }
+
+      50% {
+        -webkit-transform: translateY(3px);
+        transform: translateY(3px);
+      }
+
+      65% {
+        -webkit-transform: translateY(-3px);
+        transform: translateY(-3px);
+      }
+
+      80% {
+        -webkit-transform: translateY(2px);
+        transform: translateY(2px);
+      }
+
+      100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+      }
+    }
+
+    .swing:hover {
+      width: 70px;
+      height: 70px;
+      -webkit-animation: swing 1s ease;
+      animation: swing 1s ease;
+      -webkit-animation-iteration-count: 1;
+      animation-iteration-count: 1;
     }
   </style>
 </head>
@@ -164,7 +252,7 @@ if (isset($_SESSION['userID'])) {
             echo $searchMsg;
             newsfees($result1);
           } else {
-            echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+            echo '<h2 class="noResult">We could not find anything for " ' . $query . '".</h2>';
           }
           ?>
         </div>
@@ -200,10 +288,11 @@ if (isset($_SESSION['userID'])) {
       <p id="errorWaste" style="color: red"></p>
       <h6>Estimated Carbon Footprint</h6>
       <div>
-        <p id="result" class="calculatorResult">0.00 KG of CO2</p>
+        <p class="calculatorResult"><span id="result">0.00 KG of CO2</span>&nbsp<img src="images/carbon-footprint.png"
+            class="swing" width="25" height="25"></p>
       </div><br>
-      <h6>Equivalent Number of Trees <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-          class="bi bi-info-circle" viewBox="0 0 16 16" data-bs-toggle="tooltip" data-bs-placement="right"
+      <h6>Equivalent Number of Trees <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor"
+          class="bi bi-info-circle" viewBox="0 0 20 20" data-bs-toggle="tooltip" data-bs-placement="right"
           data-bs-custom-class="custom-tooltip"
           data-bs-title="1 mature tree (> 5 years) can absorb on average 40kg of CO2 a year.">
           <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
@@ -211,7 +300,8 @@ if (isset($_SESSION['userID'])) {
             d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
         </svg></h6>
       <div>
-        <p id="tree" class="calculatorResult">0 Trees </p>
+        <p class="calculatorResult"><span id="tree">0 Trees</span>&nbsp<img src="images/tree.png" class="swing"
+            width="25" height="25"></p>
         <div>
         </div>
       </div>

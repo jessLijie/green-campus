@@ -23,7 +23,7 @@
             </div>
             <div>
                 <label for="guideContent" class="form-label">Content:</label>
-                <textarea class="form-control" id="guideContent" name="guideContent" rows="4" required></textarea>
+                <textarea class="form-control" id="guideContent" name="guideContent" rows="6" required></textarea>
             </div>
             <div> 
                 <label for="guideImg" class="form-label">Image: </label>
@@ -56,8 +56,8 @@
     $status = $statusMsg = '';
     if(isset($_POST['addGuideSubmit'])){
         echo "<meta http-equiv='refresh' content='0'>";
-        $title = $_POST['guideTitle'];
-        $content = $_POST['guideContent'];
+        $title = mysqli_real_escape_string($con, $_POST['guideTitle']);
+        $content = mysqli_real_escape_string($con, $_POST['guideContent']);
         $category = $_POST['category'];
         $status = 'error';
 
@@ -81,7 +81,17 @@
                 $upload = move_uploaded_file($src, $dst);
 
                 if($upload==false){
-                    $_SESSION['upload'] = "<div class='error><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Upload Image.</div>";
+                    $_SESSION['upload'] = "<div class='statusMessageBox1'>
+                                                <div class='toast-content'>
+                                                <i class='bi bi-x toast-icon redColor'></i>
+                                                <div class='message'>
+                                                    <span class='message-text text-1'>Failed</span>
+                                                    <span class='message-text text-2'>Failed to upload image</span>
+                                                </div>
+                                                </div>
+                                                <i class='bi bi-x toast-close'></i>
+                                                <div class='progressbar active redColor'></div>
+                                        </div>";
                     header('location: guideManage.php');
                     die();
                 }
@@ -96,10 +106,30 @@
 
         $result1 = mysqli_query($con, $sql1);
         if($result1==true){
-            $_SESSION['addguide'] = "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />Post Created Successfully.</div>";
+            $_SESSION['addguide'] = "<div class='statusMessageBox1'>
+                                            <div class='toast-content'>
+                                            <i class='bi bi-check2 toast-icon greenColor'></i>
+                                            <div class='message'>
+                                                <span class='message-text text-1'>Success</span>
+                                                <span class='message-text text-2'>Guide added successfully</span>
+                                            </div>
+                                            </div>
+                                            <i class='bi bi-x toast-close'></i>
+                                            <div class='progressbar active greenColor'></div>
+                                    </div>";
             
         } else {
-            $_SESSION['addguide'] = "<div class='error'><img src='./images/cross.png' width='16px' alt='cross icon'/>Failed to Create Post.</div>";
+            $_SESSION['addguide'] = "<div class='statusMessageBox1'>
+                                        <div class='toast-content'>
+                                        <i class='bi bi-x toast-icon redColor'></i>
+                                        <div class='message'>
+                                            <span class='message-text text-1'>Failed</span>
+                                            <span class='message-text text-2'>Failed to delete guide</span>
+                                        </div>
+                                        </div>
+                                        <i class='bi bi-x toast-close'></i>
+                                        <div class='progressbar active redColor'></div>
+                                </div>";
             
         }
     }

@@ -1,8 +1,7 @@
 .guidePageContainer{
     min-height: 100vh;
     min-width: 1000px;
-    background-color: rgb(255, 255, 255);
-    padding: 0 0 20px;
+    background-color: #ffffff;
 }
 
 .slider{
@@ -13,6 +12,9 @@
     position: relative;
     overflow: hidden;
     background-color: #c2eabe;
+    background-position: bottom;
+    background-image: url(../images/background.jpg);
+    background-size: cover;
 }
 .slider .slideList{
     position: absolute;
@@ -86,7 +88,10 @@
 .guideContainer{
     /* border: 2px solid black; */
     min-height: 400px;
-	padding: 20px 30px;
+	padding: 20px 30px 40px;
+    background-color: #7ee8fa;
+    background-image: linear-gradient(315deg, #7ee8fa 0%, #b9f9b2 74%);
+    
 }
 
 .guideCategoryNav{
@@ -114,6 +119,18 @@
 	border-radius: 20px;
 }
 
+.manageIcon:hover{
+    animation: rotate 4s linear infinite;
+}
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .guideCategorylist{
     display: flex;
 	flex-direction: row;
@@ -132,9 +149,31 @@
 	margin: 0;
 }
 
-.guideCategorylist a:hover{
-	background-color: rgb(226, 226, 226);
-}
+.guideCategorylist a {
+    position: relative;
+    display: inline-block;
+    margin: 15px;
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 18px;
+    text-decoration: none;
+    color: #2a2a2a;
+    background: white;
+    cursor: pointer;
+    transition: ease-out 0.5s;
+    border: 2px solid #7befc3;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 #b5f0d2;
+  }
+  
+  .guideCategorylist a:hover {
+    color: rgb(0, 0, 0);
+    box-shadow: inset 0 -100px 0 0 #b3ffd6;
+  }
+  
+  .guideCategorylist a:active {
+    transform: scale(0.9);
+  }
 
 .guideListContainer{
 	margin: 20px 0;
@@ -151,16 +190,18 @@
 	width: 260px;
 	height: 400px;
 	border-radius: 10px;
-	border: 2px solid rgb(222, 222, 222);
+	border: 2px solid rgb(242, 242, 242);
 	margin: 5px 20px 20px 10px;
 	transition: all .3s;
 	overflow: hidden;
 	position: relative;
+    background-color: white;
 }
 .guideCard:hover{
 	transform: scale(1.05);
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 	cursor: pointer;
+    background-color: rgb(245, 245, 245);
 }
 
 .guideImg{
@@ -180,6 +221,7 @@
 	width: fit-content;
 	padding: 5px 15px;
 	border-radius: 5px;
+    font-size: 13px;
 }
 .guideTitle{
 	font-weight: 600;
@@ -206,3 +248,4 @@
 .guideCard:hover .learnmore{
 	color: rgb(40, 160, 70);
 }
+

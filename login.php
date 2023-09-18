@@ -19,7 +19,7 @@
     <div class="pageContainer">
         <div class="wrapper">
 
-            <header>Login</header>
+            <header>Greenify UTM</header>
 
             <?php
             include("./connectdb.php");
@@ -29,7 +29,7 @@
                 $password = mysqli_real_escape_string($con, $_POST['password']);
                 $encrypted_password=md5($password);
 
-                $sql = "SELECT * FROM users WHERE email='$email' && upassword='$encrypted_password'";
+                $sql = "SELECT * FROM users WHERE email='$email' && upassword='$encrypted_password' && status='APPROVED'";
                 $result = mysqli_query($con, $sql);
                 
                 if(mysqli_num_rows($result)===1){
