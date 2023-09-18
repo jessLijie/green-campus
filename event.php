@@ -131,15 +131,11 @@ $result = mysqli_query($con, $sql);
                                     <?php echo $row['locationName'] ?>
                                 </span>
                             </div>
-
-
                         </a>
-
                     </div>
                     <?php
                 }
                 ?>
-
             </div>
         </div>
     </div>
@@ -200,7 +196,8 @@ $result = mysqli_query($con, $sql);
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-outline-primary"> 🡆 RSVP</button>
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" > 🡆 RSVP</button></a>
+                        
                     </div>
                 </div>
             </div>

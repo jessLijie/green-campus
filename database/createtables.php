@@ -36,9 +36,9 @@ $sql2 = "CREATE TABLE events (
 mysqli_query($con, $sql2);
     
 $sql = "INSERT INTO users(username, upassword, email, urole)
-        VALUES ('admin', 'md5(1122)', 'admin@gmail.com', 'admin'),
-        ('jingyi', 'md5(1122)', 'jingyi012@gmail.com', 'user'),
-        ('Jess', 'md5(1122)', 'wongjie@graduate.utm.my', 'user');";
+        VALUES ('admin', md5('1122'), 'admin@gmail.com', 'admin'),
+        ('jingyi', md5('1122'), 'jingyi012@gmail.com', 'user'),
+        ('Jess', md5('1122'), 'wongjie@graduate.utm.my', 'user');";
 mysqli_query($con, $sql);
 
 $sql="CREATE TABLE `password_reset_temp` (
