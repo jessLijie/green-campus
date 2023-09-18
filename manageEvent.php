@@ -56,16 +56,13 @@ $result = mysqli_query($con, $sql);
 
         <?php
         if (isset($successMessage)) {
-            echo "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />";
             echo $successMessage;
-            echo "</div>";
-
         }
         ?>
         <table class="table table-hover" style="margin-top:20px">
             <thead class="table-success">
                 <tr>
-                    <th scope="col">ID</th>
+                    <th scope="col">No</th>
                     <th scope="col">Event</th>
                     <th scope="col">Date</th>
                     <th scope="col">Category</th>
@@ -158,7 +155,7 @@ $result = mysqli_query($con, $sql);
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col">
-                                        <div class="form-group">
+                                        <div cladss="form-group">
                                             <label for="eventName" class="title"><strong>🎍 Event</strong></label>
                                             <input type="text" class="form-control" id="eventName" name="eventName"
                                                 value="<?php echo $modalContent[$row['eventID']]['eventName']; ?>">
@@ -199,7 +196,7 @@ $result = mysqli_query($con, $sql);
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="location"><strong>📍 Location</strong></label>
+                                            <label for="locationName"><strong>📍 Location</strong></label>
                                             <input type="text" class="form-control" id="locationName" name="locationName"
                                                 value="<?php echo $modalContent[$row['eventID']]['locationName']; ?>">
                                         </div>
@@ -215,7 +212,7 @@ $result = mysqli_query($con, $sql);
 
 
                                 <div class="form-group">
-                                    <label for="description"><strong>📢 Description</strong></label>
+                                    <label for="eventDescp"><strong>📢 Description</strong></label>
                                     <textarea class="form-control" id="eventDescp"
                                         name="eventDescp"><?php echo $modalContent[$row['eventID']]['eventDescp']; ?></textarea>
                                 </div><br>
@@ -251,7 +248,7 @@ $result = mysqli_query($con, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
             ?>
             <div class="modal fade" id="deleteModal<?php echo $row['eventID']; ?>" tabindex="-1" role="dialog"
-                aria-labelledby="deleteModalLabel" aria-hidden="true">
+                aria-labelledby="IDModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -398,6 +395,32 @@ $result = mysqli_query($con, $sql);
                 window.location.href = 'manageEvent.php';
             }
 
+            var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if(statusMessageBox){
+                setTimeout(function() {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.progressbar.active');
+            if (progressbar) {
+                setTimeout(function() {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.toast-close');
+            toastCloseButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"

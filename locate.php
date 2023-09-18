@@ -22,9 +22,7 @@ if (isset($_SESSION['success_message'])) {
 
     <?php
     if (isset($successMessage)) {
-        echo "<div class='success'><img src='./images/tick.png' width='16px' alt='tick' />";
         echo $successMessage;
-        echo "</div>";
     }
     ?>
     <div class="map-container">
@@ -89,6 +87,8 @@ if (isset($_SESSION['success_message'])) {
                     Create
                 </button>
             </div>
+
+            <?php } ?>
 
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
@@ -357,6 +357,33 @@ if (isset($_SESSION['success_message'])) {
             totalCountDisplay.innerHTML = `Total labelled <strong>${selectedItemType}</strong> item(s) : ${totalCount}`;
 
         }
+
+        var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if(statusMessageBox){
+                setTimeout(function() {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.progressbar.active');
+            if (progressbar) {
+                setTimeout(function() {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.toast-close');
+            toastCloseButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
 
     </script>
     <script

@@ -25,7 +25,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sql = "UPDATE events SET eventName='$eventName', category='$category', startDate='$startDate', endDate='$endDate', locationName='$locationName', organizer='$organizer', eventDescp='$eventDescp', eventImage='$imagePath$newFileName' WHERE eventID='$eventID'";
 
                 if (mysqli_query($con, $sql)) {
-                    $_SESSION['success_message'] = "Event updated successfully!";
+                    $_SESSION['success_message'] = "<div class='statusMessageBox1'>
+                    <div class='toast-content'>
+                    <i class='bi bi-check2 toast-icon greenColor'></i>
+                    <div class='message'>
+                        <span class='message-text text-1'>Success</span>
+                        <span class='message-text text-2'>Event edited successfully</span>
+                    </div>
+                    </div>
+                    <i class='bi bi-x toast-close'></i>
+                    <div class='progressbar active greenColor'></div>
+            </div>";
                     header("Location: manageEvent.php");
                     exit();
                 } else {
@@ -51,7 +61,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         if (mysqli_query($con, $sql)) {
-            $_SESSION['success_message'] = "Event updated successfully!";
+            $_SESSION['success_message'] = "<div class='statusMessageBox1'>
+            <div class='toast-content'>
+            <i class='bi bi-check2 toast-icon greenColor'></i>
+            <div class='message'>
+                <span class='message-text text-1'>Success</span>
+                <span class='message-text text-2'>Event edited successfully</span>
+            </div>
+            </div>
+            <i class='bi bi-x toast-close'></i>
+            <div class='progressbar active greenColor'></div>
+    </div>";
             header("Location: manageEvent.php");
             exit();
         } else {
