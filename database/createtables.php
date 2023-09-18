@@ -7,6 +7,8 @@ $sql1 = "CREATE TABLE users (
         email varchar(255),
         userImage varchar(255),
         urole varchar(20),
+        faculty	varchar(50),
+        matricNo varchar(9),
         matricImg varchar(255),
         status varchar(8),
         CONSTRAINT UC_User_Username UNIQUE (username),
