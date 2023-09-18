@@ -476,7 +476,11 @@ include("header.php");
                 echo '</table>';
 
             } else {
-                echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+                if (isset($_GET['query'])) {
+                    echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+                } else {
+                    echo '<h2 class="noResult">No news yet.</h2>';
+                }
             }
 
 

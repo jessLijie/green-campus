@@ -277,26 +277,49 @@
                         echo $searchMsg;
                         newsfees($result1);
                     } else {
-                        echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+                        if (mysqli_num_rows(mysqli_query($con, "SELECT * FROM newsfeed"))) {
+                            echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+                        } else {
+                            echo '<h2 class="noResult">No news yet.</h2>';
+                        }
                     }
                     ?>
                 </div>
                 <div class="tab-pane fade" id="campusNews-tab-pane" role="tabpanel" aria-labelledby="campusNews-tab"
-                    tabindex="0"><?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
-                    newsfees($result2); ?>
+                    tabindex="0">
+                    <?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
+                    if (mysqli_num_rows($result2) > 0) {
+                        newsfees($result2);
+                    } else {
+                        echo '<h2 class="noResult">No news yet.</h2>';
+                    } ?>
                 </div>
                 <div class="tab-pane fade" id="events-tab-pane" role="tabpanel" aria-labelledby="events-tab"
                     tabindex="0">
                     <?php $result3 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Events'");
-                    newsfees($result3); ?>
+                    if (mysqli_num_rows($result3) > 0) {
+                        newsfees($result3);
+                    } else {
+                        echo '<h2 class="noResult">No news yet.</h2>';
+                    } ?>
                 </div>
                 <div class="tab-pane fade" id="achievements-tab-pane" role="tabpanel" aria-labelledby="achievements-tab"
-                    tabindex="0"><?php $result4 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Achievements'");
-                    newsfees($result4); ?>
+                    tabindex="0">
+                    <?php $result4 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Achievements'");
+                    if (mysqli_num_rows($result4) > 0) {
+                        newsfees($result4);
+                    } else {
+                        echo '<h2 class="noResult">No news yet.</h2>';
+                    } ?>
                 </div>
                 <div class="tab-pane fade" id="facilities-tab-pane" role="tabpanel" aria-labelledby="facilities-tab"
-                    tabindex="0"><?php $result5 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Facilities'");
-                    newsfees($result5); ?>
+                    tabindex="0">
+                    <?php $result5 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Facilities'");
+                    if (mysqli_num_rows($result5) > 0) {
+                        newsfees($result5);
+                    } else {
+                        echo '<h2 class="noResult">No news yet.</h2>';
+                    } ?>
                 </div>
             </div>
         </div>
@@ -376,7 +399,7 @@
                     document.getElementById("tree").textContent = (carbonEmission / 40).toFixed(0) + " Trees";
                 }
 
-                function inputOnFocus(x){
+                function inputOnFocus(x) {
                     x.style.borderColor = "#5372F0";
                 }
             </script>
