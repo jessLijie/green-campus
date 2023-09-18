@@ -40,10 +40,10 @@ $sql2 = "CREATE TABLE events (
 
 mysqli_query($con, $sql2);
 
-$sql = "INSERT INTO users(username, upassword, email, urole, status)
+$sql = "INSERT INTO users(username, upassword, email, urole, matricNo, status)
         VALUES ('admin', md5('1122'), 'admin@gmail.com', 'admin', 'APPROVED'),
-        ('jingyi', md5('1122'), 'jingyi012@gmail.com', 'user', 'APPROVED'),
-        ('Jess', md5('1122'), 'wongjie@graduate.utm.my', 'user', 'APPROVED');";
+        ('jingyi', md5('1122'), 'jingyi012@gmail.com', 'user', 'A23EC0091','APPROVED'),
+        ('Jess', md5('1122'), 'wongjie@graduate.utm.my', 'user', 'A91EC0093', 'APPROVED');";
 
 mysqli_query($con, $sql);
 
