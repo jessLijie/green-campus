@@ -88,6 +88,8 @@ if (isset($_SESSION['success_message'])) {
                 </button>
             </div>
 
+            <?php } ?>
+
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog">
