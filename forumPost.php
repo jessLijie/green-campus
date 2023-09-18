@@ -76,7 +76,7 @@
             <div class="search-box">
                 <form action="" method="GET">  
                     <div class="search">
-                        <input type="text" name="search_val" value="<?php if(isset($_GET["search"])){ echo $search_val; } ?>" placeholder="post" />
+                        <input type="text" name="search_val" value="<?php if(isset($_GET["search"])){ echo $search_val; } ?>" placeholder="Search Post" />
                         <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
                 </form>
@@ -143,7 +143,7 @@
                 <div class="addcomment">
                     <img src="images/profileImg/<?php echo (isset($_SESSION['userImage'])&& $_SESSION['userImage']!="") ?  $_SESSION['userImage'] : 'defaultprofile.png'; ?>" alt="userImg" style='width: 40px; height: 40px; border-radius: 20px; margin-right: 5px'>
                     <form action="" method="post" id="commentForm">
-                        <input type="text" name="postComment" class="commentInput" required />
+                        <input type="text" name="postComment" class="commentInput" required autocomplete="off"/>
                         <input type="hidden" name="pid" value="<?php echo $postID; ?>"/>
                         <input type="hidden" name="parent_commentID" id="commentID" value='0'/>
                         <input type="submit" name="submitComment" value="Add Comment" class="submitCommentBtn"/>

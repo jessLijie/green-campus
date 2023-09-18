@@ -38,6 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['error_message'] = "Error uploading the image: " . $_FILES["eventImage"]["error"];
         }
     } else {
+        $eventID = $_POST["eventID"];
+        $eventName = $_POST["eventName"];
+        $category = $_POST["category"];
+        $startDate = $_POST["startDate"];
+        $endDate = $_POST["endDate"];
+        $locationName = $_POST["locationName"];
+        $organizer = $_POST["organizer"];
+        $eventDescp = $_POST["eventDescp"];
 
         $sql = "UPDATE events SET eventName='$eventName', category='$category', startDate='$startDate', endDate='$endDate', locationName='$locationName', organizer='$organizer', eventDescp='$eventDescp' WHERE eventID='$eventID'";
 
