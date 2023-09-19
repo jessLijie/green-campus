@@ -247,44 +247,70 @@ if (isset($_SESSION['userID'])) {
       ?>
       <div class="tab-content" id="myTabContent" style="padding-top: 1%; padding-bottom: 1%;">
         <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
-          <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
+          <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query' ORDER BY id DESC");
           if (mysqli_num_rows($result1) > 0) {
             echo $searchMsg;
             newsfees($result1);
           } else {
-            echo '<h2 class="noResult">We could not find anything for " ' . $query . '".</h2>';
+            if (mysqli_num_rows(mysqli_query($con, "SELECT * FROM newsfeed"))) {
+              echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+            } else {
+              echo '<h2 class="noResult">No news yet.</h2>';
+            }
           }
           ?>
         </div>
         <div class="tab-pane fade" id="campusNews-tab-pane" role="tabpanel" aria-labelledby="campusNews-tab"
-          tabindex="0"><?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
-          newsfees($result2); ?>
+          tabindex="0">
+          <?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
+          if (mysqli_num_rows($result2) > 0) {
+            newsfees($result2);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
         <div class="tab-pane fade" id="events-tab-pane" role="tabpanel" aria-labelledby="events-tab" tabindex="0">
           <?php $result3 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Events'");
-          newsfees($result3); ?>
+          if (mysqli_num_rows($result3) > 0) {
+            newsfees($result3);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
         <div class="tab-pane fade" id="achievements-tab-pane" role="tabpanel" aria-labelledby="achievements-tab"
-          tabindex="0"><?php $result4 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Achievements'");
-          newsfees($result4); ?>
+          tabindex="0">
+          <?php $result4 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Achievements'");
+          if (mysqli_num_rows($result4) > 0) {
+            newsfees($result4);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
         <div class="tab-pane fade" id="facilities-tab-pane" role="tabpanel" aria-labelledby="facilities-tab"
-          tabindex="0"><?php $result5 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Facilities'");
-          newsfees($result5); ?>
+          tabindex="0">
+          <?php $result5 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Facilities'");
+          if (mysqli_num_rows($result5) > 0) {
+            newsfees($result5);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
       </div>
-    </div>S
+    </div>
 
     <div class="calculator" style="width: 100%; margin: 2%; margin-left: 0">
       <h2>Carbon Footprint Calculator</h2>
       <label for="kwh">Electricity consumption (kWh)</label>
-      <input type="number" id="kwh" class="focus-ring" step="any" placeholder="Enter kilowatt-hours" value="0" oninput="calculateCarbon()">
+      <input type="number" id="kwh" class="focus-ring" step="any" placeholder="Enter kilowatt-hours" value="0"
+        oninput="calculateCarbon()">
       <p id="errorKwh" style="color: red"></p>
       <label for="petrol">Petrol consumption (L)</label>
-      <input type="number" id="petrol" class="focus-ring" step="any" placeholder="Enter litres" value="0" oninput="calculateCarbon()">
+      <input type="number" id="petrol" class="focus-ring" step="any" placeholder="Enter litres" value="0"
+        oninput="calculateCarbon()">
       <p id="errorPetrol" style="color: red"></p>
       <label for="waste">Household waste generated (kg)</label>
-      <input type="number" id="waste" class="focus-ring" step="any" placeholder="Enter kilograms" value="0" oninput="calculateCarbon()">
+      <input type="number" id="waste" class="focus-ring" step="any" placeholder="Enter kilograms" value="0"
+        oninput="calculateCarbon()">
       <p id="errorWaste" style="color: red"></p>
       <h6>Estimated Carbon Footprint</h6>
       <div>
