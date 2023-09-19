@@ -25,9 +25,30 @@ if (isset($_SESSION['success_message'])) {
         echo $successMessage;
     }
     ?>
+
+
     <div class="map-container">
-        <div id="map"></div>
+
+        <div id="map">
+        </div>
+
         <div class="info">
+            <!-- Button trigger modal -->
+            <?php if ($_SESSION['role'] == 'admin') { ?>
+
+                <div class="d-flex justify-content-end" style="padding: 60px 0 20px; float:right">
+                    <button type="button" class="btn btn-outline-danger"
+                        style="margin-top:20px;width:100px;margin-right:15px" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                        Delete
+                    </button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal" style="margin-top:20px;width:100px;margin-right:75px">
+                        Create
+                    </button>
+                </div>
+
+            <?php } ?>
 
 
 
@@ -73,22 +94,7 @@ if (isset($_SESSION['success_message'])) {
                 </div>
             </center>
 
-            <!-- Button trigger modal -->
-            <?php if($_SESSION['role']=='admin'){ ?>
 
-            <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-outline-danger"
-                    style="margin-top:20px;width:100px;margin-right:15px" data-bs-toggle="modal"
-                    data-bs-target="#deleteModal">
-                    Delete
-                </button>
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal" style="margin-top:20px;width:100px;margin-right:75px">
-                    Create
-                </button>
-            </div>
-
-            <?php } ?>
 
             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
@@ -218,7 +224,7 @@ if (isset($_SESSION['success_message'])) {
                 </div>
             </div>
         </div>
-      
+
     </div>
 
     <script>
@@ -359,37 +365,39 @@ if (isset($_SESSION['success_message'])) {
         }
 
         var statusMessageBox = document.querySelector('.statusMessageBox1');
-            if(statusMessageBox){
-                setTimeout(function() {
-                    statusMessageBox.classList.add("slideOut");
-                }, 4000);
-            }
-            var progressbar = document.querySelector('.progressbar.active');
-            if (progressbar) {
-                setTimeout(function() {
+        if (statusMessageBox) {
+            setTimeout(function () {
+                statusMessageBox.classList.add("slideOut");
+            }, 4000);
+        }
+        var progressbar = document.querySelector('.progressbar.active');
+        if (progressbar) {
+            setTimeout(function () {
+                progressbar.classList.remove("active");
+                statusMessageBox.remove();
+            }, 4500);
+        }
+
+        var toastCloseButtons = document.querySelectorAll('.toast-close');
+        toastCloseButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                var statusMessageBox = document.querySelector('.statusMessageBox1');
+                statusMessageBox.classList.add("slideOut");
+
+                setTimeout(function () {
                     progressbar.classList.remove("active");
                     statusMessageBox.remove();
-                }, 4500);
-            }
-
-            var toastCloseButtons = document.querySelectorAll('.toast-close');
-            toastCloseButtons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    var statusMessageBox = document.querySelector('.statusMessageBox1');
-                    statusMessageBox.classList.add("slideOut");
-
-                    setTimeout(function() {
-                        progressbar.classList.remove("active");
-                        statusMessageBox.remove();
-                    }, 300);
-                });
+                }, 300);
             });
+        });
 
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBte_REyjpbShM5sBpPLVEXRgFRsCbohes&map_ids=79fc16395651c35a&callback=initMap">
-    </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 
 
 
