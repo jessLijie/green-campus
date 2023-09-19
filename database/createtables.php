@@ -141,7 +141,14 @@ $sql1 = "CREATE TABLE NewsFeed (
 )";
 mysqli_query($con, $sql1);
 
-
+$sql = "CREATE TABLE guides(
+        guideID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        guideTitle varchar(255) NOT NULL,
+        guideContent TEXT,
+        guideImg varchar(255),
+        guideCategory varchar(255)
+)";
+mysqli_query($con, $sql);
 
 echo "Tables created";
 mysqli_close($con);
