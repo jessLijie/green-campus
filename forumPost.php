@@ -74,7 +74,7 @@
     <div class="forum-container">
         <div class="tool">
             <div class="search-box">
-                <form action="" method="GET">  
+                <form action="forum.php" method="GET">  
                     <div class="search">
                         <input type="text" name="search_val" value="<?php if(isset($_GET["search"])){ echo $search_val; } ?>" placeholder="Search Post" />
                         <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
@@ -189,6 +189,30 @@
                         <td> <?php echo $numUser;?></td>
                     </tr>
                 </table>
+            </div>
+            <?php
+                $sqlrecommend = "SELECT * FROM post WHERE postID!=$postID ORDER BY RAND () LIMIT 3";
+                $resultrecommend = mysqli_query($con, $sqlrecommend);
+                if(mysqli_num_rows($resultrecommend)>0){
+                ?>
+                <div class="recommend-post">
+                    <h5>Recommend Post</h5>
+                    <hr>
+                    <?php
+                    echo "<div class='recommendPostList'>";
+                    while($row=mysqli_fetch_assoc($resultrecommend)){
+                        ?> 
+                        <a class="rpost" href="forumPost.php?postID='<?php echo $row['postID']; ?>'">
+                            <img src="./images/postImg/<?php echo $row['postPic']; ?>" alt="postPic" height="50px" width="50px"/>
+                            <p style="margin: 0 0 0 5px;"><?php echo $row['postTitle']; ?></p>
+                        </a>
+                        <hr>
+                        <?php
+                    }
+                    echo "</div>";
+                }
+            ?>
+                
             </div>
         </div>
     </div>
