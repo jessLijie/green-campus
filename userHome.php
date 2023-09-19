@@ -14,158 +14,10 @@ if (isset($_SESSION['userID'])) {
   <title>Greenify UTM</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/dashboard.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
-  <style>
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .calculator {
-      background: #f4f4f4;
-      padding: 20px;
-    }
-
-    .calculatorResult {
-      display: inline-flex;
-      align-items: center;
-      font-size: 15px;
-      line-height: 24px;
-      color: #3cce88;
-      background-color: #eee;
-      border: 1px solid;
-      border-color: #3cce88;
-      padding: 4px 6px;
-      margin: 0 0 4px;
-      width: 100%;
-      height: 48px;
-      text-indent: 10px;
-      font-weight: 700;
-      border-radius: 2px;
-      outline: 0;
-      box-shadow: 0 0 0 transparent;
-    }
-
-    .calculatorResult:hover {
-      background-image: linear-gradient(90deg, #DEE4EA, #F9FCFF, #DEE4EA, #F9FCFF, #DEE4EA);
-      animation: slidebg 3s linear infinite;
-    }
-
-    .overflow-auto {
-      height: 550px;
-      width: 3800px;
-      margin: 4%;
-    }
-
-    .card:hover {
-      background-color: #EEEEEE;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-      -webkit-animation: swing 1s ease;
-      animation: swing 1s ease;
-      -webkit-animation-iteration-count: 1;
-      animation-iteration-count: 1;
-      /* color: white */
-    }
-
-    .noResult {
-      text-align: center;
-      margin: 100px;
-    }
-
-    input[type="number"] {
-      font-size: 15px;
-      line-height: 24px;
-      color: #333;
-      background-color: #FFFFFF;
-      border: 1px solid;
-      border-color: white;
-      padding: 4px 6px;
-      margin: 0 0 4px;
-      width: 100%;
-      min-height: 48px;
-      text-indent: 10px;
-      font-weight: 400;
-      border-radius: 2px;
-      outline: 0;
-      box-shadow: 0 0 0 transparent;
-    }
-
-    @-webkit-keyframes swing {
-      15% {
-        -webkit-transform: translateY(5px);
-        transform: translateY(5px);
-      }
-
-      30% {
-        -webkit-transform: translateY(-5px);
-        transform: translateY(-5px);
-      }
-
-      50% {
-        -webkit-transform: translateY(3px);
-        transform: translateY(3px);
-      }
-
-      65% {
-        -webkit-transform: translateY(-3px);
-        transform: translateY(-3px);
-      }
-
-      80% {
-        -webkit-transform: translateY(2px);
-        transform: translateY(2px);
-      }
-
-      100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes swing {
-      15% {
-        -webkit-transform: translateY(5px);
-        transform: translateY(5px);
-      }
-
-      30% {
-        -webkit-transform: translateY(-5px);
-        transform: translateY(-5px);
-      }
-
-      50% {
-        -webkit-transform: translateY(3px);
-        transform: translateY(3px);
-      }
-
-      65% {
-        -webkit-transform: translateY(-3px);
-        transform: translateY(-3px);
-      }
-
-      80% {
-        -webkit-transform: translateY(2px);
-        transform: translateY(2px);
-      }
-
-      100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-
-    .swing:hover {
-      width: 70px;
-      height: 70px;
-      -webkit-animation: swing 1s ease;
-      animation: swing 1s ease;
-      -webkit-animation-iteration-count: 1;
-      animation-iteration-count: 1;
-    }
-  </style>
 </head>
 
 <body>
@@ -298,7 +150,7 @@ if (isset($_SESSION['userID'])) {
       </div>
     </div>
 
-    <div class="calculator" style="width: 100%; margin: 2%; margin-left: 0">
+    <div class="calculator">
       <h2>Carbon Footprint Calculator</h2>
       <label for="kwh">Electricity consumption (kWh)</label>
       <input type="number" id="kwh" class="focus-ring" step="any" placeholder="Enter kilowatt-hours" value="0"

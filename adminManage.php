@@ -11,183 +11,10 @@ include("header.php");
     <title>Greenify UTM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/newsManage.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-    <style>
-        a {
-            text-decoration: none;
-            color: black;
-        }
-
-        a:hover {
-            color: grey;
-        }
-
-        table {
-            border: 1px #dee2e6 solid;
-            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        }
-
-        .border-bottom-0 {
-            margin: 6%;
-            margin-top: 1%;
-            border: #dee2e6 1px solid;
-        }
-
-        .goback {
-            font-size: 20px;
-            text-decoration: none;
-            color: black;
-        }
-
-        .returnLink {
-            color: black;
-            font-size: calc(1.275rem + .3vw);
-            text-decoration: none;
-            margin-bottom: 5px;
-            text-align: center;
-        }
-
-        .returnLink:hover {
-            color: grey;
-        }
-
-        .noResult {
-            text-align: center;
-            margin: 100px;
-        }
-
-        .newsImage {
-            width: 71.5px;
-            height: 45px;
-        }
-
-        .editNewsImage {
-            width: 214.5px;
-            height: 135px;
-            margin: 5px 0px;
-        }
-
-        .statusMessageBox1 {
-            position: fixed;
-            bottom: 30px;
-            right: 40px;
-            background: #fff;
-            min-width: 100px;
-            min-height: 30px;
-            padding: 10px 25px 10px 15px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            /* transform: translateX(calc(100% + 100px)); */
-            /* transition: all 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35); */
-            z-index: 2;
-            animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(calc(100% + 100px));
-            }
-
-            to {
-                transform: translateX(0);
-            }
-        }
-
-        .statusMessageBox1.slideOut {
-            animation: slideOut 0.5s cubic-bezier(0.68, -0.55, 0.25, 1.35);
-        }
-
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(calc(100% + 100px));
-            }
-        }
-
-        .toast-content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .toast-icon {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 35px;
-            width: 35px;
-            border-radius: 50%;
-            color: #fff;
-            font-size: 20px;
-        }
-
-        .greenColor {
-            background-color: #40f467;
-        }
-
-        .redColor {
-            background-color: #f44040;
-        }
-
-        .message {
-            display: flex;
-            flex-direction: column;
-            margin: 0 20px;
-        }
-
-        .message-text {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .text-1 {
-            color: #333;
-        }
-
-        .text-2 {
-            color: #666;
-            font-weight: 400;
-            font-size: 16px;
-        }
-
-        .toast-close {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            padding: 5px;
-            cursor: pointer;
-            opacity: 0.7;
-        }
-
-        .toast-close:hover {
-            opacity: 1;
-        }
-
-        .progressbar {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            width: 100%;
-            /* background-color: #40f467; */
-        }
-
-        .progressbar.active {
-            animation: progress 4s linear forwards;
-        }
-
-        @keyframes progress {
-            100% {
-                width: 0%;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -211,16 +38,16 @@ include("header.php");
 
     ?>
     <div>
-        <div style="padding: 10px 50px 0px;">
+        <div class="newsManage-container">
             <a class="goback" href="adminHome.php">
                 <i class="bi bi-arrow-left-short"></i>
                 <span>Back</span>
             </a>
-            <h1 style="font-size: 30px; text-align: center; margin: 15px 0 30px 0;">Manage News</h1>
+            <h1 class="title-text">Manage News</h1>
         </div>
         <div>
             <nav class="navbar navbar-expand-lg navbar-light">
-                <div class="container-fluid" style="margin: 0% 6% 1% 6%">
+                <div class="container-fluid utility-bar">
                     <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
                         data-bs-target="#createNewsModal">Create News <svg xmlns="http://www.w3.org/2000/svg" width="20"
                             height="20" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 19 19">
@@ -346,7 +173,7 @@ include("header.php");
                     echo '<td>' . $row['publish_date'] . '</td>';
                     echo '<td>' . $row['category'] . '</td>';
                     echo '<td><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                data-bs-target="#editNewsModal' . $row['id'] . '" style="width: auto"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                data-bs-target="#editNewsModal' . $row['id'] . '" style="width: auto"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                 <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
               </svg></button>';
@@ -466,7 +293,7 @@ include("header.php");
                     <?php
 
                     echo '<button id="delete-news"  class="btn btn-outline-danger" data-bs-toggle="modal"
-                    data-bs-target="#deleteNewsModal' . $row["id"] . '" style="width: auto"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                    data-bs-target="#deleteNewsModal' . $row["id"] . '" style="width: auto"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                     <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                   </svg></button></td>';
                     echo '</tr>';
