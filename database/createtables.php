@@ -1,5 +1,13 @@
 <?php
 include("../connectdb.php");
+$sql = "CREATE TABLE guides(
+        guideID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        guideTitle varchar(255) NOT NULL,
+        guideContent TEXT,
+        guideImg varchar(255),
+        guideCategory varchar(255)
+)";
+mysqli_query($con, $sql);
 $sql1 = "CREATE TABLE users (
         userID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         username varchar(50),

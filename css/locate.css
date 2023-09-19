@@ -1,7 +1,7 @@
 .map-container {
 	padding: 60px 0 20px;
-    display: flex;
     height: 100%;
+	flex-direction: column;
 }
 
 #map {
@@ -11,15 +11,18 @@
 }
 
 .info {
-	padding: 60px 50px 20px;
-    width: 50%;
+	padding: 70px 50px 20px;
+	top: 10px;
+	right:-10px;
+    width: 400px;
     display: flex;
     flex-direction: column;
+	position: absolute;
 }
 
 .labelled-items {
     position: relative;
-    width: 70%;
+    width: 200px;
     margin: 10px;
     background:rgb(0 73 28);
     border-radius: 0% 0% 0% 0% / 0% 0% 0% 0%;

@@ -11,14 +11,19 @@ $sql = "SELECT * FROM events";
 $result = mysqli_query($con, $sql);
 ?>
 
-?>
-
 
 <html>
 
 <head>
     <link rel="icon" type="image/x-icon" href="images/icon.png">
     <link rel="stylesheet" href="css/event.css" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="./css/forum.css" />
     <title>Greenify | Events</title>
 </head>
 
@@ -27,7 +32,15 @@ $result = mysqli_query($con, $sql);
     <div class="c-container">
 
         <div style="margin-left:50px;display: flex; align-items: center;">
-            <div style="width:900px; display:flex; align-items: center;">
+
+        <div class='search-box' style="margin-right:15px;align-items:center">
+                    <div class="search" style="margin-bottom:0;padding-bottom:0">
+                        <input id="eventSearch" type="text" name="search_val"placeholder="Search Event" style="border-bottom: 2px solid green;" />
+                        <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
+                    </div>
+            </div>
+
+            <div style="width:1000px; display:flex; align-items: center;">
                 <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
                 <span style="margin-right: 5px;">Filter by:</span>
                 <select id="categoryFilter" class="form-control">
@@ -37,12 +50,9 @@ $result = mysqli_query($con, $sql);
                     <option value="Green Marketplace">Green Marketplace</option>
                     <option value="Nature Walks">Nature Walks</option>
                 </select>
-                <span id="clearFilter" class="clear-filter" style="display: none;"
-                    onclick="clearFilter()"><i class="bi bi-x-circle-fill" style="color:rgb(0 73 28);"></i></span>
+                <span id="clearFilter" class="clear-filter" style="display: none;" onclick="clearFilter()"><i
+                        class="bi bi-x-circle-fill" style="color:rgb(0 73 28);"></i></span>
             </div>
-
-
-
 
             <?php if ($_SESSION['role'] == 'admin') { ?>
                 <a href="manageEvent.php" style="text-decoration: none;">
@@ -53,8 +63,6 @@ $result = mysqli_query($con, $sql);
             <?php } ?>
 
         </div>
-
-
 
         <div id="filteredEvents" class="ag-format-container">
             <div class="ag-courses_box">
@@ -196,8 +204,8 @@ $result = mysqli_query($con, $sql);
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal" > 🡆 RSVP</button></a>
-                        
+                        <button type="button" class="btn btn-outline-primary" data-dismiss="modal"> 🡆 RSVP</button></a>
+
                     </div>
                 </div>
             </div>
@@ -220,6 +228,22 @@ $result = mysqli_query($con, $sql);
                 success: function (data) {
                     $('#filteredEvents').html(data);
                     toggleClearFilter();
+                }
+            });
+        }
+
+        document.getElementById('eventSearch').addEventListener('keyup', function () {
+            var keyword = this.value;
+            searchEvents(keyword);
+        });
+
+        function searchEvents(keyword) {
+            $.ajax({
+                url: 'searchEvent.php',
+                type: 'POST',
+                data: { search_val : keyword },
+                success: function (data) {
+                    $('#filteredEvents').html(data);
                 }
             });
         }
@@ -251,8 +275,6 @@ $result = mysqli_query($con, $sql);
         crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
-
-
 
 
 </body>
