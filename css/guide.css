@@ -89,8 +89,8 @@
     /* border: 2px solid black; */
     min-height: 400px;
 	padding: 20px 30px 40px;
-    background-color: #7ee8fa;
-    background-image: linear-gradient(315deg, #7ee8fa 0%, #b9f9b2 74%);
+    /* background-color: #7ee8fa;
+    background-image: linear-gradient(315deg, #7ee8fa 0%, #b9f9b2 74%); */
     
 }
 
@@ -195,6 +195,7 @@
 	overflow: hidden;
 	position: relative;
     background-color: white;
+    border: 1px solid lightgrey;
 }
 .guideCard:hover{
 	transform: scale(1.05);

@@ -168,7 +168,7 @@ if(isset($_SESSION['urole'])){
                                 $numcount++;
                             }
                         } else {
-                            echo "<tr><td colspan='6'>No guide yet</td></tr>";
+                            echo "<tr><td colspan='6' style='text-align: center;'>No guide yet</td></tr>";
                         }
                         ?>
 

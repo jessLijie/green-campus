@@ -1,5 +1,4 @@
 <?php
-// Include your database connection code
 require_once 'connectdb.php';
 
 if (isset($_GET['category'])) {
@@ -13,7 +12,12 @@ if (isset($_GET['category'])) {
 
     $resguide = mysqli_query($con, $guideSql);
     $count = mysqli_num_rows($resguide);
-
+} else if(isset($_GET['searchval'])){
+    $searchval = mysqli_real_escape_string($con, $_GET['searchval']);
+    $guideSql = "SELECT * FROM guides WHERE guideTitle LIKE '%$searchval%'";
+    $resguide = mysqli_query($con, $guideSql);
+    $count = mysqli_num_rows($resguide);
+}
     if ($count > 0) {
         while ($row = mysqli_fetch_assoc($resguide)) {
             $guideID = $row['guideID'];
@@ -69,21 +73,18 @@ if (isset($_GET['category'])) {
                         <div><?php echo $guideContent; ?></div>
                     </div>
                 </div>
-                <!--<div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>-->
                 </div>
             </div>
         </div>
         <?php 
             }
         }else{
-            echo "<div style='font-size: 20px; margin: auto;'>No guide for category \"$category\".</div>";
+            if(isset($_GET['category'])){
+                echo "<div style='font-size: 20px; margin: auto;'>No guide for category \"$category\".</div>";
+            }else if(isset($_GET['searchval'])){
+                echo "<div style='font-size: 20px; margin: auto;'>No matching guide title \"$searchval\".</div>";
+            }
         }
-    } else {
-        echo "No result found.";  
-    }
 
     function makeLinksClickable($text) {
         // Regular expression to find URLs in the text

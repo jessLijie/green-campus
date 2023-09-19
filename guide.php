@@ -141,8 +141,11 @@ if(isset($_SESSION['role'])){
                     <?php if(isset($_SESSION['role']) && $_SESSION['role']=="admin"){ ?>
                     <a href="./guideManage.php" class="manageIcon"><i class="bi bi-gear"></i></a>
                     <?php } ?>
+                    <form id="searchguideForm" class="input-group" action="" method="get" style="width: 300px; margin: 20px 30px 20px auto;">
+                        <input type="text" id="searchVal" name="search" class="form-control" placeholder="Guide Title" />
+                        <button class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
+                    </form>
                 </div>
-                
                 <div class="guideCardList" id="guideCardList">
                     <?php 
                         $resguide = mysqli_query($con, $guideSql);
@@ -199,10 +202,6 @@ if(isset($_SESSION['role'])){
                                         <div><?php echo $guideContent; ?></div>
                                     </div>
                                 </div>
-                                <!--<div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>-->
                                 </div>
                             </div>
                         </div>
@@ -228,17 +227,34 @@ if(isset($_SESSION['role'])){
     function loadFilteredResults(category) {
         $.ajax({
             type: 'GET',
-            url: 'guide_filter.php', // Replace with the actual endpoint
+            url: 'guide_filter.php',
             data: { category: category },
             success: function(data) {
-                console.log(data);
                 $('#guideCardList').html(data);
+                $('#searchVal').val("");
             },
             error: function() {
                 alert('Error loading filtered results.');
             }
         });
     }
+
+    $(document).on('submit','#searchguideForm', function(e){
+        e.preventDefault();
+        var searchval = $('#searchVal').val();
+        $.ajax({
+            type: 'GET',
+            url: 'guide_filter.php',
+            data: { searchval: searchval },
+            success: function(data){
+                $('#guideCardList').html(data);
+            },
+            error: function(data){
+                alert('Error loading searched results.');
+            }
+        })
+    })
+
 });
 
 </script>
