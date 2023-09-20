@@ -14,158 +14,10 @@ if (isset($_SESSION['userID'])) {
   <title>Greenify UTM</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/dashboard.css" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
     crossorigin="anonymous"></script>
-  <style>
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .calculator {
-      background: #f4f4f4;
-      padding: 20px;
-    }
-
-    .calculatorResult {
-      display: inline-flex;
-      align-items: center;
-      font-size: 15px;
-      line-height: 24px;
-      color: #3cce88;
-      background-color: #eee;
-      border: 1px solid;
-      border-color: #3cce88;
-      padding: 4px 6px;
-      margin: 0 0 4px;
-      width: 100%;
-      height: 48px;
-      text-indent: 10px;
-      font-weight: 700;
-      border-radius: 2px;
-      outline: 0;
-      box-shadow: 0 0 0 transparent;
-    }
-
-    .calculatorResult:hover {
-      background-image: linear-gradient(90deg, #DEE4EA, #F9FCFF, #DEE4EA, #F9FCFF, #DEE4EA);
-      animation: slidebg 3s linear infinite;
-    }
-
-    .overflow-auto {
-      height: 550px;
-      width: 3800px;
-      margin: 4%;
-    }
-
-    .card:hover {
-      background-color: #EEEEEE;
-      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-      -webkit-animation: swing 1s ease;
-      animation: swing 1s ease;
-      -webkit-animation-iteration-count: 1;
-      animation-iteration-count: 1;
-      /* color: white */
-    }
-
-    .noResult {
-      text-align: center;
-      margin: 100px;
-    }
-
-    input[type="number"] {
-      font-size: 15px;
-      line-height: 24px;
-      color: #333;
-      background-color: #FFFFFF;
-      border: 1px solid;
-      border-color: white;
-      padding: 4px 6px;
-      margin: 0 0 4px;
-      width: 100%;
-      min-height: 48px;
-      text-indent: 10px;
-      font-weight: 400;
-      border-radius: 2px;
-      outline: 0;
-      box-shadow: 0 0 0 transparent;
-    }
-
-    @-webkit-keyframes swing {
-      15% {
-        -webkit-transform: translateY(5px);
-        transform: translateY(5px);
-      }
-
-      30% {
-        -webkit-transform: translateY(-5px);
-        transform: translateY(-5px);
-      }
-
-      50% {
-        -webkit-transform: translateY(3px);
-        transform: translateY(3px);
-      }
-
-      65% {
-        -webkit-transform: translateY(-3px);
-        transform: translateY(-3px);
-      }
-
-      80% {
-        -webkit-transform: translateY(2px);
-        transform: translateY(2px);
-      }
-
-      100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes swing {
-      15% {
-        -webkit-transform: translateY(5px);
-        transform: translateY(5px);
-      }
-
-      30% {
-        -webkit-transform: translateY(-5px);
-        transform: translateY(-5px);
-      }
-
-      50% {
-        -webkit-transform: translateY(3px);
-        transform: translateY(3px);
-      }
-
-      65% {
-        -webkit-transform: translateY(-3px);
-        transform: translateY(-3px);
-      }
-
-      80% {
-        -webkit-transform: translateY(2px);
-        transform: translateY(2px);
-      }
-
-      100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-
-    .swing:hover {
-      width: 70px;
-      height: 70px;
-      -webkit-animation: swing 1s ease;
-      animation: swing 1s ease;
-      -webkit-animation-iteration-count: 1;
-      animation-iteration-count: 1;
-    }
-  </style>
 </head>
 
 <body>
@@ -182,7 +34,7 @@ if (isset($_SESSION['userID'])) {
     $searchMsg = "<h5>Search results for : " . $_GET['query'] . "</h5>";
   }
   ?>
-  <div class="d-flex flex-nowrap" style="margin: 2%">
+  <div class="d-flex flex-nowrap" style="margin: 40px 10px;">
     <div class="overflow-auto">
       <div style="display: inline-flex; width:100%; justify-content: space-between">
         <div style="display: inline-flex">
@@ -247,44 +99,70 @@ if (isset($_SESSION['userID'])) {
       ?>
       <div class="tab-content" id="myTabContent" style="padding-top: 1%; padding-bottom: 1%;">
         <div class="tab-pane fade show active" id="all-tab-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
-          <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query'");
+          <?php $result1 = mysqli_query($con, "SELECT * FROM newsfeed WHERE title LIKE '$query' ORDER BY id DESC");
           if (mysqli_num_rows($result1) > 0) {
             echo $searchMsg;
             newsfees($result1);
           } else {
-            echo '<h2 class="noResult">We could not find anything for " ' . $query . '".</h2>';
+            if (mysqli_num_rows(mysqli_query($con, "SELECT * FROM newsfeed"))) {
+              echo '<h2 class="noResult">We could not find anything for " ' . $_GET['query'] . '".</h2>';
+            } else {
+              echo '<h2 class="noResult">No news yet.</h2>';
+            }
           }
           ?>
         </div>
         <div class="tab-pane fade" id="campusNews-tab-pane" role="tabpanel" aria-labelledby="campusNews-tab"
-          tabindex="0"><?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
-          newsfees($result2); ?>
+          tabindex="0">
+          <?php $result2 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Campus News'");
+          if (mysqli_num_rows($result2) > 0) {
+            newsfees($result2);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
         <div class="tab-pane fade" id="events-tab-pane" role="tabpanel" aria-labelledby="events-tab" tabindex="0">
           <?php $result3 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Events'");
-          newsfees($result3); ?>
+          if (mysqli_num_rows($result3) > 0) {
+            newsfees($result3);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
         <div class="tab-pane fade" id="achievements-tab-pane" role="tabpanel" aria-labelledby="achievements-tab"
-          tabindex="0"><?php $result4 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Achievements'");
-          newsfees($result4); ?>
+          tabindex="0">
+          <?php $result4 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Achievements'");
+          if (mysqli_num_rows($result4) > 0) {
+            newsfees($result4);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
         <div class="tab-pane fade" id="facilities-tab-pane" role="tabpanel" aria-labelledby="facilities-tab"
-          tabindex="0"><?php $result5 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Facilities'");
-          newsfees($result5); ?>
+          tabindex="0">
+          <?php $result5 = mysqli_query($con, "SELECT * FROM newsfeed WHERE category = 'Facilities'");
+          if (mysqli_num_rows($result5) > 0) {
+            newsfees($result5);
+          } else {
+            echo '<h2 class="noResult">No news yet.</h2>';
+          } ?>
         </div>
       </div>
-    </div>S
+    </div>
 
-    <div class="calculator" style="width: 100%; margin: 2%; margin-left: 0">
+    <div class="calculator">
       <h2>Carbon Footprint Calculator</h2>
       <label for="kwh">Electricity consumption (kWh)</label>
-      <input type="number" id="kwh" class="focus-ring" step="any" placeholder="Enter kilowatt-hours" value="0" oninput="calculateCarbon()">
+      <input type="number" id="kwh" class="focus-ring" step="any" placeholder="Enter kilowatt-hours" value="0"
+        oninput="calculateCarbon()">
       <p id="errorKwh" style="color: red"></p>
       <label for="petrol">Petrol consumption (L)</label>
-      <input type="number" id="petrol" class="focus-ring" step="any" placeholder="Enter litres" value="0" oninput="calculateCarbon()">
+      <input type="number" id="petrol" class="focus-ring" step="any" placeholder="Enter litres" value="0"
+        oninput="calculateCarbon()">
       <p id="errorPetrol" style="color: red"></p>
       <label for="waste">Household waste generated (kg)</label>
-      <input type="number" id="waste" class="focus-ring" step="any" placeholder="Enter kilograms" value="0" oninput="calculateCarbon()">
+      <input type="number" id="waste" class="focus-ring" step="any" placeholder="Enter kilograms" value="0"
+        oninput="calculateCarbon()">
       <p id="errorWaste" style="color: red"></p>
       <h6>Estimated Carbon Footprint</h6>
       <div>
