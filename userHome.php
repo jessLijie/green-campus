@@ -182,7 +182,7 @@ if (isset($_SESSION['userID'])) {
     $searchMsg = "<h5>Search results for : " . $_GET['query'] . "</h5>";
   }
   ?>
-  <div class="d-flex flex-nowrap" style="margin: 2%">
+  <div class="d-flex flex-nowrap" style="margin: 40px 10px;">
     <div class="overflow-auto">
       <div style="display: inline-flex; width:100%; justify-content: space-between">
         <div style="display: inline-flex">
@@ -273,7 +273,7 @@ if (isset($_SESSION['userID'])) {
           newsfees($result5); ?>
         </div>
       </div>
-    </div>S
+    </div>
 
     <div class="calculator" style="width: 100%; margin: 2%; margin-left: 0">
       <h2>Carbon Footprint Calculator</h2>

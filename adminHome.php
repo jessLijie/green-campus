@@ -183,7 +183,7 @@
         $searchMsg = "<h5>Search results for : " . $_GET['query'] . "</h5>";
     }
     ?>
-    <div class="d-flex flex-nowrap" style="margin: 2%">
+    <div class="d-flex flex-nowrap" style="margin: 40px 10px;">
         <div class="overflow-auto">
             <div style="display: block; margin-bottom: 1%;"><a href="adminManage.php"><button type="button"
                         class="btn btn-outline-secondary" style="margin-right: 1%">Manage

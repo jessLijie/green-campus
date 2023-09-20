@@ -19,27 +19,6 @@ if(isset($_SESSION['role'])){
 </head>
 <body>
     <?php include("header.php"); ?>
-    <?php 
-        if(isset($_GET['category'])){
-            $guideCategory = $_GET['category'];
-            if($guideCategory=="All"){
-                $guideSql = "SELECT * FROM guides";
-            }else{
-              $guideSql = "SELECT * FROM guides WHERE guideCategory='$guideCategory'";  
-            }
-        } else {
-            $guideSql = "SELECT * FROM guides";
-        }
-    ?>
-    <?php
-        function makeLinksClickable($text) {
-            // Regular expression to find URLs in the text
-            $pattern = '/(https?:\/\/[^\s]+)/';
-            $replacement = '<a href="$1" target="_blank">$1</a>';
-            $text = preg_replace($pattern, $replacement, $text);
-            return $text;
-        }
-    ?>
     <div class="guidePageContainer">
         <div class="slider">
             <div class="slideList">
@@ -141,90 +120,29 @@ if(isset($_SESSION['role'])){
                     <?php if(isset($_SESSION['role']) && $_SESSION['role']=="admin"){ ?>
                     <a href="./guideManage.php" class="manageIcon"><i class="bi bi-gear"></i></a>
                     <?php } ?>
-                    <form id="searchguideForm" class="input-group" action="" method="get" style="width: 300px; margin: 20px 30px 20px auto;">
+                    <form id="searchguideForm" class="input-group" action="" method="get" style="width: 300px; margin: 0 10px 0 auto;">
                         <input type="text" id="searchVal" name="search" class="form-control" placeholder="Guide Title" />
                         <button class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
                 <div class="guideCardList" id="guideCardList">
-                    <?php 
-                        $resguide = mysqli_query($con, $guideSql);
-                        $count = mysqli_num_rows($resguide);
-                        if($count>0){
-                            while($row=mysqli_fetch_assoc($resguide)){
-                                $guideID = $row['guideID'];
-                                $guideTitle = $row['guideTitle'];
-                                $guideContent = nl2br($row['guideContent']);
-                                $guideImg = $row['guideImg'];
-                                $guideCategory = $row["guideCategory"];
-                                
-                            ?>
-
-                        <a style="text-decoration: none; color: black;" href="#" type="button" data-bs-toggle="modal" data-bs-target="#guideDetailsContainer<?php echo $row["guideID"]; ?>" >    
-                            <div class="guideCard">
-                                <?php if($guideImg){ ?>
-                                    <img src="images/guideImg/<?php echo $guideImg; ?>" class="guideImg" />
-                                <?php } else { ?>
-                                        <img src="images/guideImg/default.jpg" class="guideImg" style="object-fit: cover;"/>
-                                <?php } ?>
-                                <div class="guideCategory">
-                                    <?php echo $guideCategory; ?>
-                                </div>
-                                <div class="guideTitle">
-                                    <?php echo $guideTitle; ?>
-                                </div>
-                                <div class="guideDescription">
-                                <?php echo $guideContent; ?>
-                                </div>
-                                <div class="learnmore">
-                                    <span>Learn more</span> <i class="bi bi-arrow-right-short"></i>
-                                </div>
-                            </div>
-                        </a>
-
-                        <div class="modal fade .modal-dialog-centered" id="guideDetailsContainer<?php echo $row["guideID"]; ?>" tabindex="-1" aria-labelledby="guideDetailsContainerLabel" aria-hidden="true" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="guideDetailsContainerLabel"></h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div style="padding: 5px 15px;">
-                                        <?php if($guideImg){ ?>
-                                            <img src="images/guideImg/<?php echo $guideImg; ?>" alt="guideImg-<?php echo $guideID; ?>" style="width: 100%; height: 300px; border-radius: 10px;"/>
-                                        <?php } else { ?>
-                                            <img src="images/guideImg/default.jpg" alt="guideImg" style="width: 100%; height: 300px; border-radius: 10px; object-fit: cover;"/>
-                                        <?php } ?>
-                                        <div class="guideCategory" style="margin: 15px 0;"><?php echo $guideCategory; ?></div>
-                                        <h3 style="font-size: 20px;"><?php echo $guideTitle; ?></h3>
-                                        <?php $guideContent=makeLinksClickable($guideContent); ?>
-                                        <div><?php echo $guideContent; ?></div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php 
-                            }
-                        } else {
-                            echo "<div style='font-size: 20px; margin: auto;'>No result found.</div>";
-                        } ?>
-                        
+                    
                 </div>
             </div>
         </div>
     </div>
 <script>
     $(document).ready(function() {
+        loadFilteredResults("All");
     // Handle category link clicks
     $('#categoryFilter a').click(function(e) {
         e.preventDefault();
         var category = $(this).data('category');
-        loadFilteredResults(category);
+        var clickedCategory = $(this);
+        loadFilteredResults(category, clickedCategory);
     });
 
-    function loadFilteredResults(category) {
+    function loadFilteredResults(category, clickedCategory="") {
         $.ajax({
             type: 'GET',
             url: 'guide_filter.php',
@@ -232,6 +150,8 @@ if(isset($_SESSION['role'])){
             success: function(data) {
                 $('#guideCardList').html(data);
                 $('#searchVal').val("");
+                $('#categoryFilter a').css("background-color", "white");
+                $(clickedCategory).css("background-color", "#b3ffd6");
             },
             error: function() {
                 alert('Error loading filtered results.');

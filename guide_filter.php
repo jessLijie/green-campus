@@ -17,7 +17,12 @@ if (isset($_GET['category'])) {
     $guideSql = "SELECT * FROM guides WHERE guideTitle LIKE '%$searchval%'";
     $resguide = mysqli_query($con, $guideSql);
     $count = mysqli_num_rows($resguide);
+} else{
+    $guideSql = "SELECT * FROM guides";
+    $resguide = mysqli_query($con, $guideSql);
+    $count = mysqli_num_rows($resguide);
 }
+
     if ($count > 0) {
         while ($row = mysqli_fetch_assoc($resguide)) {
             $guideID = $row['guideID'];
@@ -26,12 +31,7 @@ if (isset($_GET['category'])) {
             $guideImg = $row['guideImg'];
             $guideCategory = $row["guideCategory"];
 
-            $modalContent[$row['guideID']] = array(
-                "guideTitle" => $row["guideTitle"],
-                "guideContent" => nl2br($row["guideContent"]),
-                "guideImg" => $row["guideImg"],
-                "guideCategory" => $row["guideCategory"]
-            ); ?>
+            ?>
             <a style="text-decoration: none; color: black;" href="#" type="button" data-bs-toggle="modal" data-bs-target="#guideDetailsContainer<?php echo $row["guideID"]; ?>" >    
             <div class="guideCard">
                 <?php if($guideImg){ ?>
@@ -39,7 +39,7 @@ if (isset($_GET['category'])) {
                 <?php } else { ?>
                         <img src="images/guideImg/default.jpg" class="guideImg" style="object-fit: cover;"/>
                 <?php } ?>
-                <div class="guideCategory">
+                <div class="guideCategory" style="background-color:<?php echo categoryColor($guideCategory); ?> ">
                     <?php echo $guideCategory; ?>
                 </div>
                 <div class="guideTitle">
@@ -49,7 +49,7 @@ if (isset($_GET['category'])) {
                 <?php echo $guideContent; ?>
                 </div>
                 <div class="learnmore">
-                    <span>Learn more</span> <i class="bi bi-arrow-right-short"></i>
+                    <span>Read more</span>
                 </div>
             </div>
         </a>
@@ -67,7 +67,7 @@ if (isset($_GET['category'])) {
                         <?php } else { ?>
                             <img src="images/guideImg/default.jpg" alt="guideImg" style="width: 100%; height: 300px; border-radius: 10px; object-fit: cover;"/>
                         <?php } ?>
-                        <div class="guideCategory" style="margin: 15px 0;"><?php echo $guideCategory; ?></div>
+                        <div class="guideCategory" style="margin: 15px 0; background-color: <?php echo categoryColor($guideCategory); ?>"><?php echo $guideCategory; ?></div>
                         <h3 style="font-size: 20px;"><?php echo $guideTitle; ?></h3>
                         <?php $guideContent=makeLinksClickable($guideContent); ?>
                         <div><?php echo $guideContent; ?></div>
@@ -92,5 +92,22 @@ if (isset($_GET['category'])) {
         $replacement = '<a href="$1" target="_blank">$1</a>';
         $text = preg_replace($pattern, $replacement, $text);
         return $text;
+    }
+
+    function categoryColor($cat){
+        switch($cat){
+            case 'Environment Protection':
+                return '#b2f7ff';
+            case 'Energy and Resource':
+                return '#ffff76';
+            case 'Waste Reduction and Recycling':
+                return '#ffdb70';
+            case 'Carbon Footprint':
+                return '#acffac';
+            case 'Transportation':
+                return '#f1c2c2';
+            case 'Other':
+                return '#dbdbdb';
+        }
     }
 ?>
