@@ -9,39 +9,7 @@
     <title>Greenify UTM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <style>
-        body {
-            background-image: linear-gradient(to right, #8a64d6, #0cead9)
-        }
-
-        .errorMsg {
-            font-size: small;
-            color: red;
-        }
-
-        img.round {
-            object-fit: cover;
-            border-radius: 50%;
-            height: 200px;
-            width: 200px;
-            box-sizing: content-box;
-            box-shadow: 3px 3px 10px 2px #888888;
-        }
-
-        .profile-container {
-            padding: 1%;
-            margin-bottom: 4%;
-            text-align: center;
-        }
-
-        #cointainer {
-            margin: 6% 30% 6% 30%;
-            padding: 2%;
-            border-radius: 12px;
-            background-color: white;
-            box-shadow: 3px 3px 20px 2px #888888;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/profile.css" />
 </head>
 
 <body>
@@ -203,7 +171,7 @@
                         echo $newUsername;
                     } else {
                         echo $row['username'];
-                    } ?>" required>
+                    } ?>" style="background-color: white" required>
                     <p class="errorMsg">
                         <?php echo $userErrorMsg ?>
                     <p>
@@ -217,7 +185,7 @@
                         echo $newEmail;
                     } else {
                         echo $row['email'];
-                    } ?>" required>
+                    } ?>" style="background-color: white" required>
                     <p class="errorMsg">
                         <?php echo $emailErrorMsg ?>
                     <p>

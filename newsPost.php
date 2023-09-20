@@ -8,32 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/dashboard.css" />
     <title>Greenify UTM</title>
-    <style>
-
-        .newsImage {
-            width: 140px;
-            height: 85px;
-            padding: 5px;
-        }
-
-        .newsFeature {
-            text-decoration: none;
-            color: black;
-        }
-
-        .newsFeature:hover {
-            color: red;
-        }
-
-        .newsTitle {
-            display: inline-block;
-            width: 200px;
-            max-height: 85px;
-            vertical-align: top;
-        }
-
-    </style>
 </head>
 
 <body>
@@ -52,7 +28,7 @@
     }
 
     ?>
-    <div style="margin: 10%; margin-top: 7%; display: flex; gap: 50px;">
+    <div class="news-container">
         <div>
             <article>
                 <header class="mb-4">
@@ -67,9 +43,8 @@
                         <?php echo $newsPost['category']; ?>
                     </a>
                 </header>
-                <figure class="mb-4"><img class="img-fluid rounded"
-                        src="images/newsImg/<?php echo $newsPost['image_url']; ?>" alt="..."
-                        style="width: 800px; aspect-ratio: 16 / 9; margin-right: 0" /></figure>
+                <figure class="mb-4"><img class="img-fluid rounded newsBigImage"
+                        src="images/newsImg/<?php echo $newsPost['image_url']; ?>" alt="..." /></figure>
                 <section class="mb-5">
                     <p class="fs-5 mb-4" style="width: 800px; margin-right: 0">
                         <?php echo $newsPost['content']; ?>

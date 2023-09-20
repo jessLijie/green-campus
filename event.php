@@ -34,8 +34,9 @@ $result = mysqli_query($con, $sql);
         <div style="margin-left:50px;display: flex; align-items: center;">
 
         <div class='search-box' style="margin-right:15px;align-items:center">
+
                     <div class="search" style="margin-bottom:0;padding-bottom:0">
-                        <input id="eventSearch" type="text" name="search_val"placeholder="Search Event" style="border-bottom: 2px solid green;" />
+                        <input id="eventSearch" class="form-control" type="text" name="search_val"placeholder="Search Event" style="border-bottom: 2px solid green;border-radius:0" />
                         <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
             </div>
