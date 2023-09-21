@@ -1,13 +1,6 @@
 <?php
 include("../connectdb.php");
-$sql = "CREATE TABLE guides(
-        guideID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        guideTitle varchar(255) NOT NULL,
-        guideContent TEXT,
-        guideImg varchar(255),
-        guideCategory varchar(255)
-)";
-mysqli_query($con, $sql);
+
 $sql1 = "CREATE TABLE users (
         userID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         username varchar(50),
@@ -73,6 +66,15 @@ $sql="CREATE TABLE post (
         userID int,
         FOREIGN KEY (userID) REFERENCES users(userID)
         )";
+mysqli_query($con, $sql);
+
+$sql = "INSERT INTO `post` (`postID`, `postTitle`, `postContent`, `postPic`, `postCategory`, `postDate`, `userID`) VALUES
+(1, 'Environment Protection', 'What are the activities related to environment protection?', 'postImg-650c265d418ae94419.png', 'environment-protection', '2023-09-21 19:48:44', 2),
+(2, 'Recycling', 'Why is it not common to see the recycle bin in UTM?', 'postImg-650c27a9dd35b65623.jpg', 'waste-recycling', '2023-09-21 19:23:21', 3),
+(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'carbon-footprint', '2023-09-21 19:22:55', 14),
+(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'energy-resource', '2023-09-21 19:22:19', 4),
+(5, 'Let\'s Recycle', 'Is it recycle important? Yes, it is important!😍', 'postImg-650c26a5f207551006.jpeg', 'waste-recycling', '2023-09-21 20:03:05', 2);
+";
 mysqli_query($con, $sql);
 
 $sql3 = "CREATE TABLE labelled_item(
@@ -148,6 +150,20 @@ $sql = "CREATE TABLE guides(
         guideImg varchar(255),
         guideCategory varchar(255)
 )";
+mysqli_query($con, $sql);
+
+$sql = "INSERT INTO `guides` (`guideID`, `guideTitle`, `guideContent`, `guideImg`, `guideCategory`) VALUES
+(1, 'Our Planet Starts with You Ten simple choices for a healthier planet.', '1. Reduce, reuse, and recycle.\r\n2. Volunteer.\r\n3. Educate.\r\n4. Conserve water.\r\n5. Choose sustainable.\r\n6. Shop wisely.\r\n7. Use long-lasting light bulbs.\r\n8. Plant a tree.\r\n9. Don\'t send chemicals into our waterways.\r\n10. Bike more.\r\n\r\nFor more info:\r\nhttps://oceanservice.noaa.gov/ocean/earthday.html', 'guideImg-650c2856ad21333086.jpg', 'Environment Protection'),
+(2, 'Recycling 101', 'Three Basic Rules:\r\nRule 1: Recycle bottles, cans, paper and cardboard.\r\nRule 2: Keep food and liquid out of your recycling.\r\nRule 3: No loose plastic bags and no bagged recyclables.\r\n\r\nClick to find more details:\r\nhttps://www.wm.com/us/en/recycle-right/recycling-101', 'guideImg-650c28bb7f02847756.jpeg', 'Waste Reduction and Recycling'),
+(3, 'How to Recycle: Tips and Tricks to Get Started', 'FIRST: Get set up with your waste management provider.\r\nTHEN: Find out what your recycling service accepts! \r\n\r\nClick to know more:\r\nhttps://www.ecoenclose.com/blog/how-to-recycle-tips-and-tricks-to-get-started/', 'guideImg-650c28c363c9d80600.png', 'Waste Reduction and Recycling'),
+(4, 'Modes and Benefits of Green Transportation', 'Modes of Green Transportation:\r\n1. Bicycle\r\n2. Electric bike\r\n3. Electric vehicles\r\n4. Green trains\r\n5. Electric motorcycles\r\n6. Multiple occupant vehicles\r\n7. Service and freight vehicles\r\n8. Hybrid cars\r\n9. The new hybrid buses (Public Transportation)\r\n10. Pedestrians\r\n\r\nBenefits of Green Transportation:\r\n1. Fewer to no environmental pollution\r\n2. Saves you money\r\n3. Contribute to the building of a sustainable economy\r\n4. Improved health\r\n\r\nClick to learn more:\r\nhttps://www.conserve-energy-future.com/modes-and-benefits-of-green-transportation.php', 'guideImg-650c28ca4072634932.jpg', 'Transportation'),
+(5, 'A guide to achieving sustainable transportation', 'What is sustainable transportation?\r\n‘Sustainable transportation’ refers to safe modes of transportation that have a low impact on the environment. You’ll often see the term ‘green transportation’ too. Where possible, this type of transportation tends to use renewable energy, rather than coal or other fossil fuels that can harm the Earth.\r\n\r\nNot all forms of transportation have to use an energy source to be sustainable, however, Cycling is one environmentally-friendly form of transportation that doesn’t require any energy other than that of the human using the bicycle.\r\n\r\nClick to learn more:\r\nhttps://www.joloda.com/news/a-guide-to-achieving-sustainable-transportation/', 'guideImg-650c28d2f015d84176.jpg', 'Transportation'),
+(6, 'Green Energy 101', 'Types of Green Energy:\r\n1. Solar Energy\r\n2. Wind Energy\r\n3. Hydro Energy\r\n4. Bioenergy\r\n5. Geothermal Energy\r\n\r\nClick to learn more:\r\nhttps://www.bluettipower.com/blogs/news/a-guide-to-green-energy', 'guideImg-650c28ddc25bf58582.jpg', 'Energy and Resource'),
+(7, '12 Energy Saving Tips', '1. Turning off the lights when leaving a room\r\n2. Use LED lights\r\n3. Switching to efficient appliances\r\n4. Unplug devices\r\n5. Lessen water usage\r\n6. Keep the thermostat at a lower temperature\r\n7. Use smart automated devices\r\n8. Use double glazing door\r\n9. Cook with the lid on\r\n10. Using smart meter\r\n11. Washing at low temp\r\n12. Solar-powered devices\r\n\r\nClick to learn more:\r\nhttps://www.greenmatch.co.uk/blog/2020/03/how-to-save-energy-at-home', 'guideImg-650c28e5dfcd82153.png', 'Energy and Resource'),
+(8, 'How to Reduce Your Carbon Footprint', '1. Drive Less\r\nGoing carless for a year could save about 2.6 tons of carbon dioxide, according to 2017 study from researchers at Lund University and the University of British Columbia.\r\n\r\n2. Fly Less\r\nTaking one fewer long round-trip flight could shrink your personal carbon footprint significantly\r\n\r\nFor more information: \r\nhttps://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint', 'guideImg-650c28f4a404944007.jpg', 'Carbon Footprint'),
+(9, 'Green Landscaping: 5 Tips for a Lush and Eco-Friendly Landscape', 'Green landscaping is just another term for sustainable or eco-friendly landscaping and involves creating landscapes and gardens that nurture nature; reduce air soil and water pollution, and help protect the surrounding ecosystem. \r\n\r\nHere are our top five eco-friendly tips for a lush and “green” landscape.\r\n1. Go Native\r\n2. Use Mulch\r\n3. Amend the Soil\r\n4. Be Water-Wise\r\n5. Utilize Hardscapes\r\n\r\nClick to learn more: \r\nhttps://www.landscapeeast.com/blog/green-landscaping-5-tips-for-a-lush-and-eco-friendly-landscape-2020-02', 'guideImg-650c28fc6eedd76308.jpg', 'Other');
+";
+
 mysqli_query($con, $sql);
 
 echo "Tables created";
