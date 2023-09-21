@@ -20,7 +20,7 @@ include("connectdb.php");
                     $ext = end($guideImgName);
 
                     //create new image name
-                    $guideImgName = "guideImg-".mt_rand(00000,99999).".".$ext;
+                    $guideImgName = uniqid("guideImg-").mt_rand(00000,99999).".".$ext;
 
                     //get src path and destination path
                     $src=$_FILES['eguideImg']['tmp_name'];

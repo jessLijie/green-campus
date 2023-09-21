@@ -21,7 +21,7 @@ include("connectdb.php");
                 $ext = end($postImgName);
 
                 //create new image name
-                $postImgName = "postImg-".mt_rand(00000,99999).".".$ext;
+                $postImgName = uniqid("postImg-").mt_rand(00000,99999).".".$ext;
 
                 //get src path and destination path
                 $src=$_FILES['postImg']['tmp_name'];

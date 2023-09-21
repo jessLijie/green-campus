@@ -150,6 +150,7 @@ if(isset($_SESSION['urole'])){
                                         </div>
                                         <div class="modal-body">
                                             <p>Are you sure you want to delete?</p>
+                                            <p><b>Guide title: </b><?php echo $guideTitle; ?></p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>

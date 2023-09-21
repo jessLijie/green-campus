@@ -461,6 +461,34 @@
             })
         }
     </script>
+    <script>
+        var statusMessageBox = document.querySelector('.statusMessageBox1');
+            if(statusMessageBox){
+                setTimeout(function() {
+                    statusMessageBox.classList.add("slideOut");
+                }, 4000);
+            }
+            var progressbar = document.querySelector('.statusMessageBox1 .progressbar.active');
+            if (progressbar) {
+                setTimeout(function() {
+                    progressbar.classList.remove("active");
+                    statusMessageBox.remove();
+                }, 4500);
+            }
+
+            var toastCloseButtons = document.querySelectorAll('.statusMessageBox1 .toast-close');
+            toastCloseButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var statusMessageBox = document.querySelector('.statusMessageBox1');
+                    statusMessageBox.classList.add("slideOut");
+
+                    setTimeout(function() {
+                        progressbar.classList.remove("active");
+                        statusMessageBox.remove();
+                    }, 300);
+                });
+            });
+    </script>
 <?php ob_end_flush(); ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
