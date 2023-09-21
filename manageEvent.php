@@ -210,6 +210,26 @@ $result = mysqli_query($con, $sql);
                                     </div>
                                 </div><br>
 
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="locationName"><strong>▶️Latitude</strong></label>
+                                            <input type="text" class="form-control" id="locationName" name="locationName"
+                                                value="<?php echo $modalContent[$row['eventID']]['latitude']; ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="organizer"><strong>⏩Longitude</strong></label>
+                                            <input type="text" class="form-control" id="organizer" name="organizer"
+                                                value="<?php echo $modalContent[$row['eventID']]['longitude']; ?>">
+                                        </div>
+                                    </div>
+                                </div><br>
+
+                                <a href="https://www.google.com/maps/@1.5602393950091624,103.63827783102548,15.9z?entry=ttu"
+                                            target="_blank" class="btn btn-outline-primary"
+                                            style="font-size:15px;float:right">⇲ Find the coordinates</a><br><br><br>
 
                                 <div class="form-group">
                                     <label for="eventDescp"><strong>📢 Description</strong></label>
