@@ -122,7 +122,7 @@ if(isset($_SESSION['role'])){
                     <?php } ?>
                     <form id="searchguideForm" class="input-group" action="" method="get" style="width: 300px; margin: 0 10px 0 auto;">
                         <input type="text" id="searchVal" name="search" class="form-control" placeholder="Guide Title" />
-                        <button class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
+                        <button class="btn searchbtn"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
                 <div class="guideCardList" id="guideCardList">

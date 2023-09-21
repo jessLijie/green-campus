@@ -32,7 +32,7 @@ if (isset($_GET['category'])) {
             $guideCategory = $row["guideCategory"];
 
             ?>
-            <a style="text-decoration: none; color: black;" href="#" type="button" data-bs-toggle="modal" data-bs-target="#guideDetailsContainer<?php echo $row["guideID"]; ?>" >    
+            <a style="text-decoration: none; color: black; width: fit-content;" href="#" type="button" data-bs-toggle="modal" data-bs-target="#guideDetailsContainer<?php echo $row["guideID"]; ?>" >    
             <div class="guideCard">
                 <?php if($guideImg){ ?>
                     <img src="images/guideImg/<?php echo $guideImg; ?>" class="guideImg" />
@@ -80,9 +80,9 @@ if (isset($_GET['category'])) {
             }
         }else{
             if(isset($_GET['category'])){
-                echo "<div style='font-size: 20px; margin: auto;'>No guide for category \"$category\".</div>";
+                echo "<div style='font-size: 20px; margin: auto; grid-column: 1 / -1;'>No guide for category \"$category\".</div>";
             }else if(isset($_GET['searchval'])){
-                echo "<div style='font-size: 20px; margin: auto;'>No matching guide title \"$searchval\".</div>";
+                echo "<div style='font-size: 20px; margin: auto; grid-column: 1 / -1;'>No matching guide title \"$searchval\".</div>";
             }
         }
 

@@ -293,7 +293,54 @@
                         }
                     }
                 })
-            });	
+            });
+            
+            $(document).on('submit', '#replyForm', function(e){
+                e.preventDefault();
+                var parentCommentID = $(this).find('#parent_commentID').val();
+                var formData = $(this).serialize();
+                var comment = $(this).closest('.comment');
+                $.ajax({
+                    url: "addcomments.php",
+                    method: "POST",
+                    data: formData,
+                    dataType: "json",
+                    success:function(response) {
+                    if(!response.error) {
+                        var currentCount = parseInt($("#commentCount").text());
+                        $("#commentCount").text(currentCount + 1);
+                        //status
+                        showSuccessMessage(response);
+                        var commentReplies = $('.comment-replies[data-comment-id="' + parentCommentID + '"]');
+                        if (commentReplies.length === 0) {
+                            commentReplies = $('<div class="comment-replies" data-comment-id="' + parentCommentID + '"></div>');
+                            commentReplies.insertAfter(comment);
+                        }
+                        $('.comment-replies[data-comment-id="' + parentCommentID + '"]').show();
+                        showComments();
+                        
+                    } else if(response.error){
+                        showErrorMessage(response);
+                        showComments();
+                    }
+                }
+                })
+            });
+
+            $(document).on('click', '.showRepliesbtn', function(){
+                var repliesContainer = $(this).next('.comment-replies');
+                //repliesContainer.slideToggle();
+                repliesContainer.slideToggle("fast", "swing", function() {
+                    // Check the current visibility state
+                    var isVisible = $(this).is(":visible");
+                    // Set button text based on visibility state
+                    if (isVisible) {
+                        $(this).prev('.showRepliesbtn').html('<i class="bi bi-caret-up-fill"></i> Hide Replies');
+                    } else {
+                        $(this).prev('.showRepliesbtn').html('<i class="bi bi-caret-down-fill"></i> Show Replies');
+                    }
+                });
+            });
 
             $(document).on('click', '.comment-feature', function(){
                 closeAllDropdownsExcept(this);
@@ -356,55 +403,6 @@
                     }, 300);
                 });
             }
-
-            $(document).on('click', '.replybtn', function(){
-                var parentCommentID = $(this).attr("id");
-                var postComment = $(this).closest('.replyForm').find('.replyInput').val();
-                var pid = <?php echo $postIDjs; ?>;
-                var comment = $(this).closest('.comment');
-                $.ajax({
-                    url: "addcomments.php",
-                    method: "POST",
-                    data: {parent_commentID: parentCommentID,
-                        postComment: postComment,
-                        pid: pid},
-                    dataType: "json",
-                    success:function(response) {
-                    if(!response.error) {
-                        var currentCount = parseInt($("#commentCount").text());
-                        $("#commentCount").text(currentCount + 1);
-                        //status
-                        showSuccessMessage(response);
-                        var commentReplies = $('.comment-replies[data-comment-id="' + parentCommentID + '"]');
-                        if (commentReplies.length === 0) {
-                            commentReplies = $('<div class="comment-replies" data-comment-id="' + parentCommentID + '"></div>');
-                            commentReplies.insertAfter(comment);
-                        }
-                        $('.comment-replies[data-comment-id="' + parentCommentID + '"]').show();
-                        showComments();
-                        
-                    } else if(response.error){
-                        showErrorMessage(response);
-                        showComments();
-                    }
-                }
-                })
-            });
-
-            $(document).on('click', '.showRepliesbtn', function(){
-                var repliesContainer = $(this).next('.comment-replies');
-                //repliesContainer.slideToggle();
-                repliesContainer.slideToggle("fast", "swing", function() {
-                    // Check the current visibility state
-                    var isVisible = $(this).is(":visible");
-                    // Set button text based on visibility state
-                    if (isVisible) {
-                        $(this).prev('.showRepliesbtn').html('<i class="bi bi-caret-up-fill"></i> Hide Replies');
-                    } else {
-                        $(this).prev('.showRepliesbtn').html('<i class="bi bi-caret-down-fill"></i> Show Replies');
-                    }
-                });
-            });
 
             function closeAllDropdownsExcept(keepOpen) {
                 var commentdropdowns = $('.comment-feature');
