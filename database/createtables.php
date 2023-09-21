@@ -41,6 +41,17 @@ $sql2 = "CREATE TABLE events (
 
 mysqli_query($con, $sql2);
 
+$sql = 'INSERT INTO events (eventName,locationName,latitude,longitude,category,eventImage,eventDescp,organizer,startDate,endDate) VALUES
+("Climate Change Panel Discussion","Campus Lecture Hall",NULL,NULL,"Eco Panels","images/event/64f7d80bdac15.jpg","Engage with leading experts in the field of climate science as they discuss the latest research, challenges, and solutions related to climate change.","Environmental Science Department","2023-09-10 14:00:00","2023-09-10 16:00:00"),
+("Campus Swap Meet","Student Union Courtyard",NULL,NULL,"Green Marketplace","images/event/64f7d815da58f.jpg","Bring your gently used items to buy, sell, or trade with fellow students. Promote sustainability by giving pre-loved items a new home.","Student Sustainability Club","2023-09-17 11:00:00","2023-09-17 15:00:00"),
+("Environmental Film Screening","Campus Auditorium",NULL,NULL,"Eco Panels","images/event/64f7d82200725.jpg","Join us for a screening of thought-provoking environmental documentaries followed by a discussion with guest speakers.","Film and Ecology Club","2023-10-05 18:00:00","2023-10-05 20:30:00"),
+("Recycling Workshop","Campus Sustainability Center",NULL,NULL,"Sustainable Workshops","images/event/64f7d82a67268.jpg","Learn the art of recycling and upcycling everyday items in this interactive workshop. Turn trash into treasures!","Green Initiatives Group","2023-10-15 13:30:00","2023-10-15 15:30:00"),
+("Green Campus Tour","Campus Main Entrance",NULL,NULL,"Nature Walks","images/event/64f7d83449605.png","Discover the sustainable initiatives on our campus during a guided tour. See our solar panels, rain gardens, and more.","Campus Sustainability Office","2023-10-22 10:00:00","2023-10-22 11:30:00"),
+("Upcycled Art Exhibition","Campus Art Gallery",NULL,NULL,"Green Marketplace","images/event/64f7d83aafd09.jpg","View and purchase unique art pieces created from upcycled materials. Support local artists and eco-friendly art.","Art and Sustainability Collective","2023-11-02 15:00:00","2023-11-02 18:00:00")
+';
+
+mysqli_query($con, $sql);
+
 $sql = "INSERT INTO users(username, upassword, email, urole, matricNo, status)
         VALUES ('admin', md5('1122'), 'admin@gmail.com', 'admin', '','APPROVED'),
         ('jingyi', md5('1122'), 'jingyi012@gmail.com', 'user', 'A23EC0091','APPROVED'),
@@ -71,8 +82,8 @@ mysqli_query($con, $sql);
 $sql = "INSERT INTO `post` (`postID`, `postTitle`, `postContent`, `postPic`, `postCategory`, `postDate`, `userID`) VALUES
 (1, 'Environment Protection', 'What are the activities related to environment protection?', 'postImg-650c265d418ae94419.png', 'environment-protection', '2023-09-21 19:48:44', 2),
 (2, 'Recycling', 'Why is it not common to see the recycle bin in UTM?', 'postImg-650c27a9dd35b65623.jpg', 'waste-recycling', '2023-09-21 19:23:21', 3),
-(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'carbon-footprint', '2023-09-21 19:22:55', 14),
-(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'energy-resource', '2023-09-21 19:22:19', 4),
+(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'carbon-footprint', '2023-09-21 19:22:55', 2),
+(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'energy-resource', '2023-09-21 19:22:19', 3),
 (5, 'Let\'s Recycle', 'Is it recycle important? Yes, it is important!😍', 'postImg-650c26a5f207551006.jpeg', 'waste-recycling', '2023-09-21 20:03:05', 2);
 ";
 mysqli_query($con, $sql);
@@ -87,37 +98,37 @@ $sql3 = "CREATE TABLE labelled_item(
 mysqli_query($con,$sql3);
 
 // predefined labels
-// $sql4 = [];
-// $markers = [
-//     [1.5610633368545406, 103.64042591346818, 'hub'],
-//     [1.5586772764694763, 103.63833887638042, 'hub'],
-//     [1.5617711770954321, 103.63561939498715, 'hub'],
-//     [1.5618355261964076, 103.64531826263638, 'hub'],
-//     [1.5572238356525796, 103.63716434736952, 'bike'],
-//     [1.5604198455313483, 103.63403152728813, 'bike'],
-//     [1.5591757617257345, 103.6451895166191, 'bike'],
-//     [1.5628007624863784, 103.63637041351328, 'bus'],
-//     [1.5596905551138243, 103.6347396304572, 'bus'],
-//     [1.5579960264032544, 103.64029716745091, 'bus'],
-//     [1.5603125969563914, 103.64167045844547, 'bus'],
-//     [1.5627793127961294, 103.63913845317423, 'bus'],
-//     [1.5634657027755823, 103.64259313833247, 'park'],
-//     [1.5648345526143883, 103.63936059611834, 'park'],
-//     [1.55305617950327, 103.64641245128925, 'park'],
-//     [1.5568706004434785, 103.63494198708115, 'park']
-// ];
+$sql4 = [];
+$markers = [
+    [1.5610633368545406, 103.64042591346818, 'hub'],
+    [1.5586772764694763, 103.63833887638042, 'hub'],
+    [1.5617711770954321, 103.63561939498715, 'hub'],
+    [1.5618355261964076, 103.64531826263638, 'hub'],
+    [1.5572238356525796, 103.63716434736952, 'bike'],
+    [1.5604198455313483, 103.63403152728813, 'bike'],
+    [1.5591757617257345, 103.6451895166191, 'bike'],
+    [1.5628007624863784, 103.63637041351328, 'bus'],
+    [1.5596905551138243, 103.6347396304572, 'bus'],
+    [1.5579960264032544, 103.64029716745091, 'bus'],
+    [1.5603125969563914, 103.64167045844547, 'bus'],
+    [1.5627793127961294, 103.63913845317423, 'bus'],
+    [1.5634657027755823, 103.64259313833247, 'park'],
+    [1.5648345526143883, 103.63936059611834, 'park'],
+    [1.55305617950327, 103.64641245128925, 'park'],
+    [1.5568706004434785, 103.63494198708115, 'park']
+];
 
-// foreach ($markers as $marker) {
-//     $lat = $marker[0];
-//     $lng = $marker[1];
-//     $image = $marker[2];
+foreach ($markers as $marker) {
+    $lat = $marker[0];
+    $lng = $marker[1];
+    $image = $marker[2];
 
-//     $sql4[] = "INSERT INTO labelled_item (itemName, itemImage, item_lat, item_lng) VALUES ('$image', 'images/$image.png', $lat, $lng);";
-// }
+    $sql4[] = "INSERT INTO labelled_item (itemName, itemImage, item_lat, item_lng) VALUES ('$image', 'images/$image.png', $lat, $lng);";
+}
 
-// foreach ($sql4 as $sqlInsert) {
-//     mysqli_query($con, $sqlInsert);
-// }
+foreach ($sql4 as $sqlInsert) {
+    mysqli_query($con, $sqlInsert);
+}
 
 
 $sql="CREATE TABLE comments(
@@ -162,6 +173,29 @@ $sql = "INSERT INTO `guides` (`guideID`, `guideTitle`, `guideContent`, `guideImg
 (7, '12 Energy Saving Tips', '1. Turning off the lights when leaving a room\r\n2. Use LED lights\r\n3. Switching to efficient appliances\r\n4. Unplug devices\r\n5. Lessen water usage\r\n6. Keep the thermostat at a lower temperature\r\n7. Use smart automated devices\r\n8. Use double glazing door\r\n9. Cook with the lid on\r\n10. Using smart meter\r\n11. Washing at low temp\r\n12. Solar-powered devices\r\n\r\nClick to learn more:\r\nhttps://www.greenmatch.co.uk/blog/2020/03/how-to-save-energy-at-home', 'guideImg-650c28e5dfcd82153.png', 'Energy and Resource'),
 (8, 'How to Reduce Your Carbon Footprint', '1. Drive Less\r\nGoing carless for a year could save about 2.6 tons of carbon dioxide, according to 2017 study from researchers at Lund University and the University of British Columbia.\r\n\r\n2. Fly Less\r\nTaking one fewer long round-trip flight could shrink your personal carbon footprint significantly\r\n\r\nFor more information: \r\nhttps://www.nytimes.com/guides/year-of-living-better/how-to-reduce-your-carbon-footprint', 'guideImg-650c28f4a404944007.jpg', 'Carbon Footprint'),
 (9, 'Green Landscaping: 5 Tips for a Lush and Eco-Friendly Landscape', 'Green landscaping is just another term for sustainable or eco-friendly landscaping and involves creating landscapes and gardens that nurture nature; reduce air soil and water pollution, and help protect the surrounding ecosystem. \r\n\r\nHere are our top five eco-friendly tips for a lush and “green” landscape.\r\n1. Go Native\r\n2. Use Mulch\r\n3. Amend the Soil\r\n4. Be Water-Wise\r\n5. Utilize Hardscapes\r\n\r\nClick to learn more: \r\nhttps://www.landscapeeast.com/blog/green-landscaping-5-tips-for-a-lush-and-eco-friendly-landscape-2020-02', 'guideImg-650c28fc6eedd76308.jpg', 'Other');
+";
+
+mysqli_query($con, $sql);
+
+$sql = "INSERT INTO `newsfeed` (`id`, `title`, `content`, `author`, `publish_date`, `image_url`, `category`) VALUES
+(1, 'New Research Findings', 'Embracing Sustainability: The Path to a Green Campus\r\n\r\nIn an era where environmental concerns are paramount, educational institutions are stepping up to make a difference by creating green campuses. A green campus is more than just a trend; it\'s a commitment to sustainable practices that encompass everything from architecture and landscaping to energy consumption and waste management. As universities and colleges strive to educate the next generation of leaders, they are also taking on the responsibility of demonstrating how to build a better, more sustainable future.\r\n\r\nDesigning Sustainable Spaces\r\n\r\nAt the heart of a green campus is its design. Architects and urban planners are now incorporating eco-friendly principles into every stage of campus construction and renovation. The use of renewable materials, energy-efficient designs, and passive cooling and heating techniques can significantly reduce the environmental footprint of buildings. Rooftop gardens, solar panels, and rainwater harvesting systems have become common features, seamlessly blending sustainability with functionality.\r\n\r\nPromoting Renewable Energy\r\n\r\nOne of the cornerstones of a green campus is the adoption of renewable energy sources. Universities are increasingly turning to solar, wind, and geothermal energy to power their campuses. Solar panels installed on rooftops and parking structures not only generate clean electricity but also serve as educational tools, showcasing the potential of renewable energy to students and visitors alike. By reducing dependence on fossil fuels, these institutions are leading the way toward a more sustainable energy future.\r\n\r\nCurriculum for Sustainability\r\n\r\nA green campus is not only defined by its physical attributes but also by its curriculum. Educational institutions are incorporating sustainability-focused programs and courses across various disciplines. From environmental science and sustainable engineering to business ethics and urban planning, students are exposed to concepts that emphasize the importance of environmental stewardship and social responsibility. This interdisciplinary approach ensures that graduates are equipped with the knowledge and skills needed to tackle complex sustainability challenges.\r\n\r\nWaste Management and Recycling\r\n\r\nThe commitment to sustainability extends to waste management as well. Green campuses prioritize waste reduction, recycling, and composting. Students and staff are encouraged to recycle paper, plastics, and electronic waste, while composting organic materials. On-site recycling centers and educational campaigns raise awareness about the impact of waste on the environment and provide practical solutions for reducing it.\r\n\r\nBiodiversity and Landscaping\r\n\r\nA green campus is often characterized by lush greenery and vibrant biodiversity. Landscaping choices focus on native plants that require less water and maintenance, creating a harmonious relationship between the built environment and nature. These campuses serve as urban oases, providing habitats for local wildlife and contributing to improved air quality.\r\n\r\nCommunity Engagement\r\n\r\nA truly green campus engages not only its students and faculty but also the surrounding community. Sustainability-focused events, workshops, and seminars encourage collaboration and knowledge-sharing among different stakeholders. Community members are invited to participate in initiatives such as tree planting drives, clean-up campaigns, and sustainable gardening projects. This not only strengthens the bond between the campus and its neighbors but also amplifies the positive impact of sustainable practices.\r\n\r\nMeasuring and Improving Impact\r\n\r\nConstantly striving for improvement, green campuses monitor their environmental impact and set goals for reducing their carbon footprint. Through data collection and analysis, these institutions track energy and water consumption, waste generation, and emissions. This information guides decision-making and enables campuses to make informed choices about resource allocation and efficiency enhancements.\r\n\r\nConclusion\r\n\r\nThe concept of a green campus transcends physical infrastructure; it represents a holistic approach to education and sustainable living. By embracing renewable energy, integrating sustainability into curricula, and fostering a culture of eco-consciousness, educational institutions are creating hubs of innovation and inspiration. As green campuses continue to multiply, they serve as beacons of hope, demonstrating that a harmonious coexistence between human development and environmental preservation is not only possible but essential for a brighter future.', 'Crystal', '2023-08-21 11:04:00', 'newsImg-1-22262.jpg', 'Campus News'),
+(2, 'Upcoming Workshop', 'Join us for a workshop on sustainable living.', 'Sustainability Team', '2023-08-18 00:00:00', 'newsImg-2-2344.jpeg', 'Facilities'),
+(3, 'Faculty Spotlight', 'Get to know our featured faculty member of the month.', 'Faculty Committee', '2023-08-12 00:00:00', 'newsImg-3-35912.jpg', 'Campus News'),
+(4, 'Athletics Update', 'Check out the latest results from our sports teams.', 'Athletics Department', '2023-08-08 00:00:00', 'newsImg-4-1070.jpg', 'Achievements'),
+(5, 'Environmental Seminar', 'Learn about the importance of environmental conservation.', 'Guest Speaker', '2023-08-25 00:00:00', 'newsImg-5-84102.jpg', 'Events'),
+(6, 'Student Showcase', 'Explore the impressive projects and work of our students.', 'Student Council', '2023-08-22 00:00:00', 'newsImg-6-70523.jpg', 'Achievements'),
+(7, 'Campus Beautification', 'Join us for a volunteer day to beautify the campus.', 'Volunteer Committee', '2023-08-14 00:00:00', 'newsImg-7-11898.jpg', 'Events'),
+(8, 'Community Outreach', 'Find out how we\"re making a positive impact in the local community.', 'Community Engagement Team', '2023-08-17 00:00:00', 'newsImg-8-65057.jpg', 'Achievements'),
+(9, 'Alumni Spotlight', 'Meet one of our accomplished alumni and their journey post-graduation.', 'Alumni Association', '2023-08-19 00:00:00', 'newsImg-9-50581.jpeg', 'Facilities'),
+(10, 'New Course Offering', 'Explore our latest addition to the course catalog.', 'Academic Department', '2023-08-11 00:00:00', 'newsImg-10-52699.jpeg', 'Facilities'),
+(11, 'Healthy Living Tips', 'Discover tips for maintaining a healthy and balanced lifestyle.', 'Wellness Team', '2023-08-23 00:00:00', 'newsImg-11-40373.jpg', 'Campus News'),
+(12, 'Cultural Festival', 'Experience a celebration of diverse cultures on campus.', 'Cultural Affairs Committee', '2023-08-26 00:00:00', 'newsImg-12-2656.jpg', 'Events'),
+(13, 'Tech Innovation Showcase', 'Learn about the latest technological innovations from our students.', 'Innovation Center', '2023-08-28 00:00:00', 'newsImg-13-18789.jpg', 'Campus News'),
+(14, 'Student Organizations', 'Explore the various student clubs and organizations you can join.', 'Student Activities Office', '2023-08-21 00:00:00', 'newsImg-14-8632.jpg', 'Facilities'),
+(15, 'Faculty Research Symposium', 'Attend our annual symposium highlighting faculty research contributions.', 'Faculty Research Committee', '2023-08-29 00:00:00', 'newsImg-15-97584.jpg', 'Achievements'),
+(16, 'Exciting Event Coming Up', 'Join us for an exciting event next week! Discover how sustainability is changing economies, society and the way we invest.', 'Admin', '2023-08-15 00:00:00', 'newsImg-16-96544.jpeg', 'Events'),
+(17, 'New Green Initiatives', 'Learn about our new green initiatives to create a sustainable campus.', 'John Doe', '2023-08-10 00:00:00', 'newsImg-17-37695.png', 'Campus News'),
+(18, 'Student Achievements', 'Congrats to our students for their outstanding achievements!', 'Jane Smith', '2023-08-05 00:00:00', 'newsImg-18-6880.jpg', 'Achievements');
 ";
 
 mysqli_query($con, $sql);
