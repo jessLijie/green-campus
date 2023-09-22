@@ -87,10 +87,10 @@ if(isset($_SESSION['urole'])){
                         <option value="Other" <?php if(isset($_GET['filter'])&&$filter=="Other"){ echo "selected"; } ?>>Other</option>
                     </select>
                 </div>
-                <div class="input-group searchBar">
+                <form class="input-group searchBar" id="guideSearch">
                     <input type="text" name="search" class="form-control" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Guide Title" />
-                    <button name="searchbtn" id="guideSearch" class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
-                </div>
+                    <button type="submit" name="searchbtn" class="btn btn-light searchbtn"><i class="bi bi-search"></i></button>
+                </form>
             </div>
             
             <div class="guideMTable">
@@ -150,6 +150,7 @@ if(isset($_SESSION['urole'])){
                                         </div>
                                         <div class="modal-body">
                                             <p>Are you sure you want to delete?</p>
+                                            <p><b>Guide title: </b><?php echo $guideTitle; ?></p>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
@@ -181,7 +182,6 @@ if(isset($_SESSION['urole'])){
             filter.addEventListener("change", function (){
                 var searchValue = encodeURIComponent(document.querySelector("[name='search']").value);
                 var filterValue = encodeURIComponent(document.querySelector("[name='filter']").value);
-                console.log(searchValue);
                 if(searchValue != "" && filterValue !=""){
                     window.location.href = "guideManage.php?search=" + searchValue + "&filter=" + filterValue;
                 } else if(searchValue == "" && filterValue != ""){
@@ -193,10 +193,10 @@ if(isset($_SESSION['urole'])){
                 }
             }); 
 
-            document.getElementById("guideSearch").addEventListener("click", function () {
+            document.getElementById("guideSearch").addEventListener("submit", function (e) {
+                e.preventDefault();
                 var searchValue = encodeURIComponent(document.querySelector("[name='search']").value);
                 var filterValue = encodeURIComponent(document.querySelector("[name='filter']").value);
-                console.log(searchValue);
                 if(searchValue != "" && filterValue !=""){
                     window.location.href = "guideManage.php?search=" + searchValue + "&filter=" + filterValue;
                 } else if(searchValue == "" && filterValue != ""){

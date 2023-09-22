@@ -91,6 +91,7 @@
     display: flex;
     flex-direction: row;
     gap: 30px;
+    background: #f0ffee;
 }
 
 .guideCategoryNav{
@@ -100,6 +101,7 @@
 .guideCategoryNav h4{
 	padding: 5px 10px;
     line-height: 1.5;
+    margin-bottom: 20px;
 }
 
 .guideListHeader{
@@ -131,6 +133,13 @@
     to {
         transform: rotate(360deg);
     }
+}
+
+.searchbtn{
+    background-color: #c3f1c3 !important;
+}
+.searchbtn:hover{
+    background-color: #afdaaf !important;
 }
 
 .guideCategorylist{
@@ -188,14 +197,13 @@
 .guideCardList{
 	display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    gap: 40px;
 }
 
 .guideCard{
 	width: 260px;
 	height: 380px;
 	border-radius: 10px;
-	margin: 5px 20px 20px 10px;
 	transition: all .3s;
 	overflow: hidden;
 	position: relative;
@@ -249,6 +257,7 @@
 	bottom: 5px;
 	right: 15px;
     color: blue;
+    font-size: 14px;
 }
 .guideCard:hover .learnmore{
 	color: rgb(40, 40, 129);

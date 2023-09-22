@@ -101,6 +101,7 @@
                             $insert = mysqli_query($con, "UPDATE users SET userImage = ('" . $fileName . "') WHERE email = '$newEmail'");
                             unlink($targetDir . $row['userImage']);
                             if ($insert) {
+                                $_SESSION['userImage'] = "$fileName";
                                 $statusMsg = "The file " . $fileName . " has been uploaded successfully.";
                             } else {
                                 $statusMsg = "File upload failed, please try again.";

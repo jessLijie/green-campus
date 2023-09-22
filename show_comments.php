@@ -29,18 +29,20 @@ if($count1>0){
             
                 <p style="margin: 0 0 5px 0;">'.$row["commentContent"].'</p>
                 <button type="button" class="replyToggleBtn">Reply</button>
-                <div id="replyForm" class="replyForm">
+                <form action="" method="post" id="replyForm" class="replyForm">
                     <span style="display: flex;" class="replyInputBar">
                         <img src="images/profileImg/' . (isset($_SESSION["userImage"]) && $_SESSION["userImage"] != "" ? $_SESSION["userImage"] : "defaultprofile.png") . '" alt="userImg" style="width: 30px; height: 30px; border-radius: 20px; margin-right: 5px" />
-                        <input type="text" placeholder="Add reply..." class="replyInput" />
+                        <input type="text" name="postComment" placeholder="Add reply..." class="replyInput" required/>
+                        <input type="hidden" name="parent_commentID" id="parent_commentID" value='.$row["commentID"].' />
+                        <input type="hidden" name="pid" value='.$_POST["postID"].' />
                     </span>
                     <div class="replyToolContainer">
                         <div class="replyTool">
-                            <button class="closeReplybtn"><i class="bi bi-x"></i></button>
-                            <button class="replybtn" id='.$row["commentID"].'><i class="bi bi-send"></i></button>
+                            <button type="reset" class="closeReplybtn"><i class="bi bi-x"></i></button>
+                            <button type="submit" class="replybtn"><i class="bi bi-send"></i></button>
                         </div>                
                     </div>
-                </div>
+                </form>
                 
             </div>';
             
@@ -82,7 +84,11 @@ function getCommentReply($con, $userID, $parentId = 0, $marginLeft = 0) {
 	if($parentId == 0) {
 		$marginLeft = 0;
 	} else {
-		$marginLeft = $marginLeft + 48;
+        if($marginLeft >= 50){
+            $marginLeft = $marginLeft + 40;
+        }else{
+            $marginLeft = $marginLeft + 50;
+        }
 	}
 	if($commentsCount > 0) {
         $commentHTML .= '<button class="showRepliesbtn" style="margin-left: ' . $marginLeft . 'px;" ><i class="bi bi-caret-down-fill" style="margin-right: 5px;"></i>Show Replies</button>';
@@ -101,18 +107,20 @@ function getCommentReply($con, $userID, $parentId = 0, $marginLeft = 0) {
             
                     <p style="margin: 0 0 5px 0;">'.$row["commentContent"].'</p>
                     <button type="button" class="replyToggleBtn">Reply</button>
-                    <div id="replyForm" class="replyForm">
+                    <form action="" method="post" id="replyForm" class="replyForm">
                         <span style="display: flex;" class="replyInputBar">
                             <img src="images/profileImg/' . (isset($_SESSION["userImage"]) && $_SESSION["userImage"] != "" ? $_SESSION["userImage"] : "defaultprofile.png") . '" alt="userImg" style="width: 30px; height: 30px; border-radius: 20px; margin-right: 5px" />
-                            <input type="text" placeholder="Add reply..." class="replyInput" />
+                            <input type="text" name="postComment" placeholder="Add reply..." class="replyInput" required/>
+                            <input type="hidden" name="parent_commentID" id="parent_commentID" value='.$row["commentID"].' />
+                            <input type="hidden" name="pid" value='.$_POST["postID"].' />
                         </span>
-                            <div class="replyToolContainer">
+                        <div class="replyToolContainer">
                             <div class="replyTool">
-                                <button class="closeReplybtn"><i class="bi bi-x"></i></button>
-                                <button class="replybtn" id='.$row["commentID"].'><i class="bi bi-send"></i></button>
+                                <button type="reset" class="closeReplybtn"><i class="bi bi-x"></i></button>
+                                <button type="submit" class="replybtn"><i class="bi bi-send"></i></button>
                             </div>                
                         </div>
-                    </div>
+                    </form>
                 
                 </div>';
                 
