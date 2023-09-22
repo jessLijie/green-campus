@@ -38,7 +38,7 @@ if (isset($_POST['confirmRSVP'])) {
     } else {
 
         $output = '<p>Dear ' . $_SESSION['username'] . ',</p>';
-        $output .= '<p>Thanks for registering for the event ' . $eventName . '. Hope to see you there! </br> Below are the event\'s details: </p>';
+        $output .= '<p>Thanks for registering for the event ' . $eventName . '. </br> Below are the event\'s details: </p>';
         $output .= '<p>-------------------------------------------------------------</p>';
         $output .= '<p>Event Name: ' . $eventName . '</p>';
         $output .= '<p>Category: ' . $category . '</p>';
@@ -77,8 +77,7 @@ if (isset($_POST['confirmRSVP'])) {
         if (!$mail->Send()) {
             echo "Mailer Error: " . $mail->ErrorInfo;
         } else {
-
-            echo "<script>alert('A confirmation email has been sent to you.');</script>";
+            echo "<script>alert('A RSVP confirmation email has been sent to you.');</script>";
         }
     }
 }

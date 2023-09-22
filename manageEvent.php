@@ -24,10 +24,7 @@ $result = mysqli_query($con, $sql);
 
 <body>
     <?php include("header.php") ?>
-
-
     <div class="table-container">
-
         <div style="display: flex; align-items: center;">
             <div style="width:900px; display:flex; align-items: center;">
                 <span><i class="bi bi-funnel" style="font-size:15px; margin-right: 5px;"></i></span>
@@ -42,9 +39,6 @@ $result = mysqli_query($con, $sql);
                 <span id="clearFilter" class="clear-filter" style="display: none;" onclick="clearFilter()"><i
                         class="bi bi-x-circle-fill" style="color:rgb(0 73 28);"></i></span>
             </div>
-
-
-
 
             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addModal"
                 style="margin-left:20px">
@@ -73,26 +67,26 @@ $result = mysqli_query($con, $sql);
                 </tr>
             </thead>
             <tbody>
-                
-                    <?php $modalContent = array();
-                    $counter = 1;
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $modalContent[$row['eventID']] = array(
-                            'eventID' => $row['eventID'],
-                            'eventName' => $row['eventName'],
-                            'duration' => $row['duration'],
-                            'category' => $row['category'],
-                            'organizer' => $row['organizer'],
-                            'startDate' => $row['startDate'],
-                            'endDate' => $row['endDate'],
-                            'eventDescp' => $row['eventDescp'],
-                            'latitude' => $row['latitude'],
-                            'longitude' => $row['longitude'],
-                            'locationName' => $row['locationName'],
-                            'eventImage' => $row['eventImage']
-                        );
-                        ?>
-                         <tr class="event-row" data-category="<?php echo $row['category']; ?>">
+
+                <?php $modalContent = array();
+                $counter = 1;
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $modalContent[$row['eventID']] = array(
+                        'eventID' => $row['eventID'],
+                        'eventName' => $row['eventName'],
+                        'duration' => $row['duration'],
+                        'category' => $row['category'],
+                        'organizer' => $row['organizer'],
+                        'startDate' => $row['startDate'],
+                        'endDate' => $row['endDate'],
+                        'eventDescp' => $row['eventDescp'],
+                        'latitude' => $row['latitude'],
+                        'longitude' => $row['longitude'],
+                        'locationName' => $row['locationName'],
+                        'eventImage' => $row['eventImage']
+                    );
+                    ?>
+                    <tr class="event-row" data-category="<?php echo $row['category']; ?>">
                         <th scope="row">
                             <?php echo $counter ?>
                         </th>
@@ -127,8 +121,8 @@ $result = mysqli_query($con, $sql);
                 </tbody>
                 <?php
                 $counter++;
-                    }
-                    ?>
+                }
+                ?>
         </table>
 
         <?php
@@ -228,8 +222,8 @@ $result = mysqli_query($con, $sql);
                                 </div><br>
 
                                 <a href="https://www.google.com/maps/@1.5602393950091624,103.63827783102548,15.9z?entry=ttu"
-                                            target="_blank" class="btn btn-outline-primary"
-                                            style="font-size:15px;float:right">⇲ Find the coordinates</a><br><br><br>
+                                    target="_blank" class="btn btn-outline-primary" style="font-size:15px;float:right">⇲
+                                    Find the coordinates</a><br><br><br>
 
                                 <div class="form-group">
                                     <label for="eventDescp"><strong>📢 Description</strong></label>
@@ -309,8 +303,8 @@ $result = mysqli_query($con, $sql);
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="eventName" class="title"><strong>🎍 Event</strong></label>
-                                        <input type="text" class="form-control" id="eventName" name="eventName" placeholder="Event's name"
-                                            required>
+                                        <input type="text" class="form-control" id="eventName" name="eventName"
+                                            placeholder="Event's name" required>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -344,23 +338,44 @@ $result = mysqli_query($con, $sql);
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="location"><strong>📍 Location</strong></label>
-                                        <input type="text" class="form-control" id="locationName" name="locationName" placeholder="Event's location"
-                                            required>
+                                        <input type="text" class="form-control" id="locationName" name="locationName"
+                                            placeholder="Event's location" required>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="organizer"><strong>👤 Organizer</strong></label>
-                                        <input type="text" class="form-control" id="organizer" name="organizer"placeholder="Event's organizer"
-                                            required>
+                                        <input type="text" class="form-control" id="organizer" name="organizer"
+                                            placeholder="Event's organizer" required>
                                     </div>
                                 </div>
                             </div><br>
 
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="locationName"><strong>▶️Latitude</strong></label>
+                                        <input type="text" class="form-control" id="locationName" name="locationName"
+                                            placeholder="Latitude">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="organizer"><strong>⏩Longitude</strong></label>
+                                        <input type="text" class="form-control" id="organizer" name="organizer"
+                                            placeholder="Longitude">
+                                    </div>
+                                </div>
+                            </div><br>
+
+                            <a href="https://www.google.com/maps/@1.5602393950091624,103.63827783102548,15.9z?entry=ttu"
+                                target="_blank" class="btn btn-outline-primary" style="font-size:15px;float:right">⇲
+                                Find the coordinates</a><br><br><br>
 
                             <div class="form-group">
                                 <label for="description"><strong>📢 Description</strong></label>
-                                <textarea class="form-control" id="eventDescp" name="eventDescp" required placeholder="Event's description"></textarea>
+                                <textarea class="form-control" id="eventDescp" name="eventDescp" required
+                                    placeholder="Event's description"></textarea>
                             </div><br>
 
                             <div class="form-group">
@@ -416,26 +431,26 @@ $result = mysqli_query($con, $sql);
             }
 
             var statusMessageBox = document.querySelector('.statusMessageBox1');
-            if(statusMessageBox){
-                setTimeout(function() {
+            if (statusMessageBox) {
+                setTimeout(function () {
                     statusMessageBox.classList.add("slideOut");
                 }, 4000);
             }
             var progressbar = document.querySelector('.progressbar.active');
             if (progressbar) {
-                setTimeout(function() {
+                setTimeout(function () {
                     progressbar.classList.remove("active");
                     statusMessageBox.remove();
                 }, 4500);
             }
 
             var toastCloseButtons = document.querySelectorAll('.toast-close');
-            toastCloseButtons.forEach(function(button) {
-                button.addEventListener("click", function() {
+            toastCloseButtons.forEach(function (button) {
+                button.addEventListener("click", function () {
                     var statusMessageBox = document.querySelector('.statusMessageBox1');
                     statusMessageBox.classList.add("slideOut");
 
-                    setTimeout(function() {
+                    setTimeout(function () {
                         progressbar.classList.remove("active");
                         statusMessageBox.remove();
                     }, 300);
