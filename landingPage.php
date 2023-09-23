@@ -39,8 +39,7 @@
 </head>
 
 <body>
-    <?php include("header.php") ?>
-
+    
     <div class="center-content">
         <h5>Welcome to Greenify</h5>
         <a href="login.php"> <button type="button" class="btn btn-outline-success" id="startButton">Get Started →</button></a>
