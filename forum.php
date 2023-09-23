@@ -62,7 +62,7 @@ if(isset($_SESSION['userID'])){
                         GROUP BY postID
                         ORDER BY post.postDate DESC";
             }
-        } else if(isset($_GET['search'])){
+        } else if(isset($_GET['search_val'])){
             $search_val = $_GET['search_val'];
             $sql = "SELECT post.*, users.username, users.userImage, COUNT(comments.commentID) AS commentNum FROM post 
                     LEFT JOIN users ON post.userID=users.userID
@@ -89,7 +89,7 @@ if(isset($_SESSION['userID'])){
                 <form action="" method="GET">  
                     <div class="search input-group">
                         <input type="text" class="form-control" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Search Post" />
-                        <button type="submit" class="btn" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
+                        <button type="submit" class="btn"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
                 </form>
             </div>
@@ -150,7 +150,7 @@ if(isset($_SESSION['userID'])){
                             <?php } ?>
                         </span>
                     </div>
-                    <a href="forumPost.php?postID='<?php echo $row['postID']; ?>'" class="postlink">
+                    <a href="forumPost.php?postID=<?php echo $row['postID']; ?>" class="postlink">
                         <div class='postDetails'>
                             <div class='word'>
                                 <div class='postTitle'>
