@@ -180,7 +180,13 @@ if(isset($_SESSION['userID'])){
                     include("deletePostModal.php");
                     include('editpostModal.php');
                 }}else{
-                    echo "<div class='noPost'>No post yet</div>";
+                    if(isset($_GET['category'])){
+                        echo "<div class='noPost'>No post for category \"{$_GET['category']}\"</div>";
+                    }else if(isset($_GET['search_val'])){
+                        echo "<div class='noPost'>No post for title \"{$_GET['search_val']}\"</div>";
+                    }else{
+                        echo "<div class='noPost'>No post yet</div>";
+                    }
                 }
             ?> 
             </div>
