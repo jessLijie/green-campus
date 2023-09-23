@@ -52,9 +52,8 @@ if (isset($_SESSION['role'])) {
                 </div>
             </div>
             <div class="buttons">
-                <button id="prev">
-                    << /button>
-                        <button id="next">></button>
+                <button id="prev"><</button>
+                <button id="next">></button>
             </div>
             <ul class="dots">
                 <li class="active"></li>
