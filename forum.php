@@ -88,7 +88,7 @@ if(isset($_SESSION['userID'])){
             <div class='search-box'>
                 <form action="" method="GET">  
                     <div class="search input-group">
-                        <input type="text" class="form-control" name="search_val" value="<?php if(isset($_GET['search'])){ echo $search_val; } ?>" placeholder="Search Post" />
+                        <input type="text" class="form-control" name="search_val" value="<?php if(isset($_GET['search_val'])){ echo $search_val; } ?>" placeholder="Search Post" />
                         <button type="submit" class="btn"><i class="bi bi-search" style="color: whitesmoke"></i></button>
                     </div>
                 </form>

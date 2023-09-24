@@ -12,8 +12,8 @@
     position: relative;
     overflow: hidden;
     background-color: #c2eabe;
-    background-position: bottom;
-    background-image: url(../images/background.jpg);
+    background-position: center -30px;
+    background-image: url(../images/sliderbg.jpg);
     background-size: cover;
 }
 .slider .slideList{

@@ -214,7 +214,7 @@ include("header.php");
             if (mysqli_num_rows($result) > 0) {
                 echo <<<HTML
         <table class="table table-hover">
-            <thead>
+            <thead class="table-success">
                 <tr>
                     <th scope="col">User ID</th>
                     <th scope="col">Username</th>

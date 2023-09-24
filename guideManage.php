@@ -67,7 +67,7 @@ if(isset($_SESSION['urole'])){
                 <i class="bi bi-arrow-left-short"></i>
                 <span>Back</span>
             </a>
-            <h1 style="font-size: 30px; text-align: center; margin: 15px 0 30px 0;">Guide List</h1>
+            <h1 style="font-size: 30px; text-align: center; margin: 15px 0 30px 0;">Manage Guide</h1>
             <div style="margin: 20px 0; text-align: right;">
                 <button type="button" class="addGuideBtn" data-bs-toggle="modal" data-bs-target="#addGuideFormContainer">
                         <i class="bi bi-plus-circle"></i> Add Guide
@@ -95,7 +95,7 @@ if(isset($_SESSION['urole'])){
             
             <div class="guideMTable">
                 <table class="table table-hover">
-                    <thead class="table">
+                    <thead class="table table-success">
                         <tr>
                             <th style="width: 5%;">No</th>
                             <th style="width: 30%;">Title</th>
