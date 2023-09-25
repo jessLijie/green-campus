@@ -355,14 +355,14 @@ $result = mysqli_query($con, $sql);
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="locationName"><strong>▶️Latitude</strong></label>
-                                        <input type="text" class="form-control" id="locationName" name="locationName"
+                                        <input type="text" class="form-control" id="latitude" name="latitude"
                                             placeholder="Latitude">
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="organizer"><strong>⏩Longitude</strong></label>
-                                        <input type="text" class="form-control" id="organizer" name="organizer"
+                                        <input type="text" class="form-control" id="longitude" name="longitude"
                                             placeholder="Longitude">
                                     </div>
                                 </div>

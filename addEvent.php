@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $locationName = $_POST["locationName"];
     $organizer = $_POST["organizer"];
     $eventDescp = $_POST["eventDescp"];
+    $latitude = $_POST["latitude"];
+    $longitude = $_POST["longitude"];
 
     if (!empty($_FILES["eventImage"]["name"])) {
     
@@ -22,8 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $newFileName = uniqid() . '.' . $ext;
 
             if (move_uploaded_file($tempName, $imagePath . $newFileName)) {
-                $sql = "INSERT INTO events (eventName,category,startDate,endDate,locationName,organizer,eventDescp,eventImage)
-                VALUES ('$eventName','$category','$startDate','$endDate','$locationName','$organizer','$eventDescp','$imagePath$newFileName')";
+                $sql = "INSERT INTO events (eventName,category,startDate,endDate,locationName,organizer,eventDescp,eventImage,longitude,latitude)
+                VALUES ('$eventName','$category','$startDate','$endDate','$locationName','$organizer','$eventDescp','$imagePath$newFileName','$longitude','$latitude')";
                 
                 if (mysqli_query($con, $sql)) {
                     $_SESSION['success_message'] = "<div class='statusMessageBox1'>

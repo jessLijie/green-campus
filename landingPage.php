@@ -9,7 +9,7 @@
     <style>
         body {
             padding: 60px 0 20px;
-            background-image: url('images/background.jpg');
+            background-image: url('images/sliderbg.jpg');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
