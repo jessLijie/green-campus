@@ -61,7 +61,7 @@
         ?>
     <div class="statusMessageBox">
         <div class="toast-content">
-        <i class="bi bi-check2 toast-check"></i>
+        <i class="bi bi-check2 toast-icon"></i>
         <div class="message">
             <span class="message-text text-1"></span>
             <span class="message-text text-2"></span>
@@ -362,9 +362,11 @@
 
             function showSuccessMessage(response){
                 $('.statusMessageBox').addClass("active");
+                $('.toast-icon').css('background-color', '#40f467');
                 $('.message-text.text-1').text(response.message['title']);
                 $('.message-text.text-2').text(response.message['content']);
                 $('.progressbar').addClass("active");
+                $('.progressbar').css('background-color', '#40f467');
                 setTimeout(function() {
                     $('.statusMessageBox').removeClass("active");
                 }, 4000);
@@ -382,8 +384,8 @@
             }
             function showErrorMessage(response){
                 $('.statusMessageBox').addClass("active");
-                $('.toast-check').css('background-color', 'red');
-                $('.toast-check').removeClass('bi-check2').addClass('bi-x');
+                $('.toast-icon').css('background-color', 'red');
+                $('.toast-icon').removeClass('bi-check2').addClass('bi-x');
                 $('.message-text.text-1').text(response.message['title']);
                 $('.message-text.text-2').text(response.message['content']);
                 $('.progressbar').addClass("active");

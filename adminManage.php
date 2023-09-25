@@ -151,7 +151,7 @@ include("header.php");
 
             if (mysqli_num_rows($result) > 0) {
                 echo '<table class="table table-hover">';
-                echo '<thead>';
+                echo '<thead class="table-success">';
                 echo '<tr>';
                 echo '<th scope="col">ID</th>';
                 echo '<th scope="col">Image</th>';
