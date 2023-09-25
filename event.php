@@ -109,8 +109,8 @@ if (isset($_POST['confirmRSVP'])) {
 
                 <div class="search" style="margin-bottom:0;padding-bottom:0">
                     <input id="eventSearch" class="form-control" type="text" name="search_val"
-                        placeholder="Search Event" style="border-bottom: 2px solid green;border-radius:0" />
-                    <button type="submit" name="search"><i class="bi bi-search" style="color: whitesmoke"></i></button>
+                    placeholder="🔍Search Event" style="border-bottom: 2px solid green;border-radius:0" />
+                    
                 </div>
             </div>
 
