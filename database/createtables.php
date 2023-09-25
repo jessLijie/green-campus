@@ -82,11 +82,11 @@ $sql="CREATE TABLE post (
 mysqli_query($con, $sql);
 
 $sql = "INSERT INTO `post` (`postID`, `postTitle`, `postContent`, `postPic`, `postCategory`, `postDate`, `userID`) VALUES
-(1, 'Environment Protection', 'What are the activities related to environment protection?', 'postImg-650c265d418ae94419.png', 'environment-protection', '2023-09-21 19:48:44', 2),
-(2, 'Recycling', 'Why is it not common to see the recycle bin in UTM?', 'postImg-650c27a9dd35b65623.jpg', 'waste-recycling', '2023-09-21 19:23:21', 3),
-(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'carbon-footprint', '2023-09-21 19:22:55', 2),
-(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'energy-resource', '2023-09-21 19:22:19', 3),
-(5, 'Let\'s Recycle', 'Is it recycle important? Yes, it is important!😍', 'postImg-650c26a5f207551006.jpeg', 'waste-recycling', '2023-09-21 20:03:05', 2);
+(1, 'Environment Protection', 'What are the activities related to environment protection?', 'postImg-650c265d418ae94419.png', 'Environment Protection', '2023-09-21 19:48:44', 2),
+(2, 'Recycling', 'Why is it not common to see the recycle bin in UTM?', 'postImg-650c27a9dd35b65623.jpg', 'Waste Reduction and Recycling', '2023-09-21 19:23:21', 3),
+(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'Carbon Footprint', '2023-09-21 19:22:55', 2),
+(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'Energy and Resource', '2023-09-21 19:22:19', 3),
+(5, 'Let\'s Recycle', 'Is it recycle important? Yes, it is important!😍', 'postImg-650c26a5f207551006.jpeg', 'Waste Reduction and Recycling', '2023-09-21 20:03:05', 2);
 ";
 mysqli_query($con, $sql);
 

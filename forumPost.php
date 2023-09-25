@@ -85,12 +85,12 @@
                 <h5>Category</h5>
                 <hr>
                 <a href="forum.php"><h3>All</h3></a>
-                <a href="forum.php?category=environment-protection"><h3>Environment Protection</h3></a>
-                <a href="forum.php?category=energy-resource"><h3>Energy and Resource</h3></a>
-                <a href="forum.php?category=waste-recycling"><h3>Waste Reduction and Recycling</h3></a>
-                <a href="forum.php?category=carbon-footprint"><h3>Carbon Footprint</h3></a>
-                <a href="forum.php?category=transportation"><h3>Transportation</h3></a>
-                <a href="forum.php?category=other"><h3>Other</h3></a>
+                <a href="forum.php?category=Environment Protection"><h3>Environment Protection</h3></a>
+                <a href="forum.php?category=Energy and Resource"><h3>Energy and Resource</h3></a>
+                <a href="forum.php?category=Waste Reduction and Recycling"><h3>Waste Reduction and Recycling</h3></a>
+                <a href="forum.php?category=Carbon Footprint"><h3>Carbon Footprint</h3></a>
+                <a href="forum.php?category=Transportation"><h3>Transportation</h3></a>
+                <a href="forum.php?category=Other"><h3>Other</h3></a>
             </div>
         </div>
         

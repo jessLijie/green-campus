@@ -43,12 +43,12 @@
                         <div>   
                             <label for="category" class="form-label">Category:</label>
                             <select name="ecategory" id="category" class='form-select'>
-                                <option value='environment-protection' <?php if($row['postCategory']=="environment-protection"){ echo "selected"; } ?>>Environment Protection</option>
-                                <option value='energy-resource' <?php if($row['postCategory']=="energy-resource"){ echo "selected"; } ?>>Energy and Resource</option>
-                                <option value='waste-recycling' <?php if($row['postCategory']=="waste-recycling"){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
-                                <option value='carbon-footprint' <?php if($row['postCategory']=="carbon-footprint"){ echo "selected"; } ?>>Carbon Footprint</option>
-                                <option value='transportation' <?php if($row['postCategory']=="transportation"){ echo "selected"; } ?>>Transportation</option>
-                                <option value='other' <?php if($row['postCategory']=="other"){ echo "selected"; } ?>>Other</option>
+                                <option value='Environment Protection' <?php if($row['postCategory']=="Environment Protection"){ echo "selected"; } ?>>Environment Protection</option>
+                                <option value='Energy and Resource' <?php if($row['postCategory']=="Energy and Resource"){ echo "selected"; } ?>>Energy and Resource</option>
+                                <option value='Waste Reduction and Recycling' <?php if($row['postCategory']=="Waste Reduction and Recycling"){ echo "selected"; } ?>>Waste Reduction and Recycling</option>
+                                <option value='Carbon Footprint' <?php if($row['postCategory']=="Carbon Footprint"){ echo "selected"; } ?>>Carbon Footprint</option>
+                                <option value='Transportation' <?php if($row['postCategory']=="Transportation"){ echo "selected"; } ?>>Transportation</option>
+                                <option value='Other' <?php if($row['postCategory']=="Other"){ echo "selected"; } ?>>Other</option>
                             </select>
                         </div>
                         <input type="hidden" name="eid" value="<?php echo $row["postID"]; ?>" />

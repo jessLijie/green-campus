@@ -25,12 +25,12 @@
                 <div>   
                     <label for='category' class="form-label">Category:</label>
                     <select name="category" id="category" class='form-select'>
-                        <option value='environment-protection'>Environment Protection</option>
-                        <option value='energy-resource'>Energy and Resource</option>
-                        <option value='waste-recycling'>Waste Reduction and Recycling</option>
-                        <option value='carbon-footprint'>Carbon Footprint</option>
-                        <option value='transportation'>Transportation</option>
-                        <option value='other'>Other</option>
+                        <option value='Environment Protection'>Environment Protection</option>
+                        <option value='Energy and Resource'>Energy and Resource</option>
+                        <option value='Waste Reduction and Recycling'>Waste Reduction and Recycling</option>
+                        <option value='Carbon Footprint'>Carbon Footprint</option>
+                        <option value='Transportation'>Transportation</option>
+                        <option value='Other'>Other</option>
                     </select>
                 </div>      
                 
