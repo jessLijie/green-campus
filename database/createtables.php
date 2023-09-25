@@ -21,7 +21,8 @@ $sql = "INSERT INTO `users` (`userID`, `username`, `upassword`, `email`, `userIm
 (1, 'admin', md5('1122'), 'admin@gmail.com', NULL, 'admin', NULL, '', NULL, 'APPROVED'),
 (2, 'jingyi', md5('1122'), 'jingyi012@gmail.com', 'profileImg-2-7288.png', 'user', 'Computing', 'A21EC0210', NULL, 'APPROVED'),
 (3, 'Jess', md5('1122'), 'wongjie@graduate.utm.my', NULL, 'user', 'Computing', 'A21EC0039', NULL, 'APPROVED'),
-(4, 'chai12', md5('1122'), 'chaijing13691@gmail.com', 'profileImg-4-72925.png', 'user', 'Science', 'A21EM0090', 'matricNoImg-4-56773.png', 'APPROVED')
+(4, 'chai12', md5('1122'), 'chaijing13691@gmail.com', 'profileImg-4-72925.png', 'user', 'Science', 'A21EM0090', NULL, 'APPROVED'),
+(5, 'chai1', md5('1122'), 'cj@gmail.com', NULL, 'user', NULL, 'A21EC0011', 'matricNoImg-5-56773.png', 'PENDING')
 ;";
 
 mysqli_query($con, $sql);
