@@ -14,8 +14,26 @@ if (isset($_SESSION['success_message'])) {
     unset($_SESSION['success_message']);
 }
 
+$currentTimestamp = strtotime(date("Y-m-d H:i:s")); // Get the current timestamp
+
 $sql = "SELECT * FROM events";
 $result = mysqli_query($con, $sql);
+
+while ($row = mysqli_fetch_assoc($result)) {
+  $endDate = strtotime($row['endDate']); 
+  if ($endDate < $currentTimestamp) {
+    $eventID = $row['eventID']; 
+    $deleteSql = "DELETE FROM events WHERE eventID = $eventID";
+    if (mysqli_query($con, $deleteSql)) {
+    } else {
+      echo "Error deleting record: " . mysqli_error($con);
+    }
+  }
+}
+
+$sql = "SELECT * FROM events";
+$result = mysqli_query($con, $sql);
+
 ?>
 <?php
 $email = $_SESSION["email"];
