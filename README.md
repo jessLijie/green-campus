@@ -5,7 +5,7 @@ database created = greenify
 
 database/createdb.php create the table and initiallize the value for each table
 
-The predefine username and password
+The predefine users:
 admin: 
     email: admin@gmail.com
     password: 1122
