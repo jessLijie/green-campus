@@ -23,7 +23,12 @@ while ($row = mysqli_fetch_assoc($result)) {
   $endDate = strtotime($row['endDate']); 
   if ($endDate < $currentTimestamp) {
     $eventID = $row['eventID']; 
+    $deleteEventImg = $row['eventImg'];
+    echo "<script>
+        console.log($deleteEventImg);</script>";
+    $remove = unlink($deleteEventImg);
     $deleteSql = "DELETE FROM events WHERE eventID = $eventID";
+    
     if (mysqli_query($con, $deleteSql)) {
     } else {
       echo "Error deleting record: " . mysqli_error($con);
