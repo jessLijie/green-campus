@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 28, 2023 at 01:55 PM
+-- Generation Time: Sep 28, 2023 at 03:18 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -247,11 +247,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userID`, `username`, `upassword`, `email`, `userImage`, `urole`, `faculty`, `matricNo`, `matricImg`, `status`) VALUES
-(1, 'admin', '3b712de48137572f3849aabd5666a4e3', 'admin@gmail.com', NULL, 'admin', NULL, '', NULL, 'APPROVED'),
-(2, 'jingyi', '3b712de48137572f3849aabd5666a4e3', 'jingyi012@gmail.com', 'profileImg-2-7288.png', 'user', 'Computing', 'A21EC0210', NULL, 'APPROVED'),
-(3, 'Jess', '3b712de48137572f3849aabd5666a4e3', 'wongjie@graduate.utm.my', NULL, 'user', 'Computing', 'A21EC0039', NULL, 'APPROVED'),
-(4, 'chai12', '3b712de48137572f3849aabd5666a4e3', 'chaijing13691@gmail.com', 'profileImg-4-72925.png', 'user', 'Science', 'A21EM0090', NULL, 'APPROVED'),
-(5, 'chai1', '3b712de48137572f3849aabd5666a4e3', 'cj@gmail.com', NULL, 'user', NULL, 'A21EC0011', 'matricNoImg-5-56773.jpg', 'PENDING');
+(1, 'admin', 'd54d1702ad0f8326224b817c796763c9', 'admin@gmail.com', NULL, 'admin', NULL, '', NULL, 'APPROVED'),
+(2, 'jingyi', 'd54d1702ad0f8326224b817c796763c9', 'jingyi012@gmail.com', 'profileImg-2-7288.png', 'user', 'Computing', 'A21EC0210', NULL, 'APPROVED'),
+(3, 'Jess', 'd54d1702ad0f8326224b817c796763c9', 'wongjie@graduate.utm.my', NULL, 'user', 'Computing', 'A21EC0039', NULL, 'APPROVED'),
+(4, 'chai12', 'd54d1702ad0f8326224b817c796763c9', 'chaijing13691@gmail.com', 'profileImg-4-72925.png', 'user', 'Science', 'A21EM0090', NULL, 'APPROVED'),
+(5, 'chai1', 'd54d1702ad0f8326224b817c796763c9', 'cj@gmail.com', NULL, 'user', NULL, 'A21EC0011', 'matricNoImg-5-56773.jpg', 'PENDING');
 
 --
 -- Indexes for dumped tables

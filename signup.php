@@ -280,8 +280,14 @@
                         pField.classList.add("error");
                         pField.classList.remove("valid");
                     } else { //if pass is empty then remove error and add valid class
-                        pField.classList.remove("error");
-                        pField.classList.add("valid");
+                        if(pInput.value.length < 8){
+                            pField.querySelector(".error-txt").innerHTML = "The password must more than 8 character or number";
+                            pField.classList.add("error");
+                            pField.classList.remove("valid");
+                        }else{
+                           pField.classList.remove("error");
+                            pField.classList.add("valid"); 
+                        }
                     }
                 }
 
