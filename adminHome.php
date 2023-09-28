@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+$currentPage = "home";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
