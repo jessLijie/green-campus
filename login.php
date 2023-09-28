@@ -120,14 +120,21 @@
             }
 
             function checkPass() { //checkPass function
-                if (pInput.value == "") { //if pass is empty then add error and remove valid class
-                    pField.classList.add("error");
-                    pField.classList.remove("valid");
-                } else { //if pass is empty then remove error and add valid class
-                    pField.classList.remove("error");
-                    pField.classList.add("valid");
+                    if (pInput.value == "") { //if pass is empty then add error and remove valid class
+                        pField.classList.add("error");
+                        pField.classList.remove("valid");
+                    } else { //if pass is empty then remove error and add valid class
+                        if(pInput.value.length < 8){
+                            pField.querySelector(".error-txt").innerHTML = "The password must more than 8 character or number";
+                            pField.classList.add("error");
+                            pField.classList.remove("valid");
+                        }else{
+                           pField.classList.remove("error");
+                            pField.classList.add("valid"); 
+                        }
+                    }
                 }
-            }
+
 
         </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
