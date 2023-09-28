@@ -7,14 +7,14 @@ connectdb.php include the database connection information
 The predefine users:
 admin: 
     email: admin@gmail.com
-    password: 1122
+    password: 11223344
 
 user:
     email: jingyi012@gmail.com
-    password: 1122
+    password: 11223344
 
     email: wongjie@graduate.utm.my
-    password: 1122
+    password: 11223344
 
     email: chaijing13691@gmail.com
-    password: 1122
+    password: 11223344
