@@ -1,9 +1,8 @@
 # green-campus
 
+database/createdb.php : create the greenify database
+database/createtables.php : create the table and initiallize the value for each table
 connectdb.php include the database connection information
-database created = greenify
-
-database/createdb.php create the table and initiallize the value for each table
 
 The predefine users:
 admin: 
