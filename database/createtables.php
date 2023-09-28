@@ -21,7 +21,8 @@ $sql = "INSERT INTO `users` (`userID`, `username`, `upassword`, `email`, `userIm
 (1, 'admin', md5('1122'), 'admin@gmail.com', NULL, 'admin', NULL, '', NULL, 'APPROVED'),
 (2, 'jingyi', md5('1122'), 'jingyi012@gmail.com', 'profileImg-2-7288.png', 'user', 'Computing', 'A21EC0210', NULL, 'APPROVED'),
 (3, 'Jess', md5('1122'), 'wongjie@graduate.utm.my', NULL, 'user', 'Computing', 'A21EC0039', NULL, 'APPROVED'),
-(4, 'chai12', md5('1122'), 'chaijing13691@gmail.com', 'profileImg-4-72925.png', 'user', 'Science', 'A21EM0090', 'matricNoImg-4-56773.png', 'APPROVED')
+(4, 'chai12', md5('1122'), 'chaijing13691@gmail.com', 'profileImg-4-72925.png', 'user', 'Science', 'A21EM0090', NULL, 'APPROVED'),
+(5, 'chai1', md5('1122'), 'cj@gmail.com', NULL, 'user', NULL, 'A21EC0011', 'matricNoImg-5-56773.jpg', 'PENDING')
 ;";
 
 mysqli_query($con, $sql);
@@ -50,12 +51,12 @@ $sql2 = "CREATE TABLE events (
 mysqli_query($con, $sql2);
 
 $sql = "INSERT INTO `events` (`eventID`, `eventName`, `locationName`, `latitude`, `longitude`, `category`, `eventImage`, `eventDescp`, `organizer`, `startDate`, `endDate`) VALUES
-(1, 'Climate Change Panel Discussion', 'City Campus', 1.5608398343008292, 103.6360688961990900, 'Eco Panels', 'images/event/65096428ccaf9.jpg', 'Engage with leading experts in the field of climate science as they discuss the latest research, challenges, and solutions related to climate change.', 'FABU', '2023-09-10 14:00:00', '2023-09-10 16:00:00'),
-(2, 'Campus Swap Meet AAA', '1.5608398343008292', 1.5608398343008292, 103.6360688961990900, 'Green Marketplace', 'images/event/64f7d815da58f.jpg', 'Bring your gently used items to buy, sell, or trade with fellow students. Promote sustainability by giving pre-loved items a new home.', '103.6360688961990900', '2023-09-17 11:00:00', '2023-09-17 15:00:00'),
-(3, 'Environmental Film Screening', 'Campus Auditorium', 1.5608398343008292, 103.6360688961990900, 'Eco Panels', 'images/event/64f7d82200725.jpg', 'Join us for a screening of thought-provoking environmental documentaries followed by a discussion with guest speakers.', 'Film and Ecology Club', '2023-10-05 18:00:00', '2023-10-05 20:30:00'),
-(4, 'Recycling Workshop', 'Campus Sustainability Center', 1.5608398343008292, 103.6360688961990900, 'Sustainable Workshops', 'images/event/64f7d82a67268.jpg', 'Learn the art of recycling and upcycling everyday items in this interactive workshop. Turn trash into treasures!', 'Green Initiatives Group', '2023-10-15 13:30:00', '2023-10-15 15:30:00'),
-(5, 'Green Campus Tour', 'Campus Main Entrance', 1.5608398343008292, 103.6360688961990900, 'Nature Walks', 'images/event/64f7d83449605.png', 'Discover the sustainable initiatives on our campus during a guided tour. See our solar panels, rain gardens, and more.', 'Campus Sustainability Office', '2023-10-22 10:00:00', '2023-10-22 11:30:00'),
-(6, 'Upcycled Art Exhibition', 'Campus Art Gallery', 1.5608398343008292, 103.6360688961990900, 'Green Marketplace', 'images/event/64f7d83aafd09.jpg', 'View and purchase unique art pieces created from upcycled materials. Support local artists and eco-friendly art.', 'Art and Sustainability Collective', '2023-11-02 15:00:00', '2023-11-02 18:00:00');
+(1, 'Climate Change Panel Discussion', 'City Campus', 1.5608398343008292, 103.6360688961990900, 'Eco Panels', 'images/event/65096428ccaf9.jpg', 'Engage with leading experts in the field of climate science as they discuss the latest research, challenges, and solutions related to climate change.', 'FABU', '2023-10-21 14:00:00', '2023-10-21 16:00:00'),
+(2, 'Campus Swap Meet AAA', '1.5608398343008292', 1.5608398343008292, 103.6360688961990900, 'Green Marketplace', 'images/event/64f7d815da58f.jpg', 'Bring your gently used items to buy, sell, or trade with fellow students. Promote sustainability by giving pre-loved items a new home.', '103.6360688961990900', '2023-10-23 11:00:00', '2023-10-23 15:00:00'),
+(3, 'Environmental Film Screening', 'Campus Auditorium', 1.5608398343008292, 103.6360688961990900, 'Eco Panels', 'images/event/64f7d82200725.jpg', 'Join us for a screening of thought-provoking environmental documentaries followed by a discussion with guest speakers.', 'Film and Ecology Club', '2023-10-25 18:00:00', '2023-10-25 20:30:00'),
+(4, 'Recycling Workshop', 'Campus Sustainability Center', 1.5608398343008292, 103.6360688961990900, 'Sustainable Workshops', 'images/event/64f7d82a67268.jpg', 'Learn the art of recycling and upcycling everyday items in this interactive workshop. Turn trash into treasures!', 'Green Initiatives Group', '2023-11-15 13:30:00', '2023-11-15 15:30:00'),
+(5, 'Green Campus Tour', 'Campus Main Entrance', 1.5608398343008292, 103.6360688961990900, 'Nature Walks', 'images/event/64f7d83449605.png', 'Discover the sustainable initiatives on our campus during a guided tour. See our solar panels, rain gardens, and more.', 'Campus Sustainability Office', '2023-11-22 10:00:00', '2023-11-22 11:30:00'),
+(6, 'Upcycled Art Exhibition', 'Campus Art Gallery', 1.5608398343008292, 103.6360688961990900, 'Green Marketplace', 'images/event/64f7d83aafd09.jpg', 'View and purchase unique art pieces created from upcycled materials. Support local artists and eco-friendly art.', 'Art and Sustainability Collective', '2023-12-02 15:00:00', '2023-12-02 18:00:00');
 ";
 
 mysqli_query($con, $sql);
@@ -81,11 +82,11 @@ $sql="CREATE TABLE post (
 mysqli_query($con, $sql);
 
 $sql = "INSERT INTO `post` (`postID`, `postTitle`, `postContent`, `postPic`, `postCategory`, `postDate`, `userID`) VALUES
-(1, 'Environment Protection', 'What are the activities related to environment protection?', 'postImg-650c265d418ae94419.png', 'environment-protection', '2023-09-21 19:48:44', 2),
-(2, 'Recycling', 'Why is it not common to see the recycle bin in UTM?', 'postImg-650c27a9dd35b65623.jpg', 'waste-recycling', '2023-09-21 19:23:21', 3),
-(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'carbon-footprint', '2023-09-21 19:22:55', 2),
-(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'energy-resource', '2023-09-21 19:22:19', 3),
-(5, 'Let\'s Recycle', 'Is it recycle important? Yes, it is important!😍', 'postImg-650c26a5f207551006.jpeg', 'waste-recycling', '2023-09-21 20:03:05', 2);
+(1, 'Environment Protection', 'What are the activities related to environment protection?', 'postImg-650c265d418ae94419.png', 'Environment Protection', '2023-09-21 19:48:44', 2),
+(2, 'Recycling', 'Why is it not common to see the recycle bin in UTM?', 'postImg-650c27a9dd35b65623.jpg', 'Waste Reduction and Recycling', '2023-09-21 19:23:21', 3),
+(3, 'Let us share our carbon Footprint !', 'Let us share our carbon footprint under this post.', 'postImg-650c278fe5a8843951.jpg', 'Carbon Footprint', '2023-09-21 19:22:55', 2),
+(4, 'Energy saving', 'How to save energy?', 'postImg-650c276bbddfc70655.jpg', 'Energy and Resource', '2023-09-21 19:22:19', 3),
+(5, 'Let\'s Recycle', 'Is it recycle important? Yes, it is important!😍', 'postImg-650c26a5f207551006.jpeg', 'Waste Reduction and Recycling', '2023-09-21 20:03:05', 2);
 ";
 mysqli_query($con, $sql);
 
@@ -142,6 +143,14 @@ $sql="CREATE TABLE comments(
         FOREIGN KEY (userID) REFERENCES users(userID),
         FOREIGN KEY (postID) REFERENCES post(postID) ON DELETE CASCADE
 )";
+mysqli_query($con, $sql);
+
+$sql = "INSERT INTO `comments` (`commentID`, `commentContent`, `commentDate`, `parent_commentID`, `userID`, `postID`) VALUES
+(1, 'Switch off the fan and lamp if you are not in the room.', '2023-09-28 19:13:04', 0, 2, 4),
+(2, 'recycle', '2023-09-28 19:13:30', 0, 2, 1),
+(3, 'dispose the waste properly', '2023-09-28 19:15:25', 0, 3, 1),
+(4, 'I agree', '2023-09-28 19:15:40', 2, 3, 1);";
+
 mysqli_query($con, $sql);
 
 $sql1 = "CREATE TABLE NewsFeed (

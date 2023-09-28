@@ -43,19 +43,19 @@
                     <p><img src='images/cross.png' width='20px' height='20px' style='margin-right: 10px;' />This email is used, Try another One Please!</p>
                     </div> <br>";
 
-                        echo "<a href='javascript:self.history.back()'><button class='btnnn'>Go Back</button>";
+                        echo "<a href='javascript:self.history.back()'><button class='btnnn'>Go Back</button></a>";
                     } else if (mysqli_num_rows($verify_username) != 0) {
                         echo "<div class='message'>
                     <p><img src='images/cross.png' width='20px' height='20px' style='margin-right: 10px;' />This username is used, Try another One Please!</p>
                     </div> <br>";
 
-                        echo "<a href='javascript:self.history.back()'><button class='btnnn'>Go Back</button>";
+                        echo "<a href='javascript:self.history.back()'><button class='btnnn'>Go Back</button></a>";
                     } else if (mysqli_num_rows($verify_matricNo) != 0) {
                         echo "<div class='message'>
                     <p><img src='images/cross.png' width='20px' height='20px' style='margin-right: 10px;' />This matric number is used, Try another One Please!</p>
                     </div> <br>";
 
-                        echo "<a href='javascript:self.history.back()'><button class='btnnn'>Go Back</button>";
+                        echo "<a href='javascript:self.history.back()'><button class='btnnn'>Go Back</button></a>";
                     }
 
                     $showForm = false;
@@ -94,7 +94,7 @@
                     echo "<div class='message'>
                     <p><img src='images/tick.png' width='20px' height='20px' style='margin-right: 10px;' />We have received your registration. Our team is currently in the process of validating the information provided. Once the validation process is complete, you will receive an email notifying you of the outcome of your registration.</p>
                     </div> <br>";
-                    echo "<a href=./login.php><button class='btnnn'>Login Now</button>";
+                    echo "<a href=./login.php><button class='btnnn'>Login Now</button></a>";
                     $showForm = false;
                 }
             }
@@ -383,8 +383,8 @@
 
             </script>
         <?php } ?>
+        </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
